@@ -2,17 +2,19 @@ package test1945;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.SplashScreen;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Map extends JFrame{
 	private boolean isgame = false;
-	private MyPanel panel = new MyPanel();
-	private int speed = 1;		//맵올라가는 속도
-	private int heightStart=5515-speed, heightEnd=6135-speed;
-
+	private MyPanel panel;
+	private int speed;		//맵올라가는 속도
+	private int heightStart, heightEnd;
+	private PlayerPlane playerPlane;
 	
 	public Map() {
 		init();
@@ -21,16 +23,24 @@ public class Map extends JFrame{
 		listener();
 		setVisible(true);
 	}
-	private void init() {}
+	private void init() {
+		panel = new MyPanel();
+		speed = 1;
+		heightStart=5515-speed;
+		heightEnd=6135-speed;
+		playerPlane = new PlayerPlane();
+	}
 	private void setting() {
 		setTitle("1945_MAP_TEST");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(480,620);
-		setLayout(null);
+		panel.setLayout(null);
 		setContentPane(panel);
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(null);			//중간
 	}
-	private void batch() {}
+	private void batch() {
+		add(playerPlane);
+	}
 	private void listener() {}
 	
 	class MyPanel extends JPanel{
@@ -47,9 +57,7 @@ public class Map extends JFrame{
 						try {
 							heightStart-=1;
 							heightEnd-=1;
-							System.out.println(heightStart);
-							System.out.println(heightEnd);
-							Thread.sleep(10);
+							Thread.sleep(50);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -57,9 +65,7 @@ public class Map extends JFrame{
 					}					
 				}
 			}).start();		
-		}
-		
-		
+		}	
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
