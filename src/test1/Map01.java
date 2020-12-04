@@ -29,11 +29,7 @@ public class Map01 extends JFrame {
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
-		
 		System.out.println(bgHeight+"   "+ bgwidth);
-		
-		
-	
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
