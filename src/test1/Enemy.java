@@ -1,30 +1,25 @@
 package test1;
 
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Enemy extends JLabel {
 
-	public Enemy player = this;
-	public final static String TAG = "Player: ";
+	//public Enemy enemy = this;
+	public final static String TAG = "Enemy: ";
 
-	public ImageIcon icEnemy;
-	public int x = 55;
-	public int y = 400;
+	private Image image;
+	private int x;
+	private int y;
 
-
-	public Enemy() {
-		icEnemy = new ImageIcon("images/PLANE4.png");
-		setIcon(icEnemy);
-		setSize(100, 50);
-		setLocation(x, y);
-	}
-
-	
-
-
-	public void attack() {
-
-	}
 
 }
