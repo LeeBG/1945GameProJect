@@ -83,7 +83,7 @@ public class StrikersApp extends JFrame implements Initable{
 				}else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
 					es.get(0).moveRight();
 					es.get(1).moveLeft();
-					es.get(2).moveUp();
+					//es.get(2).moveUp();
 					es.get(3).moveDown();
 					es.get(4).moveTenUp();
 					es.get(5).moveTwoUp();

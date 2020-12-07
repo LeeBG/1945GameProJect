@@ -1,5 +1,7 @@
 package strikers;
 
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -23,6 +25,9 @@ public class Enemy extends JLabel {
 	public boolean SevenDown = false;
 
 	public int floor = 1; 
+	
+	Random enemyY = new Random();
+	Random delay = new Random();
 
 	public Enemy() {
 		icEnemy = new ImageIcon("image/enemy.png");
@@ -32,8 +37,9 @@ public class Enemy extends JLabel {
 	}
 
 	public void moveRight() {
+		
 		this.x = 0;
-		this.y = 0;
+		this.y = enemyY.nextInt(300)+1;
 		System.out.println(TAG + "moveRight");
 		
 		if (isRight == false) {
@@ -50,9 +56,11 @@ public class Enemy extends JLabel {
 							Thread.sleep(2);
 							if(x>1000) {
 								//setIcon(null);
-								Thread.sleep(3000);
+								Random r = new Random();
+								
+								Thread.sleep(delay.nextInt(5000)+1);
 								x = 0;
-								y = 0;
+								y = enemyY.nextInt(300)+1;
 							}
 							
 						} catch (InterruptedException e) {
@@ -66,7 +74,7 @@ public class Enemy extends JLabel {
 	
 	public void moveLeft() {
 		this.x = 1000;
-		this.y = 0;
+		this.y = enemyY.nextInt(300)+1;
 		System.out.println(TAG + "moveLeft");
 
 		if (isLeft == false) {
@@ -82,9 +90,9 @@ public class Enemy extends JLabel {
 							Thread.sleep(2);
 							if(x<-50) {
 								//setIcon(null);
-								Thread.sleep(3000);
+								Thread.sleep(delay.nextInt(5000)+1);
 								x = 1000;
-								y = 0;
+								y = enemyY.nextInt(300)+1;
 							}
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -114,7 +122,7 @@ public class Enemy extends JLabel {
 							Thread.sleep(5);
 							if(y<-50) {
 								//setIcon(null);
-								Thread.sleep(3000);
+								Thread.sleep(delay.nextInt(5000)+1);
 								x = 500;
 								y = 600;
 							}
@@ -128,7 +136,7 @@ public class Enemy extends JLabel {
 	}
 
 	public void moveDown() {
-		this.x = 500;
+		this.x = enemyY.nextInt(300)+1;
 		this.y = -50;
 		System.out.println(TAG + "moveDown");
 
@@ -145,8 +153,8 @@ public class Enemy extends JLabel {
 							Thread.sleep(5);
 							if(y>600) {
 								//setIcon(null);
-								Thread.sleep(3000);
-								x = 500;
+								Thread.sleep(delay.nextInt(5000)+1);
+								x = enemyY.nextInt(300)+1;
 								y = -50;
 							}
 						} catch (InterruptedException e) {
@@ -160,7 +168,7 @@ public class Enemy extends JLabel {
 	//10시방향 쪽으로 올라가는 거
 	public void moveTenUp() {
 		this.x = 1000;
-		this.y = 400;
+		this.y = enemyY.nextInt(400)+1;
 		System.out.println(TAG + "moveDown");
 
 		if (TenUp == false) {
@@ -177,9 +185,9 @@ public class Enemy extends JLabel {
 							Thread.sleep(5);
 							if(y<-50) {
 								//setIcon(null);
-								Thread.sleep(3000);
+								Thread.sleep(delay.nextInt(5000)+1);
 								x = 1000;
-								y = 400;
+								y = enemyY.nextInt(400)+1;
 							}
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -192,7 +200,7 @@ public class Enemy extends JLabel {
 	//2시 방향으로 올라가는 거
 	public void moveTwoUp() {
 		this.x = 0;
-		this.y = 400;
+		this.y = enemyY.nextInt(400)+1;
 		System.out.println(TAG + "moveDown");
 
 		if (TwoUp == false) {
@@ -209,9 +217,9 @@ public class Enemy extends JLabel {
 							Thread.sleep(5);
 							if(y<-50) {
 								//setIcon(null);
-								Thread.sleep(3000);
+								Thread.sleep(delay.nextInt(5000)+1);
 								x = 0;
-								y = 400;
+								y = enemyY.nextInt(400)+1;
 							}
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -224,7 +232,7 @@ public class Enemy extends JLabel {
 	
 	//5시 방향으로 내려가는 거
 	public void moveFiveDown() {
-		this.x = 200;
+		this.x = enemyY.nextInt(400)+1;
 		this.y = -50;
 		System.out.println(TAG + "moveDown");
 
@@ -242,8 +250,8 @@ public class Enemy extends JLabel {
 							Thread.sleep(5);
 							if(y>600) {
 								//setIcon(null);
-								Thread.sleep(3000);
-								x = 200;
+								Thread.sleep(delay.nextInt(5000)+1);
+								x = enemyY.nextInt(400)+1;
 								y = -50;
 							}
 						} catch (InterruptedException e) {
@@ -257,7 +265,7 @@ public class Enemy extends JLabel {
 	
 	//7시 방향으로 내려가는 거
 	public void moveSevenDown() {
-		this.x = 600;
+		this.x = enemyY.nextInt(600)+1;
 		this.y = -50;
 		System.out.println(TAG + "moveDown");
 
@@ -275,8 +283,8 @@ public class Enemy extends JLabel {
 							Thread.sleep(5);
 							if(y>600) {
 								//setIcon(null);
-								Thread.sleep(3000);
-								x = 600;
+								Thread.sleep(delay.nextInt(5000)+1);
+								x = enemyY.nextInt(600)+1;
 								y = -50;
 							}
 						} catch (InterruptedException e) {
