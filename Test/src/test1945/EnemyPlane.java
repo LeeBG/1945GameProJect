@@ -1,38 +1,59 @@
 package test1945;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import lombok.Data;
-
 @Data
-public class PlayerPlane extends AirPlane{
+public class EnemyPlane extends AirPlane{
 	
-	public PlayerPlane player = this;
-	private static final String TAG = "Player: ";
-	public ImageIcon playerIcon;
-	private int lifecount;
-	private int x; 				// 플레이어 라벨의 위치좌표
-	private int y; 				// 플레이어 라벨의 위치좌표
+	public EnemyPlane player = this;
+	private static final String TAG = "Enemy: ";
+	private ImageIcon playerIcon;
+	private int x; 				// 적 라벨의 위치좌표
+	private int y; 				// 적 라벨의 위치좌표
 	private int sizeX; 			// 비행기 사이즈X
 	private int sizeY; 			// 비행기 사이즈Y
-
+	private int rand;
+	
 	public boolean isRight; 	// 오른쪽으로 움직이는지 아닌지의 상태
 	public boolean isLeft; 		// 왼쪽으로 움직이는지 아닌지의 상태
-	public boolean isUp;
+	public boolean isUp;		// 위쪽으로 움직ㅇㄴ
 	public boolean isDown;
 
-	public PlayerPlane() {
-		init();	
+	public EnemyPlane() {
+		init();
+		switch (rand) {
+		case 1:				//곧장 아래로
+			System.out.println(TAG+"아래로");
+			moveDown();
+			break;
+		case 2:
+			System.out.println(TAG+"왼쪽에서 아래로");
+			moveLeftDown();
+			break;
+		case 3:
+			System.out.println(TAG+"오른쪽에서 아래로");
+			moveRightDown();
+			break;
+		case 4:
+			System.out.println(TAG+"오른쪽에서 위로");
+			moveRightUp();
+			break;
+		}
+		
+			
+		moveDown();
 	}
-	
+	public EnemyPlane(int x,int y,int sizeX,int sizeY) {	//시작위치좌표, 적비행기 사이즈
+		init();
+	}
 	private void init() {
-		lifecount=3;
-		x = 200;
-		y = 510;
-		sizeX = 79;
-		sizeY = 60;
-		playerIcon = new ImageIcon("images/PLANE1.png");
+		rand = (int)(Math.random()*5);
+		x = 70*rand;
+		y = 20*(int)(Math.random()*7+1);
+		sizeX = 70;
+		sizeY = 65;
+		playerIcon = new ImageIcon("images/PLANE2.png");
 		setIcon(playerIcon);
 		setLocation(x, y);
 		setSize(sizeX, sizeY);
@@ -42,8 +63,8 @@ public class PlayerPlane extends AirPlane{
 		isDown = false;
 	}
 
-	public void moveLeft() {
-		System.out.println(TAG + "좌측이동");
+	public void moveLeftDown() {
+		System.out.println(TAG + "좌측 아래로 이동");
 		if (isLeft == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -65,8 +86,8 @@ public class PlayerPlane extends AirPlane{
 		}	
 	}
 
-	public void moveRight() {
-		System.out.println(TAG + "우측이동");
+	public void moveRightDown() {
+		System.out.println(TAG + "우측아래로이동");
 		if (isRight == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -88,8 +109,8 @@ public class PlayerPlane extends AirPlane{
 		}
 	}
 
-	public void moveUp() {
-		System.out.println(TAG + "위쪽이동");
+	public void moveRightUp() {
+		System.out.println(TAG + "오른쪽에서 위쪽이동");
 		if (isUp == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -112,17 +133,20 @@ public class PlayerPlane extends AirPlane{
 	}
 
 	public void moveDown() {
-		System.out.println(TAG + "위쪽이동");
+		System.out.println(TAG + "아래쪽이동");
+		int end = getY();
+		setY(getY()-200);
 		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					isDown = true;
-					while (isDown) {
-						y++;
-						setLocation(x, y);
+					isDown = true;			
+					while (isDown && getY()<end) {						
 						try {
+							System.out.println(getY());
 							Thread.sleep(10);
+							y++;
+							setLocation(x, y);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -134,18 +158,6 @@ public class PlayerPlane extends AirPlane{
 		}
 	}
 	public void shotToEnemy() {
-//		new Missile(this);			//x,y좌표를 받아서 적방향으로 일직선 날아가는 미사일 공격
-	}
-	
-	public void crush() {			//충돌의 책임은 플레이어에게 있다.
-		//겹치면 라이프 카운트가 내려가고 
-		//setlocation(200,510)		//주인공
-		while(lifecount>0) {
-				
-		}
-		if(lifecount == 0) {
-			setLocation(200,510);
-			System.out.println("게임 끝");
-		}
+//		new Missile(x,y);		//x,y좌표를 받아서 적방향으로 일직선 날아가는 미사일 공격
 	}
 }

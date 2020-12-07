@@ -12,10 +12,13 @@ import javax.swing.JPanel;
 public class Map extends JFrame{
 	private boolean isgame = false;
 	private MyPanel panel;
-	private int speed;		//맵올라가는 속도
+	private int speed;					//맵올라가는 속도
 	private int heightStart, heightEnd;
 	private PlayerPlane playerPlane;
-	
+	private EnemyPlane enemyPlane;
+	private EnemyPlane enemyPlane2;
+	private EnemyPlane enemyPlane3;
+	private EnemyPlane enemyPlane4;
 	public Map() {
 		init();
 		setting();
@@ -29,6 +32,11 @@ public class Map extends JFrame{
 		heightStart=5515-speed;
 		heightEnd=6135-speed;
 		playerPlane = new PlayerPlane();
+		
+		
+		
+		
+		
 	}
 	private void setting() {
 		setTitle("1945_MAP_TEST");
@@ -39,7 +47,23 @@ public class Map extends JFrame{
 		setLocationRelativeTo(null);			//중간
 	}
 	private void batch() {
-		add(playerPlane);
+		panel.add(playerPlane);	
+		
+	}
+	public void enemybatch() {			
+		if(heightStart==5500) {
+			enemyPlane = new EnemyPlane();
+			add(enemyPlane);
+		}else if(heightStart==5000) {
+			enemyPlane2 = new EnemyPlane();
+			add(enemyPlane2);							//적 랜덤 배치
+		}else if(heightStart==4500) {		
+			enemyPlane3 = new EnemyPlane();
+			add(enemyPlane3);
+		}else if(heightStart==4000) {
+			enemyPlane4 = new EnemyPlane();
+			add(enemyPlane4);
+		}
 	}
 	private void listener() {
 		addKeyListener(new KeyAdapter() {
@@ -58,7 +82,7 @@ public class Map extends JFrame{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
-					playerPlane.isRight=false;//메시지 호출, 책임 협력 => OOP프로그램
+					playerPlane.isRight=false;
 				}else if(e.getKeyCode()==KeyEvent.VK_LEFT) {
 					playerPlane.isLeft=false;
 				}else if(e.getKeyCode()==KeyEvent.VK_DOWN) {
@@ -85,7 +109,8 @@ public class Map extends JFrame{
 						try {
 							heightStart-=1;
 							heightEnd-=1;
-							Thread.sleep(50);
+							Thread.sleep(30);
+							enemybatch();							
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
