@@ -50,19 +50,10 @@ public class Map extends JFrame{
 		panel.add(playerPlane);	
 		
 	}
-	public void enemybatch() {			
-		if(heightStart==5500) {
-			enemyPlane = new EnemyPlane();
-			add(enemyPlane);
-		}else if(heightStart==5000) {
-			enemyPlane2 = new EnemyPlane();
-			add(enemyPlane2);							//적 랜덤 배치
-		}else if(heightStart==4500) {		
-			enemyPlane3 = new EnemyPlane();
-			add(enemyPlane3);
-		}else if(heightStart==4000) {
-			enemyPlane4 = new EnemyPlane();
-			add(enemyPlane4);
+	public void enemybatch() {	
+
+		if(heightStart%300==0) {
+			add(new EnemyPlane());
 		}
 	}
 	private void listener() {

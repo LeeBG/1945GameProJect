@@ -143,7 +143,6 @@ public class EnemyPlane extends AirPlane{
 					isDown = true;			
 					while (isDown && getY()<end) {						
 						try {
-							System.out.println(getY());
 							Thread.sleep(10);
 							y++;
 							setLocation(x, y);
