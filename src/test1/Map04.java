@@ -11,20 +11,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Map03 extends JFrame {
+public class Map04 extends JFrame {
 	private PlayerPlane player;
+	private Enemy1 enemy1;
 	private JLabel laBackground;
 	private MyLabel laBg;
-	int backY = -5635, count=0;
+	int backY = -5635, appear = 0;
 	private ImageIcon iconbg;
 	private Image imgbg;
-	//private Enemy enemy;
 
-	ImageIcon enem = new ImageIcon("images/PLANE3.png");
-	Image enemy = enem.getImage();
-	List<Enemy1> imgList = new ArrayList<Enemy1>();
+	List<Enemy1> enemyList = new ArrayList<Enemy1>();
 
-	public Map03() {
+	public Map04() {
 
 		init();
 		setting();
@@ -42,6 +40,11 @@ public class Map03 extends JFrame {
 		iconbg = new ImageIcon("images/stage1.png");
 		imgbg = iconbg.getImage();
 
+		enemyList.add(new Enemy1(100, 50));
+		enemyList.add(new Enemy1(150, 50));
+		enemyList.add(new Enemy1(200, 50));
+		enemyList.add(new Enemy1(250, 50));
+
 	}
 
 	public void setting() {
@@ -52,17 +55,17 @@ public class Map03 extends JFrame {
 		setLayout(null);
 		setContentPane(laBg);// label로 대체
 
-		//imgList.add(new Enemy(enemy, 150, 50));
-
 	}
 
 	public void batch() {
 		add(player); // container는 생략가능
-		// add(enemy);
+
+		// add(enemy1);
 
 	}
 
 	public void listener() {
+
 		addKeyListener(new KeyAdapter() {
 
 			@Override
@@ -107,6 +110,9 @@ public class Map03 extends JFrame {
 	class MyLabel extends JLabel {
 
 		public MyLabel() {
+//
+//			Thread t1 =new Thread(new UnitAppear(),"쓰레드 이름지정"); 
+//			t1.start(); //독립적인 스레드 실행
 
 			new Thread(new Runnable() {
 
@@ -116,17 +122,34 @@ public class Map03 extends JFrame {
 					while (backY <= 0) {
 						backY++;
 
-						for (int i = 0; i < imgList.size(); i++) {
-							imgList.get(i).setY(imgList.get(i).getY() + 2);
+						if (appear % 200 == 0) {
+							enemy1 = new Enemy1(450, 200);
+							add(enemy1);
+							// enemy1.movedown();
+							enemy1.moveleft();
+
 						}
-						
-						
-						
+
+						if (appear % 300 == 0) {
+							for (int i = 0; i < enemyList.size(); i++) {
+
+								add(enemyList.get(i));
+								enemyList.get(i).movedown();
+
+							}
+							enemyList.add(new Enemy1(100, 50));
+							enemyList.add(new Enemy1(150, 50));
+							enemyList.add(new Enemy1(200, 50));
+							enemyList.add(new Enemy1(250, 50));
+						}
+
+						appear++;
 						repaint();
-												
+
+						System.out.println(backY + " " + appear);
 
 						try {
-							Thread.sleep(5);
+							Thread.sleep(10);
 
 						} catch (Exception e) {
 							// TODO: handle exception
@@ -144,27 +167,24 @@ public class Map03 extends JFrame {
 			super.paintComponent(g); // 배경 이미지 조정이 필요
 
 			g.drawImage(imgbg, 0, backY, 700, imgbg.getHeight(null), this);
-			
-			
-			
-			
-			
-				for (int i = 0; i < imgList.size(); i++) {
-					g.drawImage(imgList.get(i).getImage(), imgList.get(i).getX(), imgList.get(i).getY(), this);
 
-				}
-			
-			
-
-			
-			
+//			for (int i = 0; i < enemyList.size(); i++) {
+//				g.drawImage(enemyList.get(i).getImage(), enemyList.get(i).getX(), enemyList.get(i).getY(), this);
+//			}
 
 		}
+//
+//		class UnitAppear implements Runnable{
+//			
+//			
+//		
+//		}
 
 	}
 
 	public static void main(String[] args) {
-		new Map03();
+
+		new Map04();
 	}
 
 }
