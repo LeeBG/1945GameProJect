@@ -2,11 +2,11 @@ package test1945;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.SplashScreen;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Map extends JFrame{
@@ -41,14 +41,42 @@ public class Map extends JFrame{
 	private void batch() {
 		add(playerPlane);
 	}
-	private void listener() {}
+	private void listener() {
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
+					playerPlane.moveRight();		//메시지 호출, 책임 협력 => OOP프로그램
+				}else if(e.getKeyCode()==KeyEvent.VK_LEFT) {
+					playerPlane.moveLeft();		//메시지 호출, 책임 협력 => OOP프로그램
+				}else if(e.getKeyCode()==KeyEvent.VK_UP) {
+					playerPlane.moveUp();		//메시지 호출 , 책임 협력 => OOP프로그램
+				}else if(e.getKeyCode()==KeyEvent.VK_DOWN) {
+					playerPlane.moveDown();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
+					playerPlane.isRight=false;//메시지 호출, 책임 협력 => OOP프로그램
+				}else if(e.getKeyCode()==KeyEvent.VK_LEFT) {
+					playerPlane.isLeft=false;
+				}else if(e.getKeyCode()==KeyEvent.VK_DOWN) {
+					playerPlane.isDown=false;
+				}else if(e.getKeyCode()==KeyEvent.VK_UP) {
+					playerPlane.isUp=false;
+				}
+			}
+			
+		});
+	}
 	
 	class MyPanel extends JPanel{
 		private ImageIcon icon = new ImageIcon("images/Stage1_1.png");
 		private Image img = icon.getImage();//이미지 객체
 		
 		public MyPanel() {
-			setFocusable(true);
+//			setFocusable(true);
 			
 			new Thread(new Runnable() {
 				@Override
