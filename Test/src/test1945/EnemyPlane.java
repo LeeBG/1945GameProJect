@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class EnemyPlane extends AirPlane{
 	
-	public EnemyPlane player = this;
+	public EnemyPlane enemyPlane = this;
 	private static final String TAG = "Enemy: ";
 	private ImageIcon playerIcon;
 	private int x; 				// 적 라벨의 위치좌표
@@ -14,35 +14,40 @@ public class EnemyPlane extends AirPlane{
 	private int sizeX; 			// 비행기 사이즈X
 	private int sizeY; 			// 비행기 사이즈Y
 	private int rand;
-	
+
 	public boolean isRight; 	// 오른쪽으로 움직이는지 아닌지의 상태
 	public boolean isLeft; 		// 왼쪽으로 움직이는지 아닌지의 상태
 	public boolean isUp;		// 위쪽으로 움직ㅇㄴ
 	public boolean isDown;
 
-	public EnemyPlane() {
+	public EnemyPlane(PlayerPlane playerPlane) {
 		init();
 		switch (rand) {
-		case 1:				//곧장 아래로
+		case 0:				//곧장 아래로
 			System.out.println(TAG+"아래로");
 			moveDown();
 			break;
-		case 2:
+		case 1:
 			System.out.println(TAG+"왼쪽에서 아래로");
 			moveLeftDown();
 			break;
-		case 3:
+		case 2:
 			System.out.println(TAG+"오른쪽에서 아래로");
 			moveRightDown();
 			break;
-		case 4:
+		case 3:
 			System.out.println(TAG+"오른쪽에서 위로");
 			moveRightUp();
 			break;
+		case 4:
+			System.out.println(TAG+"아래로");
+			moveDown();
+			break;
+		default:
+			moveLeftDown();
+			break;
 		}
-		
-			
-		moveDown();
+		crush(playerPlane);
 	}
 	public EnemyPlane(int x,int y,int sizeX,int sizeY) {	//시작위치좌표, 적비행기 사이즈
 		init();
@@ -64,21 +69,27 @@ public class EnemyPlane extends AirPlane{
 	}
 
 	public void moveLeftDown() {
-		System.out.println(TAG + "좌측 아래로 이동");
-		if (isLeft == false) {
+		System.out.println(TAG + "왼쪽아래쪽이동");
+		int endY = getY();
+		int endX = getX();
+		setY(getY()-400);
+		setX(getX()+400);
+		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					isLeft = true;
-					while (isLeft) {
-						x--;
-						setLocation(x, y);
+					isDown = true;			
+					while (isDown && getY()<endY) {						
 						try {
 							Thread.sleep(10);
+							x--;
+							y++;
+							setLocation(x, y);
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(x<=0)
+						if(y>520)
 							return;
 					}
 				}
@@ -87,21 +98,26 @@ public class EnemyPlane extends AirPlane{
 	}
 
 	public void moveRightDown() {
-		System.out.println(TAG + "우측아래로이동");
-		if (isRight == false) {
+		System.out.println(TAG + "오른쪽아래쪽이동");
+		int endY = getY();
+		int endX = getX();
+		setY(getY()-400);
+		setX(getX()-400);
+		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					isRight = true;
-					while (isRight) {
-						x++;
-						setLocation(x, y);
+					isDown = true;			
+					while (isDown && getY()<endY) {						
 						try {
 							Thread.sleep(10);
+							x++;
+							y++;
+							setLocation(x, y);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(x>=401)
+						if(y>520)
 							return;
 					}
 				}
@@ -110,26 +126,31 @@ public class EnemyPlane extends AirPlane{
 	}
 
 	public void moveRightUp() {
-		System.out.println(TAG + "오른쪽에서 위쪽이동");
-		if (isUp == false) {
+		System.out.println(TAG + "오른쪽 위로 이동");
+		int endY = getY();
+		int endX = getX();
+		setY(getY()+400);
+		setX(getX()-400);
+		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					isUp = true;
-					while (isUp) {
-						y--;
-						setLocation(x, y);
+					isDown = true;			
+					while (isDown && getY()>endY) {						
 						try {
 							Thread.sleep(10);
+							y--;
+							x++;
+							setLocation(x, y);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(y<0)
+						if(y>520)
 							return;
 					}
 				}
 			}).start();
-		}	
+		}
 	}
 
 	public void moveDown() {
@@ -158,5 +179,44 @@ public class EnemyPlane extends AirPlane{
 	}
 	public void shotToEnemy() {
 //		new Missile(x,y);		//x,y좌표를 받아서 적방향으로 일직선 날아가는 미사일 공격
+	}
+	
+	
+	public void crush(PlayerPlane playerPlane) { 
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				
+				while (playerPlane.getLifecount() > 0) {
+					try {
+						if (playerPlane.getX()>getX() && playerPlane.getX()<getX()+getSizeX()&&				//(0,0)
+							playerPlane.getY()>getY() && playerPlane.getY()<getY()+getSizeY() ||
+							playerPlane.getX()+playerPlane.getSizeX()>getX() && playerPlane.getX()+playerPlane.getSizeX()<getX()+getSizeX()&&
+							playerPlane.getY()>getY() && playerPlane.getY()<getY()+getSizeY() ||
+							playerPlane.getX()>getX() && playerPlane.getX()<getX()+getSizeX() &&
+							playerPlane.getY()+playerPlane.getSizeY()>getY() && playerPlane.getY()+playerPlane.getSizeY()<getY()+getSizeY() ||
+							playerPlane.getX()+playerPlane.getSizeX()>getX() && playerPlane.getX()+playerPlane.getSizeX()<getX()+getSizeX() &&
+							playerPlane.getY()+playerPlane.getSizeY()>getY() && playerPlane.getY()+playerPlane.getSizeY()<getY()+getSizeY()) {
+							playerPlane.setLifecount(playerPlane.getLifecount()-1);
+							System.out.println(TAG + playerPlane.getLifecount());
+							System.out.println("만남");
+							playerPlane.setX(200);
+							playerPlane.setY(520);
+
+							playerPlane.repaint();
+							
+						}
+							Thread.sleep(1000);
+						if(playerPlane.getLifecount() == 0) {
+							System.exit(1);
+						}
+									
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+
 	}
 }

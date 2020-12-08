@@ -6,28 +6,29 @@ import javax.swing.JLabel;
 import lombok.Data;
 
 @Data
-public class PlayerPlane extends AirPlane{
-	
+public class PlayerPlane extends AirPlane {
+
 	public PlayerPlane player = this;
 	private static final String TAG = "Player: ";
 	public ImageIcon playerIcon;
 	private int lifecount;
-	private int x; 				// 플레이어 라벨의 위치좌표
-	private int y; 				// 플레이어 라벨의 위치좌표
-	private int sizeX; 			// 비행기 사이즈X
-	private int sizeY; 			// 비행기 사이즈Y
+	private int x; // 플레이어 라벨의 위치좌표
+	private int y; // 플레이어 라벨의 위치좌표
+	private int sizeX; // 비행기 사이즈X
+	private int sizeY; // 비행기 사이즈Y
 
-	public boolean isRight; 	// 오른쪽으로 움직이는지 아닌지의 상태
-	public boolean isLeft; 		// 왼쪽으로 움직이는지 아닌지의 상태
+	public boolean isRight; // 오른쪽으로 움직이는지 아닌지의 상태
+	public boolean isLeft; // 왼쪽으로 움직이는지 아닌지의 상태
 	public boolean isUp;
 	public boolean isDown;
 
-	public PlayerPlane() {
-		init();	
-	}
 	
+	public PlayerPlane() {
+		init();
+	}
+
 	private void init() {
-		lifecount=3;
+		lifecount = 3;
 		x = 200;
 		y = 510;
 		sizeX = 79;
@@ -57,12 +58,12 @@ public class PlayerPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(x<=0)
+						if (x <= 0)				//벽에 막힘
 							return;
 					}
 				}
 			}).start();
-		}	
+		}
 	}
 
 	public void moveRight() {
@@ -80,7 +81,7 @@ public class PlayerPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(x>=401)
+						if (x >= 401)				//벽에 막힘
 							return;
 					}
 				}
@@ -103,12 +104,12 @@ public class PlayerPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(y<0)
+						if (y < 0)				//벽에 막힘
 							return;
 					}
 				}
 			}).start();
-		}	
+		}
 	}
 
 	public void moveDown() {
@@ -126,26 +127,17 @@ public class PlayerPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(y>520)
+						if (y > 520)				//벽에 막힘
 							return;
 					}
 				}
 			}).start();
 		}
 	}
+
 	public void shotToEnemy() {
 //		new Missile(this);			//x,y좌표를 받아서 적방향으로 일직선 날아가는 미사일 공격
 	}
+
 	
-	public void crush() {			//충돌의 책임은 플레이어에게 있다.
-		//겹치면 라이프 카운트가 내려가고 
-		//setlocation(200,510)		//주인공
-		while(lifecount>0) {
-				
-		}
-		if(lifecount == 0) {
-			setLocation(200,510);
-			System.out.println("게임 끝");
-		}
-	}
 }

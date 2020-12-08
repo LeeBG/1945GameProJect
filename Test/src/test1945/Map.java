@@ -34,9 +34,6 @@ public class Map extends JFrame{
 		playerPlane = new PlayerPlane();
 		
 		
-		
-		
-		
 	}
 	private void setting() {
 		setTitle("1945_MAP_TEST");
@@ -53,7 +50,7 @@ public class Map extends JFrame{
 	public void enemybatch() {	
 
 		if(heightStart%300==0) {
-			add(new EnemyPlane());
+			add(new EnemyPlane(playerPlane));
 		}
 	}
 	private void listener() {
@@ -61,7 +58,7 @@ public class Map extends JFrame{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_RIGHT) {
-					playerPlane.moveRight();		//메시지 호출, 책임 협력 => OOP프로그램
+					playerPlane.moveRight();
 				}else if(e.getKeyCode()==KeyEvent.VK_LEFT) {
 					playerPlane.moveLeft();		//메시지 호출, 책임 협력 => OOP프로그램
 				}else if(e.getKeyCode()==KeyEvent.VK_UP) {
@@ -100,7 +97,7 @@ public class Map extends JFrame{
 						try {
 							heightStart-=1;
 							heightEnd-=1;
-							Thread.sleep(30);
+							Thread.sleep(10);
 							enemybatch();							
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
