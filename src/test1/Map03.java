@@ -22,7 +22,7 @@ public class Map03 extends JFrame {
 
 	ImageIcon enem = new ImageIcon("images/PLANE3.png");
 	Image enemy = enem.getImage();
-	List<Enemy1> imgList = new ArrayList<Enemy1>();
+	List<Enemy1test> imgList = new ArrayList<Enemy1test>();
 
 	public Map03() {
 

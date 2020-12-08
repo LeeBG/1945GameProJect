@@ -1,4 +1,4 @@
-package test1;
+package test2;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -11,20 +11,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import test2.initable;
+import test1.Enemy1test;
+import test1.PlayerPlane;
 
-public class Map04 extends JFrame implements initable{
+public class Map05 extends JFrame implements initable {
 	private PlayerPlane player;
 	private Enemy1test enemy1;
+	private Enemy2 enemy2;
+	private Enemy3 enemy3;
 	private JLabel laBackground;
 	private MyLabel laBg;
-	int backY = -5635, appear = 0;
+	int backY = -5635, appear = 1;
 	private ImageIcon iconbg;
 	private Image imgbg;
 
-	List<Enemy1test> enemyList = new ArrayList<Enemy1test>();
+	List<Enemy1> enemy1List = new ArrayList<Enemy1>();
 
-	public Map04() {
+	public Map05() {
 
 		init();
 		setting();
@@ -42,10 +45,10 @@ public class Map04 extends JFrame implements initable{
 		iconbg = new ImageIcon("images/stage1.png");
 		imgbg = iconbg.getImage();
 
-		enemyList.add(new Enemy1test(50, 0));
-		enemyList.add(new Enemy1test(150, 0));
-		enemyList.add(new Enemy1test(250, 0));
-		enemyList.add(new Enemy1test(350, 0));
+		enemy1List.add(new Enemy1(50, -200));
+		enemy1List.add(new Enemy1(150, -200));
+		enemy1List.add(new Enemy1(250, -200));
+		enemy1List.add(new Enemy1(350, -200));
 
 	}
 
@@ -62,8 +65,9 @@ public class Map04 extends JFrame implements initable{
 	public void batch() {
 		add(player); // container는 생략가능
 
-		// add(enemy1);
 
+		
+		
 	}
 
 	public void listener() {
@@ -112,9 +116,6 @@ public class Map04 extends JFrame implements initable{
 	class MyLabel extends JLabel {
 
 		public MyLabel() {
-//
-//			Thread t1 =new Thread(new UnitAppear(),"쓰레드 이름지정"); 
-//			t1.start(); //독립적인 스레드 실행
 
 			new Thread(new Runnable() {
 
@@ -124,42 +125,35 @@ public class Map04 extends JFrame implements initable{
 					while (backY <= 0) {
 						backY++;
 
-						if (appear % 400 == 0) {
-							enemy1 = new Enemy1test(500, 200);
-							add(enemy1);
-							// enemy1.movedown();
-							enemy1.moveleft();
+						System.out.println(backY + " " + appear);
 
-						}
-
-						if (appear % 500 == 0) {
-							for (int i = 0; i < enemyList.size(); i++) {
-
-								add(enemyList.get(i));
-								enemyList.get(i).movedown();
-
+						if (appear % 100 == 0) {
+							for (int i = 0; i < enemy1List.size(); i++) {
+								add(enemy1List.get(i));
 							}
-							enemyList.add(new Enemy1test(50, 0));
-							enemyList.add(new Enemy1test(150, 0));
-							enemyList.add(new Enemy1test(250, 0));
-							enemyList.add(new Enemy1test(350, 0));
+							enemy1List.add(new Enemy1(50, -200));
+							enemy1List.add(new Enemy1(150, -200));
+							enemy1List.add(new Enemy1(250, -200));
+							enemy1List.add(new Enemy1(350, -200));
+
+						}
+
+
+						if (appear % 200 == 0) {
+							enemy2 = new Enemy2(200, 0);
+
+							add(enemy2);
+						}
+
+						if (appear % 550 == 0) {
+							enemy3 = new Enemy3(0, 100);
+							add(enemy3);
 						}
 						
-						
-						if(appear % 550 == 0) {
-							
-							enemy1 = new Enemy1test(0, 200);
-							add(enemy1);
-							// enemy1.movedown();
-							enemy1.upleft();
-							
-						}
-						
+
 
 						appear++;
 						repaint();
-
-						System.out.println(backY + " " + appear);
 
 						try {
 							Thread.sleep(10);
@@ -181,23 +175,13 @@ public class Map04 extends JFrame implements initable{
 
 			g.drawImage(imgbg, 0, backY, 700, imgbg.getHeight(null), this);
 
-//			for (int i = 0; i < enemyList.size(); i++) {
-//				g.drawImage(enemyList.get(i).getImage(), enemyList.get(i).getX(), enemyList.get(i).getY(), this);
-//			}
-
 		}
-//
-//		class UnitAppear implements Runnable{
-//			
-//			
-//		
-//		}
 
 	}
 
 	public static void main(String[] args) {
 
-		new Map04();
+		new Map05();
 	}
 
 }
