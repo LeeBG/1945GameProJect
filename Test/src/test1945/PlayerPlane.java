@@ -22,7 +22,6 @@ public class PlayerPlane extends AirPlane {
 	public boolean isUp;
 	public boolean isDown;
 
-	
 	public PlayerPlane() {
 		init();
 	}
@@ -58,7 +57,7 @@ public class PlayerPlane extends AirPlane {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (x <= 0)				//벽에 막힘
+						if (x <= 0) // 벽에 막힘
 							return;
 					}
 				}
@@ -81,7 +80,7 @@ public class PlayerPlane extends AirPlane {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (x >= 401)				//벽에 막힘
+						if (x >= 401) // 벽에 막힘
 							return;
 					}
 				}
@@ -104,7 +103,7 @@ public class PlayerPlane extends AirPlane {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (y < 0)				//벽에 막힘
+						if (y < 0) // 벽에 막힘
 							return;
 					}
 				}
@@ -127,7 +126,7 @@ public class PlayerPlane extends AirPlane {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (y > 520)				//벽에 막힘
+						if (y > 520) // 벽에 막힘
 							return;
 					}
 				}
@@ -139,5 +138,4 @@ public class PlayerPlane extends AirPlane {
 //		new Missile(this);			//x,y좌표를 받아서 적방향으로 일직선 날아가는 미사일 공격
 	}
 
-	
 }
