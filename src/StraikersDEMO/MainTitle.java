@@ -1,4 +1,4 @@
-package Straikers;
+package StraikersDEMO;
 
 import java.awt.Graphics;
 import java.awt.Image;

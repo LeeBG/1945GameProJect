@@ -1,4 +1,4 @@
-package Straikers;
+package StraikersDEMO;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
@@ -17,6 +17,9 @@ public class VsBoss extends JFrame {
 
 	private VsBoss vsBoss = this;
 	private static final String TAG = "VsBoss : ";
+
+	public static final int SCREEN_WIDTH = 480;
+	public static final int SCREEN_HEIGHT = 620;
 	
 	private Image bufferImg;
 	private Graphics screenGraphics;
@@ -35,7 +38,7 @@ public class VsBoss extends JFrame {
 
 	public VsBoss() {
 		setTitle("º¸½ºÀü");
-		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT); // 318, 608
+		setSize(SCREEN_WIDTH, SCREEN_HEIGHT); // 318, 608
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
@@ -51,7 +54,7 @@ public class VsBoss extends JFrame {
 	}
 
 	public void paint(Graphics g) {
-		bufferImg = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		bufferImg = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);
 		screenGraphics = bufferImg.getGraphics();
 		screenDraw(screenGraphics);
 		g.drawImage(bufferImg, 0, 0, null);
@@ -104,5 +107,9 @@ public class VsBoss extends JFrame {
 				break;
 			}
 		}
+	}
+	
+	public static void main(String[] args) {
+		new VsBoss();
 	}
 }
