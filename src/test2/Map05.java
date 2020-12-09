@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -26,6 +27,9 @@ public class Map05 extends JFrame implements initable {
 	private Image imgbg;
 
 	List<Enemy1> enemy1List = new ArrayList<Enemy1>();
+	Vector<Enemy2> enemy2Vector = new Vector<>();
+	Vector<Enemy3> enemy3Vector = new Vector<>();
+	
 
 	public Map05() {
 
@@ -45,17 +49,19 @@ public class Map05 extends JFrame implements initable {
 		iconbg = new ImageIcon("images/stage1.png");
 		imgbg = iconbg.getImage();
 
-		enemy1List.add(new Enemy1(50, -200));
-		enemy1List.add(new Enemy1(150, -200));
-		enemy1List.add(new Enemy1(250, -200));
-		enemy1List.add(new Enemy1(350, -200));
+
+
+		
+		enemy3Vector.add(new Enemy3(0,200));
+		enemy3Vector.add(new Enemy3(0,300));
+
 
 	}
 
 	public void setting() {
 		setTitle("sdf");
 
-		setSize(500, 639);
+		setSize(700, 639);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setContentPane(laBg);// label∑Œ ¥Î√º
@@ -128,28 +134,41 @@ public class Map05 extends JFrame implements initable {
 						System.out.println(backY + " " + appear);
 
 						if (appear % 100 == 0) {
+							enemy1List.add(new Enemy1(50, -50));
+							enemy1List.add(new Enemy1(150, -50));
+							enemy1List.add(new Enemy1(250, -50));
+							enemy1List.add(new Enemy1(350, -50));
 							for (int i = 0; i < enemy1List.size(); i++) {
 								add(enemy1List.get(i));
 							}
-							enemy1List.add(new Enemy1(50, -200));
-							enemy1List.add(new Enemy1(150, -200));
-							enemy1List.add(new Enemy1(250, -200));
-							enemy1List.add(new Enemy1(350, -200));
+
 
 						}
 
 
 						if (appear % 200 == 0) {
-							enemy2 = new Enemy2(200, 0);
-
-							add(enemy2);
+							enemy2Vector.add(new Enemy2(700, 100));
+							enemy2Vector.add(new Enemy2(700, 0));
+							for (int i = 0; i < enemy2Vector.size(); i++) {
+								add(enemy2Vector.get(i));
+							}
+					
+							
+//							enemy2 = new Enemy2(700, 100);
+//							add(enemy2);
+							
 						}
 
-						if (appear % 550 == 0) {
-							enemy3 = new Enemy3(0, 100);
-							add(enemy3);
-						}
-						
+//						if (appear % 550 == 0) {
+//							for (int i = 0; i < enemy3Vector.size(); i++) {
+//								add(enemy3Vector.get(i));
+//							}
+//							
+//							enemy3Vector.add(new Enemy3(0,200));
+//							enemy3Vector.add(new Enemy3(0,300));
+//
+//						}
+//						
 
 
 						appear++;

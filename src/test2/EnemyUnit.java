@@ -8,7 +8,6 @@ abstract class EnemyUnit extends JLabel {
 	protected int x;
 	protected int y;
 
-
 	public void movedown() {
 
 		new Thread(new Runnable() {
@@ -18,11 +17,11 @@ abstract class EnemyUnit extends JLabel {
 				while (true) {
 					y++;
 					setLocation(x, y); // 내부에 repaint() 존재 이벤트가 종료되어야 실행되므로, 스레드를 활용
-					if (y >639) { //쓰레드 종료조건
+					if (y > 639) { // 쓰레드 종료조건
 						System.out.println("movedown 쓰레드 종료");
 						break;
 					}
-					
+
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
@@ -37,31 +36,31 @@ abstract class EnemyUnit extends JLabel {
 
 	public void moveleft() {
 
-		
-			new Thread(new Runnable() {
+		new Thread(new Runnable() {
 
-				@Override
-				public void run() {
+			@Override
+			public void run() {
 
-					while (true) {
-						x--;
-						setLocation(x, y); // 내부에 repaint() 존재 이벤트가 종료되어야 실행되므로, 스레드를 활용
-						
-						if (x < 0) { //쓰레드 종료조건
-							
-							break;
-						}
+				while (true) {
+					x--;
+					setLocation(x, y); // 내부에 repaint() 존재 이벤트가 종료되어야 실행되므로, 스레드를 활용
 
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+					if (x < 0) { // 쓰레드 종료조건
+						System.out.println("moveleft 쓰레드 종료");
+
+						break;
+					}
+
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
-			}).start();
-		
+			}
+		}).start();
+
 	}
 
 	public void moveup() {
@@ -71,11 +70,13 @@ abstract class EnemyUnit extends JLabel {
 			public void run() {
 				while (true) {
 					y--;
-					setLocation(x, y); 
-					if (y < 0) { //쓰레드 종료조건
+					setLocation(x, y);
+					if (y < 0) { // 쓰레드 종료조건
+						System.out.println("moveup 쓰레드 종료");
+
 						break;
 					}
-					
+
 					try {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
@@ -96,10 +97,12 @@ abstract class EnemyUnit extends JLabel {
 				while (true) {
 					x++;
 					setLocation(x, y); // 내부에 repaint() 존재 이벤트가 종료되어야 실행되므로, 스레드를 활용
-					if (x >500) { //쓰레드 종료조건
+					if (x > 500) { // 쓰레드 종료조건
+						System.out.println("moveright 쓰레드 종료");
+
 						break;
 					}
-					
+
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {

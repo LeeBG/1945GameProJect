@@ -159,7 +159,7 @@ public class Map04 extends JFrame implements initable{
 						appear++;
 						repaint();
 
-						System.out.println(backY + " " + appear);
+						//System.out.println(backY + " " + appear);
 
 						try {
 							Thread.sleep(10);
