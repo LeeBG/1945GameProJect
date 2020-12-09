@@ -8,57 +8,61 @@ public class EnemyPlane extends AirPlane{
 	
 	public EnemyPlane enemyPlane = this;
 	private static final String TAG = "Enemy: ";
-	private ImageIcon playerIcon;
-	private int x; 				// ì  ë¼ë²¨ì˜ ìœ„ì¹˜ì¢Œí‘œ
-	private int y; 				// ì  ë¼ë²¨ì˜ ìœ„ì¹˜ì¢Œí‘œ
-	private int sizeX; 			// ë¹„í–‰ê¸° ì‚¬ì´ì¦ˆX
-	private int sizeY; 			// ë¹„í–‰ê¸° ì‚¬ì´ì¦ˆY
+	private ImageIcon enemyIcon;
+	private int x; 				// Àû ¶óº§ÀÇ À§Ä¡ÁÂÇ¥
+	private int y; 				// Àû ¶óº§ÀÇ À§Ä¡ÁÂÇ¥
+	private int sizeX; 			// ºñÇà±â »çÀÌÁîX
+	private int sizeY; 			// ºñÇà±â »çÀÌÁîY
 	private int rand;
 
-	public boolean isRight; 	// ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì›€ì§ì´ëŠ”ì§€ ì•„ë‹Œì§€ì˜ ìƒíƒœ
-	public boolean isLeft; 		// ì™¼ìª½ìœ¼ë¡œ ì›€ì§ì´ëŠ”ì§€ ì•„ë‹Œì§€ì˜ ìƒíƒœ
-	public boolean isUp;		// ìœ„ìª½ìœ¼ë¡œ ì›€ì§ì´ëŠ”ì§€ ì•„ë‹Œì§€ì˜ ìƒíƒœ
-	public boolean isDown;
-
-	public EnemyPlane(PlayerPlane playerPlane) { 	//ì ë¹„í–‰ê¸° ìƒì„±ì
+	public boolean isRight; 	// ¿À¸¥ÂÊÀ¸·Î ¿òÁ÷ÀÌ´ÂÁö ¾Æ´ÑÁöÀÇ »óÅÂ
+	public boolean isLeft; 		// ¿ŞÂÊÀ¸·Î ¿òÁ÷ÀÌ´ÂÁö ¾Æ´ÑÁöÀÇ »óÅÂ
+	public boolean isUp;		// À§ÂÊÀ¸·Î ¿òÁ÷ÀÌ´ÂÁö ¾Æ´ÑÁöÀÇ »óÅÂ
+	public boolean isDown;		// ¾Æ·§ÂÊÀ¸·Î ¿òÁ÷ÀÌ´ÂÁö ¾Æ´ÑÁöÀÇ »óÅÂ
+	public boolean isCrush;		// Ãæµ¹»óÅÂÀÎÁö ¾Æ´ÑÁö ÆÇº°
+	
+	public EnemyPlane(PlayerPlane playerPlane) { 	//ÀûºñÇà±â »ı¼ºÀÚ
 		init();
-		switch (rand) {								//ë¹„í–‰ê¸° í–‰ë™ ëœë¤ê°’ ë°›ê¸° (init()ì— ëœë¤ì •ì˜)
+		switch (rand) {								//ºñÇà±â Çàµ¿ ·£´ı°ª ¹Ş±â (init()¿¡ ·£´ıÁ¤ÀÇ)
 		case 0:					
-			System.out.println(TAG+"ì•„ë˜ë¡œ");
+			System.out.println(TAG+"¾Æ·¡·Î");
 			moveDown();
 			break;
 		case 1:
-			System.out.println(TAG+"ì™¼ìª½ì—ì„œ ì•„ë˜ë¡œ");
+			System.out.println(TAG+"¿ŞÂÊ¿¡¼­ ¾Æ·¡·Î");
 			moveLeftDown();
 			break;
 		case 2:
-			System.out.println(TAG+"ì˜¤ë¥¸ìª½ì—ì„œ ì•„ë˜ë¡œ");
+			System.out.println(TAG+"¿À¸¥ÂÊ¿¡¼­ ¾Æ·¡·Î");
 			moveRightDown();
 			break;
 		case 3:
-			System.out.println(TAG+"ì˜¤ë¥¸ìª½ì—ì„œ ìœ„ë¡œ");
+			System.out.println(TAG+"¿À¸¥ÂÊ¿¡¼­ À§·Î");
 			moveRightUp();
 			break;
 		case 4:
-			System.out.println(TAG+"ì™¼ìª½ì—ì„œ ìœ„ë¡œ");
+			System.out.println(TAG+"¿ŞÂÊ¿¡¼­ À§·Î");
 			moveLeftUp();
 			break;
 		default:
 			moveLeftDown();
 			break;
 		}
-		crush(playerPlane);									//ì¶©ëŒ ëŒ€ê¸° ì“°ë ˆë“œ í•¨ìˆ˜
+		crush(playerPlane);									//Ãæµ¹ ´ë±â ¾²·¹µå ÇÔ¼ö(Àû ºñÇà±â°¡ PLAYÀÇ Ãæµ¹À» ±â´Ù·È´Ù°¡ ½ÇÇà)
 	}
-	public EnemyPlane(int x,int y,int sizeX,int sizeY) {	//ì‹œì‘ìœ„ì¹˜ì¢Œí‘œ, ì ë¹„í–‰ê¸° ì‚¬ì´ì¦ˆ(ì•„ì§ ë¯¸ì‚¬ìš©)
+	public EnemyPlane(int x,int y,int sizeX,int sizeY) {	//½ÃÀÛÀ§Ä¡ÁÂÇ¥, ÀûºñÇà±â »çÀÌÁî(¾ÆÁ÷ ¹Ì»ç¿ë)
 		init();
+		
 	}
-	private void init() {								//ì´ˆê¸°í™”
-		rand = (int)(Math.random()*6);					//ë¹„í–‰ê¸° í–‰ë™ ëœë¤ê°’ ë°›ê¸° 
-		x = 70*rand;
-		y = 20*(int)(Math.random()*7+1);				//ë†’ì´ë„ ëœë¤
+
+	
+	private void init() {								//ÃÊ±âÈ­
+		rand = (int)(Math.random()*6);					//ºñÇà±â Çàµ¿ ·£´ı°ª ¹Ş±â 
+		x = 70*rand;									//XÁÂÇ¥µµ ·£´ı
+		y = 20*(int)(Math.random()*7+1);				//³ôÀÌµµ ·£´ı
 		sizeX = 70;
 		sizeY = 65;
-		playerIcon = new ImageIcon("images/PLANE2.png");
+		enemyIcon = new ImageIcon("images/PLANE2.png");
 		setIcon(playerIcon);
 		setLocation(x, y);
 		setSize(sizeX, sizeY);
@@ -66,20 +70,21 @@ public class EnemyPlane extends AirPlane{
 		isLeft = false;
 		isUp = false;
 		isDown = false;
+		isCrush = false;
 	}
 
 	public void moveLeftDown() {					
-		System.out.println(TAG + "ì™¼ìª½ì•„ë˜ìª½ì´ë™");
+		System.out.println(TAG + "¿ŞÂÊ¾Æ·¡ÂÊÀÌµ¿");
 		int endY = getY();
 		int endX = getX();
 		setY(getY()-400);
-		setX(getX()+400);
+		setX(getX()+400);							//ÀÏºÎ·¯ È­¸é¹ÛÀ¸·Î ²¨³½ ´ÙÀ½
 		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
 					isDown = true;			
-					while (isDown && getY()<endY) {						
+					while (isDown && getY()<endY) {	//·£´ı°ªÀ¸·Î Á¤ÇØÁø À§Ä¡·Î º¸³»Áö´Â ½º·¹µå				
 						try {
 							Thread.sleep(10);
 							x--;
@@ -98,17 +103,17 @@ public class EnemyPlane extends AirPlane{
 	}
 
 	public void moveRightDown() {
-		System.out.println(TAG + "ì˜¤ë¥¸ìª½ì•„ë˜ìª½ì´ë™");
+		System.out.println(TAG + "¿À¸¥ÂÊ¾Æ·¡ÂÊÀÌµ¿");
 		int endY = getY();
 		int endX = getX();
 		setY(getY()-400);
-		setX(getX()-400);
+		setX(getX()-400);								//ÀÏºÎ·¯ È­¸é¹ÛÀ¸·Î ²¨³½ ´ÙÀ½
 		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
 					isDown = true;			
-					while (isDown && getY()<endY) {						
+					while (isDown && getY()<endY) {		//·£´ı°ªÀ¸·Î Á¤ÇØÁø À§Ä¡·Î º¸³»Áö´Â ½º·¹µå
 						try {
 							Thread.sleep(10);
 							x++;
@@ -126,7 +131,7 @@ public class EnemyPlane extends AirPlane{
 	}
 
 	public void moveRightUp() {
-		System.out.println(TAG + "ì˜¤ë¥¸ìª½ ìœ„ë¡œ ì´ë™");
+		System.out.println(TAG + "¿À¸¥ÂÊ À§·Î ÀÌµ¿");
 		int endY = getY();
 		int endX = getX();
 		setY(getY()+400);
@@ -154,7 +159,7 @@ public class EnemyPlane extends AirPlane{
 	}
 
 	public void moveLeftUp() {
-		System.out.println(TAG + "ì™¼ìª½ ìœ„ë¡œ ì´ë™");
+		System.out.println(TAG + "¿ŞÂÊ À§·Î ÀÌµ¿");
 		int endY = getY();
 		int endX = getX();
 		setY(getY()+400);
@@ -181,7 +186,7 @@ public class EnemyPlane extends AirPlane{
 		}
 	}
 	public void moveDown() {
-		System.out.println(TAG + "ì•„ë˜ìª½ì´ë™");
+		System.out.println(TAG + "¾Æ·¡ÂÊÀÌµ¿");
 		int end = getY();
 		setY(getY()-200);
 		if (isDown == false) {
@@ -204,40 +209,60 @@ public class EnemyPlane extends AirPlane{
 			}).start();
 		}
 	}
-	public void shotToEnemy() {						//ë°œì‚¬ (ë¯¸êµ¬í˜„)
-//		new Missile(x,y);		//x,yì¢Œí‘œë¥¼ ë°›ì•„ì„œ ì ë°©í–¥ìœ¼ë¡œ ì¼ì§ì„  ë‚ ì•„ê°€ëŠ” ë¯¸ì‚¬ì¼ ê³µê²©
+	public void shotToEnemy() {						//¹ß»ç (¹Ì±¸Çö)
+//		new Missile(x,y);							//x,yÁÂÇ¥¸¦ ¹Ş¾Æ¼­ Àû¹æÇâÀ¸·Î ÀÏÁ÷¼± ³¯¾Æ°¡´Â ¹Ì»çÀÏ °ø°İ
 	}
 	
 	
-	public void crush(PlayerPlane playerPlane) { 			//ì¶©ëŒì˜ ì±…ì„ì„ ì ì—ê²Œ ë‘  player ì¶©ëŒ ëŒ€ê¸°
-		new Thread(new Runnable() {
+	public void explosion(/*¹Ì»çÀÏ °´Ã¼*/) {		//Æø¹ß ÀÌ¹ÌÁö ¹Ì±¸Çö
+		new Thread(new Runnable() {			
 			@Override
 			public void run() {
+				for(int i=0;i<7;i++) {
+					break;
+				}
 				
+			}
+		}).start();
+	}
+	
+	public void explosionP(PlayerPlane p) {		//Æø¹ß ÀÌ¹ÌÁö ¹Ì±¸Çö
+		new Thread(new Runnable() {			
+			@Override
+			public void run() {
+				for(int i=0;i<7;i++) {
+					p.playerIcon = new ImageIcon("")
+				}
+				
+			}
+		}).start();
+	}
+	
+	public void crush(PlayerPlane playerPlane) { 			//Ãæµ¹ÀÇ Ã¥ÀÓÀ» Àû¿¡°Ô µÒ player Ãæµ¹ ´ë±â
+		new Thread(new Runnable() {
+			@Override
+			public void run() {				
 				while (playerPlane.getLifecount() > 0) {
+					isCrush = playerPlane.getX()+20>=getX()+20 && playerPlane.getX()+20<=getX()+getSizeX()-20&&												// ÀÌ¹ÌÁö »ç°¢ÇüÀÇ ÁÂÇ¥ (0,0)
+							playerPlane.getY()+15>=getY()+15 && playerPlane.getY()+15<=getY()+getSizeY()-15 ||
+							playerPlane.getX()+playerPlane.getSizeX()-20>=getX()+20 && playerPlane.getX()+playerPlane.getSizeX()-20<=getX()+getSizeX()-20&&	//(1,0)
+							playerPlane.getY()+10>=getY()+15 && playerPlane.getY()+15<=getY()+getSizeY()-15 ||
+							playerPlane.getX()+20>=getX()+20 && playerPlane.getX()+20<=getX()+getSizeX()-20 &&												//(0,1)
+							playerPlane.getY()+playerPlane.getSizeY()-15>=getY()+15 && playerPlane.getY()+playerPlane.getSizeY()-15<=getY()+getSizeY()-15 ||
+							playerPlane.getX()+playerPlane.getSizeX()-20>=getX()+20 && playerPlane.getX()+playerPlane.getSizeX()-20<=getX()+getSizeX()-20 &&//(1,1)
+							playerPlane.getY()+playerPlane.getSizeY()-15>=getY()+15 && playerPlane.getY()+playerPlane.getSizeY()-15<=getY()+getSizeY()-15;
 					try {
-						if (playerPlane.getX()>getX() && playerPlane.getX()<getX()+getSizeX()&&				//(0,0)
-							playerPlane.getY()>getY() && playerPlane.getY()<getY()+getSizeY() ||
-							playerPlane.getX()+playerPlane.getSizeX()>getX() && playerPlane.getX()+playerPlane.getSizeX()<getX()+getSizeX()&&	//(1,0)
-							playerPlane.getY()>getY() && playerPlane.getY()<getY()+getSizeY() ||
-							playerPlane.getX()>getX() && playerPlane.getX()<getX()+getSizeX() &&			//(0,1)
-							playerPlane.getY()+playerPlane.getSizeY()>getY() && playerPlane.getY()+playerPlane.getSizeY()<getY()+getSizeY() ||
-							playerPlane.getX()+playerPlane.getSizeX()>getX() && playerPlane.getX()+playerPlane.getSizeX()<getX()+getSizeX() &&	//(1,1)
-							playerPlane.getY()+playerPlane.getSizeY()>getY() && playerPlane.getY()+playerPlane.getSizeY()<getY()+getSizeY()) {
+						if (isCrush) {								
 							playerPlane.setLifecount(playerPlane.getLifecount()-1);
-							System.out.println(TAG + playerPlane.getLifecount());
-							
-							System.out.println("ë§Œë‚¨");
+							System.out.println(TAG +"lifecount:"+playerPlane.getLifecount());
 							playerPlane.setX(200);
 							playerPlane.setY(520);
-
 							playerPlane.repaint();
-							
 						}
-							Thread.sleep(1000);
+							Thread.sleep(10);
 						if(playerPlane.getLifecount() == 0) {
-							Thread.sleep(1000);
-							System.exit(1);
+							Thread.sleep(1000);						//1ÃÊ ´ë±âÈÄ
+							System.exit(1);							//ÇÁ·Î±×·¥ °­Á¦ Á¾·á
 						}
 									
 					} catch (Exception e) {

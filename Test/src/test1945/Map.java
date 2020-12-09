@@ -12,13 +12,8 @@ import javax.swing.JPanel;
 public class Map extends JFrame {
 	private boolean isgame = false;
 	private MyPanel panel;
-	private int speed; // ÎßµÏò¨ÎùºÍ∞ÄÎäî ÏÜçÎèÑ
 	private int heightStart, heightEnd;
 	private PlayerPlane playerPlane;
-	private EnemyPlane enemyPlane;
-	private EnemyPlane enemyPlane2;
-	private EnemyPlane enemyPlane3;
-	private EnemyPlane enemyPlane4;
 
 	public Map() {
 		init();
@@ -30,9 +25,8 @@ public class Map extends JFrame {
 
 	private void init() {
 		panel = new MyPanel();
-		speed = 1;
-		heightStart = 5515 - speed;
-		heightEnd = 6135 - speed;
+		heightStart = 5515;
+		heightEnd = 6135;
 		playerPlane = new PlayerPlane();
 
 	}
@@ -43,33 +37,40 @@ public class Map extends JFrame {
 		setSize(480, 620);
 		panel.setLayout(null);
 		setContentPane(panel);
-		setLocationRelativeTo(null); // Ï§ëÍ∞Ñ
+		setLocationRelativeTo(null); // ¡ﬂ∞£
 	}
 
-	private void batch() {
+	private void batch() { // ∫Ò«‡±‚ πËƒ°
 		panel.add(playerPlane);
-
 	}
 
-	public void enemybatch() {
-
+	public void enemybatch() { // ¿˚∫Ò«‡±‚ πËƒ° 300px∏∂¥Ÿ ¿˚∫Ò«‡±‚ «— ¥Îæø √‚«ˆ(≥™¡ﬂø° ∫§≈Õø° ¥„¿ª∞Õ)
 		if (heightStart % 300 == 0) {
 			add(new EnemyPlane(playerPlane));
 		}
 	}
+	
 
-	private void listener() {
+
+	private void listener() { // ≈∞∫∏µÂ ∏ÆΩ∫≥ 
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					playerPlane.moveRight();
+
 				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					playerPlane.moveLeft(); // Î©îÏãúÏßÄ Ìò∏Ï∂ú, Ï±ÖÏûÑ ÌòëÎ†• => OOPÌîÑÎ°úÍ∑∏Îû®
+
+					playerPlane.moveLeft(); // ∏ﬁΩ√¡ˆ »£√‚, √•¿” «˘∑¬ => OOP«¡∑Œ±◊∑•
+
 				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					playerPlane.moveUp(); // Î©îÏãúÏßÄ Ìò∏Ï∂ú , Ï±ÖÏûÑ ÌòëÎ†• => OOPÌîÑÎ°úÍ∑∏Îû®
+
+					playerPlane.moveUp(); // ∏ﬁΩ√¡ˆ »£√‚ , √•¿” «˘∑¬ => OOP«¡∑Œ±◊∑•
+
 				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+
 					playerPlane.moveDown();
+
 				}
 			}
 
@@ -89,10 +90,28 @@ public class Map extends JFrame {
 		});
 	}
 
-	class MyPanel extends JPanel {
+	public void crushBorder() {						//∞Ê∞Ë∏È √Êµπ ∏ﬁº≠µÂ
+		if(playerPlane.getX()<=0) {
+			playerPlane.setX(0);
+			repaint();
+		}else if(playerPlane.getX()>=395) {
+			playerPlane.setX(395);
+			repaint();
+		}
+		if(playerPlane.getY()<=0) {
+			playerPlane.setY(0);
+			repaint();
+		}else if(playerPlane.getY()>=520) {
+			playerPlane.setY(520);
+			repaint();
+		}
+	}
+	
+	class MyPanel extends JPanel { // πË∞Ê ∆–≥Œ
 		private ImageIcon icon = new ImageIcon("images/Stage1_1.png");
-		private Image img = icon.getImage();// Ïù¥ÎØ∏ÏßÄ Í∞ùÏ≤¥
+		private Image img = icon.getImage(); // ¿ÃπÃ¡ˆ ∞¥√º
 
+		
 		public MyPanel() {
 //			setFocusable(true);
 
@@ -105,7 +124,8 @@ public class Map extends JFrame {
 							heightEnd -= 1;
 							Thread.sleep(10);
 							enemybatch();
-						} catch (InterruptedException e) {
+							crushBorder();							//∞Ê∞Ë∏È √Êµπ ∏ﬁº≠µÂ		
+						}catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -117,13 +137,13 @@ public class Map extends JFrame {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(img, 0, 0, 480, 620, 0, heightStart, 318, heightEnd, this);
+			g.drawImage(img, 0, 0, 480, 620, 0, heightStart, 318, heightEnd, this); // πË∞Ê∫∏ø©¡÷±‚ ≈¨∏Æ«Œ
 			repaint();
 		}
 	}
 
 	public static void main(String[] args) {
-		new Map();
+		new Map(); // «ˆ¿Á ∏ﬁ¿Œ¿Œ MAPΩ««‡
 	}
 
 }

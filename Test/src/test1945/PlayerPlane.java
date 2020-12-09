@@ -12,13 +12,13 @@ public class PlayerPlane extends AirPlane {
 	private static final String TAG = "Player: ";
 	public ImageIcon playerIcon;
 	private int lifecount;
-	private int x; // 플레이어 라벨의 위치좌표
-	private int y; // 플레이어 라벨의 위치좌표
-	private int sizeX; // 비행기 사이즈X
-	private int sizeY; // 비행기 사이즈Y
+	private int x; 
+	private int y; 
+	private int sizeX; 
+	private int sizeY; 
 
-	public boolean isRight; // 오른쪽으로 움직이는지 아닌지의 상태
-	public boolean isLeft; // 왼쪽으로 움직이는지 아닌지의 상태
+	public boolean isRight; 
+	public boolean isLeft; 
 	public boolean isUp;
 	public boolean isDown;
 
@@ -29,7 +29,7 @@ public class PlayerPlane extends AirPlane {
 	private void init() {
 		lifecount = 3;
 		x = 200;
-		y = 510;
+		y = 520;
 		sizeX = 79;
 		sizeY = 60;
 		playerIcon = new ImageIcon("images/PLANE1.png");
@@ -43,7 +43,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void moveLeft() {
-		System.out.println(TAG + "좌측이동");
+		System.out.println(TAG + "�����̵�");
 		if (isLeft == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -57,8 +57,7 @@ public class PlayerPlane extends AirPlane {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (x <= 0) // 벽에 막힘
-							return;
+						
 					}
 				}
 			}).start();
@@ -66,7 +65,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void moveRight() {
-		System.out.println(TAG + "우측이동");
+		System.out.println(TAG + "������ �̵�");
 		if (isRight == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -80,8 +79,7 @@ public class PlayerPlane extends AirPlane {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (x >= 401) // 벽에 막힘
-							return;
+
 					}
 				}
 			}).start();
@@ -89,7 +87,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void moveUp() {
-		System.out.println(TAG + "위쪽이동");
+		System.out.println(TAG + "�������� �̵�");
 		if (isUp == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -103,8 +101,7 @@ public class PlayerPlane extends AirPlane {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (y < 0) // 벽에 막힘
-							return;
+
 					}
 				}
 			}).start();
@@ -112,7 +109,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void moveDown() {
-		System.out.println(TAG + "위쪽이동");
+		System.out.println(TAG + "�Ʒ����̵�");
 		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -126,8 +123,7 @@ public class PlayerPlane extends AirPlane {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (y > 520) // 벽에 막힘
-							return;
+
 					}
 				}
 			}).start();
@@ -135,7 +131,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void shotToEnemy() {
-//		new Missile(this);			//x,y좌표를 받아서 적방향으로 일직선 날아가는 미사일 공격
+//		new Missile(this);		//�̱���
 	}
 
 }
