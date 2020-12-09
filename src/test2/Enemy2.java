@@ -18,18 +18,6 @@ public class Enemy2 extends EnemyUnit {
 	private ImageIcon icEnemy1;
 
 
-	Enemy2() {
-		x=0;
-		y=0;
-		icEnemy1 = new ImageIcon("images/PLANE3.png");
-		setIcon(icEnemy1);
-		setSize(100, 50);
-		setLocation(x, y);
-	
-		this.moveLeftDown();
-
-
-	}
 
 	Enemy2(int x, int y) {
 		this.x =x;

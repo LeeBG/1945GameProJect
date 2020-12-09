@@ -29,7 +29,7 @@ public class Map05 extends JFrame implements initable {
 	List<Enemy1> enemy1List = new ArrayList<Enemy1>();
 	Vector<Enemy2> enemy2Vector = new Vector<>();
 	Vector<Enemy3> enemy3Vector = new Vector<>();
-	
+	Vector<EnemyUnit> enemyUnits = new Vector<>();
 
 	public Map05() {
 
@@ -49,13 +49,6 @@ public class Map05 extends JFrame implements initable {
 		iconbg = new ImageIcon("images/stage1.png");
 		imgbg = iconbg.getImage();
 
-
-
-		
-		enemy3Vector.add(new Enemy3(0,200));
-		enemy3Vector.add(new Enemy3(0,300));
-
-
 	}
 
 	public void setting() {
@@ -63,17 +56,55 @@ public class Map05 extends JFrame implements initable {
 
 		setSize(700, 639);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setLayout(null);
-		setContentPane(laBg);// label·Î ´ëÃ¼
+		setContentPane(laBg);// labelå ì™ì˜™ å ì™ì˜™ì²´
 
 	}
 
 	public void batch() {
-		add(player); // container´Â »ı·«°¡´É
+		add(player); // containerå ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™å ì™ì˜™
 
+	}
 
-		
-		
+	public void enemybatch() {
+
+		if (appear % 300 == 0) {
+			enemy1List.add(new Enemy1(50, -50));
+			enemy1List.add(new Enemy1(150, -50));
+			enemy1List.add(new Enemy1(250, -50));
+			enemy1List.add(new Enemy1(350, -50));
+			for (int i = 0; i < enemy1List.size(); i++) {
+				add(enemy1List.get(i));
+			}
+		}
+
+		if (appear % 600 == 0) {
+			enemy2Vector.add(new Enemy2(700, 100));
+			enemy2Vector.add(new Enemy2(700, 0));
+			for (int i = 0; i < enemy2Vector.size(); i++) {
+				add(enemy2Vector.get(i));
+			}
+//			enemy2 = new Enemy2(700, 100);
+//			add(enemy2);
+		}
+
+		if (appear % 550 == 0) {
+			enemy3Vector.add(new Enemy3(0, 200));
+			enemy3Vector.add(new Enemy3(0, 300));
+			for (int i = 0; i < enemy3Vector.size(); i++) {
+				add(enemy3Vector.get(i));
+			}
+		}
+
+		if (appear % 700 == 0) {
+			enemyUnits.add(new Enemy1(300, -50));
+			enemyUnits.add(new Enemy2(700, 200));
+			for (int i = 0; i < enemyUnits.size(); i++) {
+				add(enemyUnits.get(i));
+			}
+		}
+
 	}
 
 	public void listener() {
@@ -100,17 +131,17 @@ public class Map05 extends JFrame implements initable {
 
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					player.isRight = false; // ¿ø·¡´Â getter setter ÇÔ¼ö¸¦ ÀÌ¿ë
+					player.isRight = false; // å ì™ì˜™å ì™ì˜™å ì™ì˜™ getter setter å ìŒ‰ì‡½ì˜™å ì™ì˜™ å ì‹±ìš¸ì˜™
 				}
 
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					player.isLeft = false; // ¿ø·¡´Â getter setter ÇÔ¼ö¸¦ ÀÌ¿ë
+					player.isLeft = false; // å ì™ì˜™å ì™ì˜™å ì™ì˜™ getter setter å ìŒ‰ì‡½ì˜™å ì™ì˜™ å ì‹±ìš¸ì˜™
 				}
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					player.isUP = false; // ¿ø·¡´Â getter setter ÇÔ¼ö¸¦ ÀÌ¿ë
+					player.isUP = false; // å ì™ì˜™å ì™ì˜™å ì™ì˜™ getter setter å ìŒ‰ì‡½ì˜™å ì™ì˜™ å ì‹±ìš¸ì˜™
 				}
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					player.isDown = false; // ¿ø·¡´Â getter setter ÇÔ¼ö¸¦ ÀÌ¿ë
+					player.isDown = false; // å ì™ì˜™å ì™ì˜™å ì™ì˜™ getter setter å ìŒ‰ì‡½ì˜™å ì™ì˜™ å ì‹±ìš¸ì˜™
 				}
 
 			}
@@ -131,45 +162,10 @@ public class Map05 extends JFrame implements initable {
 					while (backY <= 0) {
 						backY++;
 
-						System.out.println(backY + " " + appear);
+						//System.out.println(backY + " " + appear);
 
-						if (appear % 100 == 0) {
-							enemy1List.add(new Enemy1(50, -50));
-							enemy1List.add(new Enemy1(150, -50));
-							enemy1List.add(new Enemy1(250, -50));
-							enemy1List.add(new Enemy1(350, -50));
-							for (int i = 0; i < enemy1List.size(); i++) {
-								add(enemy1List.get(i));
-							}
-
-
-						}
-
-
-						if (appear % 200 == 0) {
-							enemy2Vector.add(new Enemy2(700, 100));
-							enemy2Vector.add(new Enemy2(700, 0));
-							for (int i = 0; i < enemy2Vector.size(); i++) {
-								add(enemy2Vector.get(i));
-							}
-					
-							
-//							enemy2 = new Enemy2(700, 100);
-//							add(enemy2);
-							
-						}
-
-//						if (appear % 550 == 0) {
-//							for (int i = 0; i < enemy3Vector.size(); i++) {
-//								add(enemy3Vector.get(i));
-//							}
-//							
-//							enemy3Vector.add(new Enemy3(0,200));
-//							enemy3Vector.add(new Enemy3(0,300));
-//
-//						}
-//						
-
+						enemybatch();
+			
 
 						appear++;
 						repaint();
@@ -190,7 +186,7 @@ public class Map05 extends JFrame implements initable {
 
 		@Override
 		protected void paintComponent(Graphics g) {
-			super.paintComponent(g); // ¹è°æ ÀÌ¹ÌÁö Á¶Á¤ÀÌ ÇÊ¿ä
+			super.paintComponent(g); // å ì™ì˜™å ï¿½ å ì‹±ë±„ì˜™å ì™ì˜™ å ì™ì˜™å ì™ì˜™å ì™ì˜™ å ì‹­ìš¸ì˜™
 
 			g.drawImage(imgbg, 0, backY, 700, imgbg.getHeight(null), this);
 

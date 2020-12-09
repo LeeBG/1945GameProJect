@@ -17,19 +17,6 @@ public class Enemy3 extends EnemyUnit {
 	private ImageIcon icEnemy3;
 	
 	
-	Enemy3() {		
-		x=0;
-		y=0;
-		icEnemy3 = new ImageIcon("images/PLANE3.png");
-		setIcon(icEnemy3);
-		setSize(100, 50);
-		setLocation(x, y);
-
-		this.moveRightDown();
-		
-	}
-
-	
 	Enemy3(int x, int y) {
 
 		this.x =x;
