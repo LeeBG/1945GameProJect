@@ -51,7 +51,6 @@ public class Map extends JFrame {
 	}
 	
 
-
 	private void listener() { // 키보드 리스너
 		addKeyListener(new KeyAdapter() {
 			@Override

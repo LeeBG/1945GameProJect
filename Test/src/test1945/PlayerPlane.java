@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class PlayerPlane extends AirPlane {
 
-	public PlayerPlane player = this;
+	public PlayerPlane playerPlane = this;
 	private static final String TAG = "Player: ";
 	public ImageIcon playerIcon;
 	private int lifecount;
@@ -43,7 +43,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void moveLeft() {
-		System.out.println(TAG + "¿ÞÂÊÀÌµ¿");
+		System.out.println(TAG + "ì™¼ìª½ìœ¼ë¡œ");
 		if (isLeft == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -65,7 +65,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void moveRight() {
-		System.out.println(TAG + "¿À¸¥ÂÊ ÀÌµ¿");
+		System.out.println(TAG + "ì˜¤ë¥¸ìª½ìœ¼ë¡œ");
 		if (isRight == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -87,7 +87,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void moveUp() {
-		System.out.println(TAG + "À§ÂÊÀ¸·Î ÀÌµ¿");
+		System.out.println(TAG + "ìœ„ë¡œ");
 		if (isUp == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -98,10 +98,11 @@ public class PlayerPlane extends AirPlane {
 						setLocation(x, y);
 						try {
 							Thread.sleep(10);
+							System.out.println("X:"+getX()+"Y:"+getY());
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-
+						
 					}
 				}
 			}).start();
@@ -109,7 +110,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void moveDown() {
-		System.out.println(TAG + "¾Æ·§ÂÊÀÌµ¿");
+		System.out.println(TAG + "ì•„ëž˜ë¡œ");
 		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -120,6 +121,7 @@ public class PlayerPlane extends AirPlane {
 						setLocation(x, y);
 						try {
 							Thread.sleep(10);
+							System.out.println("X:"+getX()+"Y:"+getY());
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -131,7 +133,7 @@ public class PlayerPlane extends AirPlane {
 	}
 
 	public void shotToEnemy() {
-//		new Missile(this);		//¹Ì±¸Çö
+//		new Missile(this);		//ë¯¸êµ¬í˜„
 	}
 
 }

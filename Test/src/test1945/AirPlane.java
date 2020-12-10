@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 
 public abstract class AirPlane extends JLabel{
 	private AirPlane airPlane = this;
-	private PlayerPlane playerPlane;
+	
 	private int lifecount;
 	private int sizeX,sizeY;
 	private static final String TAG = "Player: ";
@@ -13,8 +13,8 @@ public abstract class AirPlane extends JLabel{
 	public int x;
 	public int y;
 
-	public boolean isRight; // 오른쪽으로 움직이는지 아닌지의 상태
-	public boolean isLeft; // 왼쪽으로 움직이는지 아닌지의 상태
+	public boolean isRight; 
+	public boolean isLeft; 
 	public boolean isUp;
 	public boolean isDown;
 	
@@ -39,12 +39,12 @@ public abstract class AirPlane extends JLabel{
 	public void moveUp() {
 	}
 	public void shotToEnemy() {
-//		new Missile(playerPlain);		//x,y좌표를 받아서 적방향으로 일직선 날아가는 미사일 공격
+//		new Missile(playerPlain);		
 	}
 	public void shotToPlayer() {
-//		new Missile(enemyplane); 		//x,y좌표를 받아서 적방향으로 일직선 날아가는 미사일 공격
+//		new Missile(enemyplane); 		
 	}
-	public void crush() {				//충돌
+	public void crush() {				
 							
 	}
 }
