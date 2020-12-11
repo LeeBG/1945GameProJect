@@ -30,7 +30,7 @@ public class VsBoss extends JFrame implements Initable {
 	int stageY = -(stageImg.getHeight(null) - bossStageImg.getHeight(null));
 	int bossStageBY1 = -(stageImg.getHeight(null));
 	int bossStageBY2 = -(stageImg.getHeight(null) + bossStageImg.getHeight(null));
-	
+
 //	int bossStageBY1 = 0;
 //	int bossStageBY2 = -bossStageImg.getHeight(null);
 
@@ -64,7 +64,7 @@ public class VsBoss extends JFrame implements Initable {
 							}
 						}
 						// 배경 무한루프 도중 중간에 비는 선을 지우기 위해 뺀다
-						
+
 						repaint();
 
 						try {
@@ -84,7 +84,7 @@ public class VsBoss extends JFrame implements Initable {
 			g.drawImage(bossStageImg, 0, bossStageBY1, null);
 			g.drawImage(bossStageImg, 0, bossStageBY2, null);
 			player.playerUpdate(g);
-			boss.bossUpdate(g); 
+			boss.bossUpdate(g);
 			repaint();
 		}
 	}
