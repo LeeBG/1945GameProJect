@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class PlayerAttack {
 
-	Image bulletImg1 = new ImageIcon("images/bullet(e).png").getImage(); // 1�� �Ѿ�
+	Image bulletImg1 = new ImageIcon("images/enemy1Bullet.jpg").getImage(); // 1�� �Ѿ�
 
 	int bulletX;
 	int bulletY;

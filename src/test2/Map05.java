@@ -209,7 +209,7 @@ public class Map05 extends JFrame implements initable {
 			g.drawImage(imgbg, 0, backY, 700, imgbg.getHeight(null), this);
 			
 			
-			if(enemy4 != null)
+			if(enemy4 != null) //null 체크
 				enemy4.playerUpdate(g);
 
 			

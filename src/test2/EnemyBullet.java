@@ -15,7 +15,7 @@ public class EnemyBullet extends JLabel{
 	public EnemyBullet(int x, int y) {
 		this.bulletX = x;
 		this.bulletY = y;
-		icBullet = new ImageIcon("images/bullet(e).png");
+		icBullet = new ImageIcon("images/enemy1Bullet.png");
 		setIcon(icBullet);
 		setSize(10, 10);
 		setLocation(x, y);

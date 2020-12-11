@@ -21,8 +21,8 @@ public class Enemy4 extends JLabel {
 	int playerWidth = playerImg.getWidth(null);
 	int playerHeight = playerImg.getHeight(null);
 
-	public int playerX = 100;
-	public int playerY = 50;
+	public int playerX = 100; //Enemy4 등장위치 x값
+	public int playerY = 50;  //Enemy4 등장위치 y값
 
 	public int count; // �Ѿ��� �ӵ��� �����ϱ� ���� �����Ѵ�
 
@@ -42,7 +42,7 @@ public class Enemy4 extends JLabel {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				count = 0; // count�� 0���� ����
+				count = 0; 
 				while (true) {
 					try {
 						Thread.sleep(5);
