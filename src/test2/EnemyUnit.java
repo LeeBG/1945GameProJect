@@ -9,7 +9,6 @@ abstract class EnemyUnit extends JLabel {
 	protected int EnemyY;
 	protected int bulletAppear=0;//nullpointer 예외가 안 나오게 0으로!!!!
 
-
 	public void movedown() {
 
 		new Thread(new Runnable() {
@@ -38,6 +37,7 @@ abstract class EnemyUnit extends JLabel {
 
 	}
 
+	
 	public void moveleft() {
 
 		new Thread(new Runnable() {
@@ -67,6 +67,8 @@ abstract class EnemyUnit extends JLabel {
 
 	}
 
+	
+	
 	public void moveup() {
 
 		new Thread(new Runnable() {
@@ -93,6 +95,9 @@ abstract class EnemyUnit extends JLabel {
 
 	}
 
+	
+	
+	
 	public void moveright() {
 		new Thread(new Runnable() {
 

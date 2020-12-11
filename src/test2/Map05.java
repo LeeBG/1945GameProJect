@@ -20,9 +20,10 @@ public class Map05 extends JFrame implements initable {
 	private Enemy1test enemy1;
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
+	private Enemy4 enemy4;
 	private JLabel laBackground;
 	private MyLabel laBg;
-	int backY = -5635, appear = 1;
+	public int backY = -5635, appear = 1;
 	private ImageIcon iconbg;
 	private Image imgbg;
 
@@ -48,6 +49,8 @@ public class Map05 extends JFrame implements initable {
 		player = new PlayerPlane();
 		iconbg = new ImageIcon("images/stage1.png");
 		imgbg = iconbg.getImage();
+		
+		//enemy4 = new Enemy4();
 
 	}
 
@@ -175,8 +178,13 @@ public class Map05 extends JFrame implements initable {
 
 						// System.out.println(backY + " " + appear);
 
-						enemybatch();
+						//enemybatch();
 
+						if(appear % 300 == 0) {
+							enemy4 = new Enemy4();
+							System.out.println("appear값:  "+appear);
+						}
+						
 						appear++;
 						repaint();
 
@@ -197,8 +205,15 @@ public class Map05 extends JFrame implements initable {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-
+			
 			g.drawImage(imgbg, 0, backY, 700, imgbg.getHeight(null), this);
+			
+			
+			if(enemy4 != null)
+				enemy4.playerUpdate(g);
+
+			
+			repaint();
 
 		}
 
