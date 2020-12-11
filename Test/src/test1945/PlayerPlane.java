@@ -4,7 +4,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import lombok.Data;
-
 @Data
 public class PlayerPlane extends AirPlane {
 

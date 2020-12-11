@@ -6,16 +6,22 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Map extends JFrame {
-	private boolean isgame = false;
-	private MyPanel panel;
+
+public class GameFrame extends JFrame {
+	private boolean isgame;
+	private GameMap gameMap;			//ì¸ê²Œìž„ íŒ¨ë„ 
+	private GameTitle gameTitle;		//íƒ€ì´í‹€ íŒ¨ë„
+	private SelectAPL selectAPL;
 	private int heightStart, heightEnd;
 	private PlayerPlane playerPlane;
-
-	public Map() {
+	private ImageIcon icon;
+	private Image img;
+	
+	public GameFrame() {
 		init();
 		setting();
 		batch();
@@ -23,35 +29,54 @@ public class Map extends JFrame {
 		setVisible(true);
 	}
 
-	private void init() {
-		panel = new MyPanel();
+	private void init() {		
+		isgame = false;
+		gameMap = new GameMap();
 		heightStart = 5515;
 		heightEnd = 6135;
 		playerPlane = new PlayerPlane();
-
 	}
+		
 
 	private void setting() {
 		setTitle("1945_MAP_TEST");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(480, 620);
-		panel.setLayout(null);
-		setContentPane(panel);
-		setLocationRelativeTo(null); // Áß°£
+		gameMap.setLayout(null);
+		setContentPane(gameMap);
+		setLocationRelativeTo(null);
 	}
 
-	private void batch() { // ºñÇà±â ¹èÄ¡
-		panel.add(playerPlane);
+	private void batch() {  
+		gameMap.add(playerPlane);
 	}
 
-	public void enemybatch() { // ÀûºñÇà±â ¹èÄ¡ 300px¸¶´Ù ÀûºñÇà±â ÇÑ ´ë¾¿ ÃâÇö(³ªÁß¿¡ º¤ÅÍ¿¡ ´ãÀ»°Í)
+	public void enemybatch() { 
 		if (heightStart % 300 == 0) {
-			add(new EnemyPlane(playerPlane));
+			gameMap.add(new EnemyPlane(playerPlane));
 		}
 	}
 	
+	public void change(String panelName) {
+		if(panelName.equals("gameTitle")) {
+			getContentPane().removeAll();
+			getContentPane().add(gameTitle);
+			revalidate();
+			repaint();
+		}else if(panelName.equals("selectAPL")) {
+			getContentPane().removeAll();
+			getContentPane().add(selectAPL);
+			revalidate();
+			repaint();
+		}else {
+			getContentPane().removeAll();
+			getContentPane().add(gameMap);
+			revalidate();
+			repaint();
+		}
+	}
 
-	private void listener() { // Å°º¸µå ¸®½º³Ê
+	private void listener() { 
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -60,16 +85,14 @@ public class Map extends JFrame {
 
 				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 
-					playerPlane.moveLeft(); // ¸Þ½ÃÁö È£Ãâ, Ã¥ÀÓ Çù·Â => OOPÇÁ·Î±×·¥
+					playerPlane.moveLeft(); 
 
 				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
 
-					playerPlane.moveUp(); // ¸Þ½ÃÁö È£Ãâ , Ã¥ÀÓ Çù·Â => OOPÇÁ·Î±×·¥
+					playerPlane.moveUp(); 
 
 				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-
 					playerPlane.moveDown();
-
 				}
 			}
 
@@ -89,7 +112,7 @@ public class Map extends JFrame {
 		});
 	}
 
-	public void crushBorder() {						//°æ°è¸é Ãæµ¹ ¸Þ¼­µå
+	public void crushBorder() {						
 		if(playerPlane.getX()<=0) {
 			playerPlane.setX(0);
 			repaint();
@@ -106,14 +129,11 @@ public class Map extends JFrame {
 		}
 	}
 	
-	class MyPanel extends JPanel { // ¹è°æ ÆÐ³Î
-		private ImageIcon icon = new ImageIcon("images/Stage1_1.png");
-		private Image img = icon.getImage(); // ÀÌ¹ÌÁö °´Ã¼
-
-		
-		public MyPanel() {
+	class GameMap extends JPanel { // ì‚¬ì‹¤ìƒ ë§µ	
+		public GameMap() {
 //			setFocusable(true);
-
+			icon = new ImageIcon("images/Stage1_1.png");
+			img = icon.getImage();
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -123,7 +143,7 @@ public class Map extends JFrame {
 							heightEnd -= 1;
 							Thread.sleep(10);
 							enemybatch();
-							crushBorder();							//°æ°è¸é Ãæµ¹ ¸Þ¼­µå		
+							crushBorder();							
 						}catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -136,13 +156,40 @@ public class Map extends JFrame {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(img, 0, 0, 480, 620, 0, heightStart, 318, heightEnd, this); // ¹è°æº¸¿©ÁÖ±â Å¬¸®ÇÎ
+			g.drawImage(img, 0, 0, 480, 620, 0, heightStart, 318, heightEnd, this);
 			repaint();
 		}
 	}
 
+	class GameTitle extends JPanel{//ê²Œìž„ ì‹œìž‘í™”ë©´ êµ¬í˜„
+		private GameFrame win;
+		public GameTitle(GameFrame win) {
+			setLayout(null);
+			this.win=win;
+			icon = new ImageIcon("images/gametitle.gif");
+			img = icon.getImage();
+			setVisible(true);
+		}
+		@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.drawImage(img, 0, 0, 480, 620, 0,0,338,566,this);
+			}
+	}
+	class SelectAPL extends JPanel{						// ë¹„í–‰ê¸° ì„ íƒ í™”ë©´
+		public SelectAPL() {
+			icon = new ImageIcon("images/TitleImage.png");
+			img = icon.getImage();
+		}
+		@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				
+			}
+	}
+	
 	public static void main(String[] args) {
-		new Map(); // ÇöÀç ¸ÞÀÎÀÎ MAP½ÇÇà
+		new GameFrame();
 	}
 
 }

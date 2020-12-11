@@ -3,19 +3,19 @@ package test1945;
 public class GameApp {
 	private GameApp gameApp = this;
 	private PlayerPlane playerPlane;
-	private Map map;
+	private GameFrame map;
 
 	public GameApp() {
 		init();
 	}
 
 	private void init() {
-		map = new Map();
+		map = new GameFrame();
 
 	}
 
 	public static void main(String[] args) {
-//		new Start();		¹Ì±¸Çö 
+//		new Start();		
 //		new GameApp();
 	}
 
