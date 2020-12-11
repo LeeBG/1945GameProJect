@@ -6,7 +6,8 @@ import javax.swing.ImageIcon;
 
 public class PlayerAttack {
 	Image bulletImg = new ImageIcon("images/Player Bullet.png").getImage();
-	int x, y;
+	int x;
+	int y;
 	int width = bulletImg.getWidth(null);
 	int height = bulletImg.getHeight(null);
 	

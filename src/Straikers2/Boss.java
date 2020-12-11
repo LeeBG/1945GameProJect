@@ -11,16 +11,15 @@ public class Boss extends JLabel {
 	private Boss boss = this;
 	private static final String TAG = "Boss : ";
 	
-	ImageIcon bossIcon = new ImageIcon("images/boss.gif");
-	Image bossImg = bossIcon.getImage();
-	
-	int bossX = 100;
-	int bossY = 10;
-//	public int bossX = 100;
-//	public int bossY = 10;
+	Image bossImg = new ImageIcon("images/bossSizeup.gif").getImage();
 	
 	int bossWidth = bossImg.getWidth(null);
 	int bossHeight = bossImg.getHeight(null);
+	
+	int bossX = (VsBoss.SCREEN_WIDTH / 2) - (bossWidth / 2);
+	int bossY = -280;
+//	public int bossX = 100;
+//	public int bossY = 10;
 	
 	public Boss() {
 	}

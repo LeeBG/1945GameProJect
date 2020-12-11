@@ -11,6 +11,7 @@ public class PlayerAttack {
 	
 	int bulletX;
 	int bulletY;
+	double bullet;
 	
 	int bulletWidth1 = bulletImg1.getWidth(null);
 	int bulletHeight1 = bulletImg1.getHeight(null);
@@ -24,6 +25,7 @@ public class PlayerAttack {
 	}
 	
 	public void fire() {
+		// 이 부분에 삼각함수를 넣어 변경할 예정
 		this.bulletY --;	// 총알을 발사하면 y값을 1씩 빼면서 앞으로 나간다
 	}
 }

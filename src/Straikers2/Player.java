@@ -13,19 +13,18 @@ public class Player extends JLabel {
 	private Player player = this;
 	private static final String TAG = "Player : ";
 
-	ImageIcon playerIcon = new ImageIcon("images/PlayerPlane1.png");
-	Image playerImg = playerIcon.getImage();
-
-	public int playerX = 210;
-	public int playerY = 500;
+	Image playerImg = new ImageIcon("images/PlayerPlane1.png").getImage();
 
 	int playerWidth = playerImg.getWidth(null);
 	int playerHeight = playerImg.getHeight(null);
 
-	public int count; // 총알의 속도를 조절하기 위해 선언한다
+	public int playerX = (VsBoss.SCREEN_WIDTH / 2) - (playerWidth / 2);
+	public int playerY = VsBoss.SCREEN_HEIGHT - 100;
 
-	public boolean isChangeWeppon1 = true; // 무기 1이 기본값이기 때문에 true로 설정
-	public boolean isChangeWeppon2 = false;
+	public int count; // 총알의 속도를 조절하기 위해 선언한다
+	int wepponLevel = 0;
+
+	public boolean isWepponLevelUp = false;
 	public boolean isAttack = false;
 	public boolean isUp = false;
 	public boolean isDown = false;
@@ -51,8 +50,6 @@ public class Player extends JLabel {
 						keyProcess();
 						playerAttackProcess();
 						setLocation(playerX, playerY); // repaint()
-						System.out.println("X : " + playerX);
-						System.out.println("Y : " + playerY);
 						count++; // 1씩 늘어난다
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
@@ -64,20 +61,36 @@ public class Player extends JLabel {
 	}
 
 	private void keyProcess() {
-		if (isAttack && count % 20 == 0) { // 총알의 속도를 조절
-			playerAttack = new PlayerAttack(playerX + 20, playerY - 40); // 총알이 생성되는 위치
-			playerAttackList.add(playerAttack); // arrayList에 저장한다
+		if (isAttack && count % 30 == 0) { // 총알의 발사 속도를 조절
+			if (wepponLevel == 0) {
+				playerAttack = new PlayerAttack(playerX + 20, playerY - 40); // 총알이 생성되는 위치
+				playerAttackList.add(playerAttack); // arrayList에 저장한다
+			}
+			if (wepponLevel == 1) {
+				playerAttack = new PlayerAttack(playerX + 10, playerY - 40); // 총알이 생성되는 위치
+				playerAttackList.add(playerAttack); // arrayList에 저장한다
+				playerAttack = new PlayerAttack(playerX + 30, playerY - 40); // 총알이 생성되는 위치
+				playerAttackList.add(playerAttack); // arrayList에 저장한다
+			}
+			if (wepponLevel == 2) {
+				playerAttack = new PlayerAttack(playerX + 0, playerY - 40); // 총알이 생성되는 위치
+				playerAttackList.add(playerAttack); // arrayList에 저장한다
+				playerAttack = new PlayerAttack(playerX + 20, playerY - 40); // 총알이 생성되는 위치
+				playerAttackList.add(playerAttack); // arrayList에 저장한다
+				playerAttack = new PlayerAttack(playerX + 40, playerY - 40); // 총알이 생성되는 위치
+				playerAttackList.add(playerAttack); // arrayList에 저장한다
+			}
 		}
-		if (isUp) {
+		if (isUp && playerY > 0) {
 			playerY--;
 		}
-		if (isDown) {
+		if (isDown && playerY < VsBoss.SCREEN_HEIGHT - (playerHeight + 40)) {
 			playerY++;
 		}
-		if (isLeft) {
+		if (isLeft && playerX > 0) {
 			playerX--;
 		}
-		if (isRight) {
+		if (isRight && playerX < VsBoss.SCREEN_WIDTH - (playerWidth + 15)) {
 			playerX++;
 		}
 	}
@@ -92,9 +105,10 @@ public class Player extends JLabel {
 			playerAttack.fire();
 
 			// 총알의 x,y값과 보스의 x,y값, 넓이 높이를 계산하여 충돌판정
-			if (playerAttack.bulletX > (boss.bossX - 5) && playerAttack.bulletX < (boss.bossX + boss.bossWidth - 40)
+			if (playerAttack.bulletX > (boss.bossX + 160)
+					&& playerAttack.bulletX < (boss.bossX + boss.bossWidth - 190) // 가로																								// 판정
 					&& playerAttack.bulletY > (boss.bossY)
-					&& playerAttack.bulletY < (boss.bossY + boss.bossWidth - 60)) {
+					&& playerAttack.bulletY < (boss.bossY + boss.bossWidth - 160)) {// 세로 판정
 				playerAttackList.remove(playerAttack);
 			}
 		}
@@ -103,28 +117,20 @@ public class Player extends JLabel {
 	// 이미지를 그린다
 	public void playerDraw(Graphics g) {
 		g.drawImage(playerImg, playerX, playerY, null); // 플레이어 캐릭터
-		// 무기1이 true일 때는 1번 이미지
-		if (isChangeWeppon1 == true) {
-			for (int i = 0; i < playerAttackList.size(); i++) {
-				playerAttack = playerAttackList.get(i);
-				g.drawImage(playerAttack.bulletImg1, playerAttack.bulletX, playerAttack.bulletY, null);
-			}
-		}
-		// 무기2가 true일 때는 2번 이미지
-		if (isChangeWeppon2 == true) {
-			for (int i = 0; i < playerAttackList.size(); i++) {
-				playerAttack = playerAttackList.get(i);
-				g.drawImage(playerAttack.bulletImg2, playerAttack.bulletX, playerAttack.bulletY, null);
-			}
+		for (int i = 0; i < playerAttackList.size(); i++) {
+			playerAttack = playerAttackList.get(i);
+			g.drawImage(playerAttack.bulletImg1, playerAttack.bulletX, playerAttack.bulletY, null);
 		}
 	}
 
-	public void setChangeWeppon1(boolean isChangeWeppon1) {
-		this.isChangeWeppon1 = isChangeWeppon1;
-	}
-
-	public void setChangeWeppon2(boolean isChangeWeppon2) {
-		this.isChangeWeppon2 = isChangeWeppon2;
+	public void setWepponLevelUp(boolean isWepponLevelUp) {
+		this.isWepponLevelUp = isWepponLevelUp;
+		if (isWepponLevelUp == true) {
+			wepponLevel = wepponLevel + 1;
+			if (wepponLevel == 3) {
+				wepponLevel = 0;
+			}
+		}
 	}
 
 	public void setAttack(boolean isAttack) {

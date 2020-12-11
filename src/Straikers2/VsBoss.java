@@ -8,26 +8,35 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class VsBoss extends JFrame implements Initable {
 
 	private VsBoss vsBoss = this; // 항상 컨텍스트를 먼저 쓴다
 	private static final String TAG = "VsBoss : "; // 태그
 
-	public static final int SCREEN_WIDTH = 480;		// 창 크기 절대값으로 설정
-	public static final int SCREEN_HEIGHT = 620;
+	public static final int SCREEN_WIDTH = 600; // 창 크기 절대값으로 설정
+	public static final int SCREEN_HEIGHT = 820;
 
-	private Image bufferImg;			// 더블 버퍼링을 위해 선언
+	Image stageImg = new ImageIcon("images/stage.png").getImage();
+	Image bossStageImg = new ImageIcon("images/vsBossStage.png").getImage();
+	// 배경 이미지 창 크기에 맞게 사이즈 조절
+
+	private Image bufferImg; // 더블 버퍼링을 위해 선언
 	private Graphics screenGraphics;
 
-	private Player player; // 플레이어의 레퍼런스
-	private Boss boss;	// 보스의 레퍼런스
+	JPanel laBackground;
 
-	ImageIcon bossStageOriginIcon = new ImageIcon("images/vs Boss stage.png");
-	Image bossStageOriginImg = bossStageOriginIcon.getImage();
-	Image bossStageImg = bossStageOriginImg.getScaledInstance(SCREEN_WIDTH, SCREEN_HEIGHT, Image.SCALE_SMOOTH);
-	// 배경 이미지 창 크기에 맞게 사이즈 조절
+	int stageY = -(stageImg.getHeight(null) - bossStageImg.getHeight(null));
+	int bossStageBY1 = -(stageImg.getHeight(null));
+	int bossStageBY2 = -(stageImg.getHeight(null) + bossStageImg.getHeight(null));
 	
+//	int bossStageBY1 = 0;
+//	int bossStageBY2 = -bossStageImg.getHeight(null);
+
+	private Player player; // 플레이어의 레퍼런스
+	private Boss boss; // 보스의 레퍼런스
+
 	public VsBoss() {
 		init();
 		setting();
@@ -36,18 +45,48 @@ public class VsBoss extends JFrame implements Initable {
 		setVisible(true);
 	}
 
-	public void paint(Graphics g) {			// 더블 버퍼링을 위해 선언
-		bufferImg = createImage(SCREEN_WIDTH, SCREEN_HEIGHT);
-		screenGraphics = bufferImg.getGraphics();
-		screenDraw(screenGraphics);
-		g.drawImage(bufferImg, 0, 0, null);
-	}
+	class MyPanel extends JPanel {
+		public MyPanel() { // 생성자
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					while (true) {
+						stageY++;
+						bossStageBY1++;
+						bossStageBY2++;
 
-	public void screenDraw(Graphics g) {	// 실제로 그리는 곳
-		g.drawImage(bossStageImg, 0, 0, null);
-		player.playerUpdate(g);
-		boss.bossUpdate(g);
-		repaint();
+						if (stageY > bossStageImg.getHeight(null)) {
+							if (bossStageBY1 > (bossStageImg.getHeight(null) - 1)) {
+								bossStageBY1 = -(bossStageImg.getHeight(null) - 1);
+							}
+							if (bossStageBY2 > (bossStageImg.getHeight(null) - 1)) {
+								bossStageBY2 = -(bossStageImg.getHeight(null) - 1);
+							}
+						}
+						// 배경 무한루프 도중 중간에 비는 선을 지우기 위해 뺀다
+						
+						repaint();
+
+						try {
+							Thread.sleep(1);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}).start();
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(stageImg, 0, stageY, null);
+			g.drawImage(bossStageImg, 0, bossStageBY1, null);
+			g.drawImage(bossStageImg, 0, bossStageBY2, null);
+			player.playerUpdate(g);
+			boss.bossUpdate(g); 
+			repaint();
+		}
 	}
 
 	public static void main(String[] args) {
@@ -56,7 +95,7 @@ public class VsBoss extends JFrame implements Initable {
 
 	@Override
 	public void init() {
-//		laBackground = new JLabel();
+		laBackground = new MyPanel();
 		player = new Player();
 		boss = new Boss();
 	}
@@ -68,6 +107,7 @@ public class VsBoss extends JFrame implements Initable {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
+		setContentPane(laBackground);
 	}
 
 	@Override
@@ -77,12 +117,7 @@ public class VsBoss extends JFrame implements Initable {
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_1:
-					player.setChangeWeppon2(true);		// 1을 누르면 무기2의 값이 true가 되고
-					player.setChangeWeppon1(false);		// 무기 1의 값이 false로 바뀐다
-					break;
-				case KeyEvent.VK_2:
-					player.setChangeWeppon1(true);		// 2를 누르면 무기1의 값이 true가 되고
-					player.setChangeWeppon2(false);		// 무기 2의 값이 false로 바뀐다
+					player.setWepponLevelUp(true);
 					break;
 				case KeyEvent.VK_SPACE:
 					player.setAttack(true);
@@ -105,6 +140,9 @@ public class VsBoss extends JFrame implements Initable {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				switch (e.getKeyCode()) {
+				case KeyEvent.VK_1:
+					player.setWepponLevelUp(false);
+					break;
 				case KeyEvent.VK_SPACE:
 					player.setAttack(false);
 					break;
