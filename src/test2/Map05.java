@@ -58,24 +58,35 @@ public class Map05 extends JFrame implements initable {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setLayout(null);
-		setContentPane(laBg);// label占쏙옙 占쏙옙체
+		setContentPane(laBg);
 
 	}
 
 	public void batch() {
-		add(player); // container占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
+		add(player);
 
 	}
 
 	public void enemybatch() {
 
 		if (appear % 300 == 0) {
+
 			enemy1List.add(new Enemy1(50, -50));
 			enemy1List.add(new Enemy1(150, -50));
 			enemy1List.add(new Enemy1(250, -50));
 			enemy1List.add(new Enemy1(350, -50));
 			for (int i = 0; i < enemy1List.size(); i++) {
-				add(enemy1List.get(i));
+				if (enemy1List.get(i).getEnemyBullet() != null) {
+					add(enemy1List.get(i));
+					add(enemy1List.get(i).getEnemyBullet());
+					enemy1List.get(i).getEnemyBullet().fire();
+					
+				}
+				// enemy1List.get(i).getEnemyBullet().fire();
+//				for (int j = 0; j < enemy1List.get(i).getEnemyBullets().size(); j++) {
+//					add(enemy1List.get(i).enemyBullets.get(j));
+//					enemy1List.get(i).enemyBullets.get(j).fire();
+//				}
 			}
 		}
 
@@ -131,17 +142,17 @@ public class Map05 extends JFrame implements initable {
 
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					player.isRight = false; // 占쏙옙占쏙옙占쏙옙 getter setter 占쌉쇽옙占쏙옙 占싱울옙
+					player.isRight = false;
 				}
 
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					player.isLeft = false; // 占쏙옙占쏙옙占쏙옙 getter setter 占쌉쇽옙占쏙옙 占싱울옙
+					player.isLeft = false;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					player.isUP = false; // 占쏙옙占쏙옙占쏙옙 getter setter 占쌉쇽옙占쏙옙 占싱울옙
+					player.isUP = false;
 				}
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					player.isDown = false; // 占쏙옙占쏙옙占쏙옙 getter setter 占쌉쇽옙占쏙옙 占싱울옙
+					player.isDown = false;
 				}
 
 			}
@@ -162,10 +173,9 @@ public class Map05 extends JFrame implements initable {
 					while (backY <= 0) {
 						backY++;
 
-						//System.out.println(backY + " " + appear);
+						// System.out.println(backY + " " + appear);
 
 						enemybatch();
-			
 
 						appear++;
 						repaint();
@@ -186,7 +196,7 @@ public class Map05 extends JFrame implements initable {
 
 		@Override
 		protected void paintComponent(Graphics g) {
-			super.paintComponent(g); // 占쏙옙占� 占싱뱄옙占쏙옙 占쏙옙占쏙옙占쏙옙 占십울옙
+			super.paintComponent(g);
 
 			g.drawImage(imgbg, 0, backY, 700, imgbg.getHeight(null), this);
 

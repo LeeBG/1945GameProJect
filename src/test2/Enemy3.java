@@ -19,8 +19,8 @@ public class Enemy3 extends EnemyUnit {
 	
 	Enemy3(int x, int y) {
 
-		this.x =x;
-		this.y =y;
+		this.EnemyX =x;
+		this.EnemyY =y;
 		icEnemy3 = new ImageIcon("images/PLANE3.png");
 		setIcon(icEnemy3);
 		setSize(100, 50);

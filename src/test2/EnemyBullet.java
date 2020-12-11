@@ -7,25 +7,48 @@ import javax.swing.JLabel;
 
 public class EnemyBullet extends JLabel{
 
-	Image bulletImg1 = new ImageIcon("images/bullet(e).png").getImage();	
 	ImageIcon icBullet;
-	
 	
 	int bulletX;
 	int bulletY;
-	
-	int bulletWidth1 = bulletImg1.getWidth(null);
-	int bulletHeight1 = bulletImg1.getHeight(null);
-	
+
 	public EnemyBullet(int x, int y) {
 		this.bulletX = x;
 		this.bulletY = y;
 		icBullet = new ImageIcon("images/bullet(e).png");
 		setIcon(icBullet);
+		setSize(10, 10);
+		setLocation(x, y);
+		
+		//this.fire();
 	
 	}
 	
 	public void fire() {
-		this.bulletY --;	
+		
+		System.out.println("enemybullet 발사 ");
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while (true) {
+					bulletY++;
+					setLocation(bulletX, bulletY); 
+					if (bulletY > 639) { 
+						System.out.println("enemy thread 종료");
+						break;
+					}
+
+					try {
+						Thread.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+		
+	
+		//this.bulletY ++;	
 	}
 }

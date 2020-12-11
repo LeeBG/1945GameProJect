@@ -5,8 +5,10 @@ import java.awt.Image;
 import javax.swing.JLabel;
 
 abstract class EnemyUnit extends JLabel {
-	protected int x;
-	protected int y;
+	protected int EnemyX;
+	protected int EnemyY;
+	protected int bulletAppear=0;//nullpointer ì˜ˆì™¸ê°€ ì•ˆ ë‚˜ì˜¤ê²Œ 0ìœ¼ë¡œ!!!!
+
 
 	public void movedown() {
 
@@ -15,10 +17,12 @@ abstract class EnemyUnit extends JLabel {
 			@Override
 			public void run() {
 				while (true) {
-					y++;
-					setLocation(x, y); // ³»ºÎ¿¡ repaint() Á¸Àç ÀÌº¥Æ®°¡ Á¾·áµÇ¾î¾ß ½ÇÇàµÇ¹Ç·Î, ½º·¹µå¸¦ È°¿ë
-					if (y > 639) { // ¾²·¹µå Á¾·áÁ¶°Ç
-						System.out.println("movedown ¾²·¹µå Á¾·á");
+					bulletAppear++;
+					EnemyY++;
+				
+					setLocation(EnemyX, EnemyY);
+					if (EnemyY > 639) {
+						System.out.println("movedown ì“°ë ˆë“œ ì¢…ë£Œ");
 						break;
 					}
 
@@ -42,11 +46,11 @@ abstract class EnemyUnit extends JLabel {
 			public void run() {
 
 				while (true) {
-					x--;
-					setLocation(x, y); // ³»ºÎ¿¡ repaint() Á¸Àç ÀÌº¥Æ®°¡ Á¾·áµÇ¾î¾ß ½ÇÇàµÇ¹Ç·Î, ½º·¹µå¸¦ È°¿ë
+					EnemyX--;
+					setLocation(EnemyX, EnemyY); 
 
-					if (x < 0) { // ¾²·¹µå Á¾·áÁ¶°Ç
-						System.out.println("moveleft ¾²·¹µå Á¾·á");
+					if (EnemyX < 0) { 
+						System.out.println("moveleft ì“°ë ˆë“œ ì¢…ë£Œ");
 
 						break;
 					}
@@ -69,10 +73,10 @@ abstract class EnemyUnit extends JLabel {
 			@Override
 			public void run() {
 				while (true) {
-					y--;
-					setLocation(x, y);
-					if (y < 0) { // ¾²·¹µå Á¾·áÁ¶°Ç
-						System.out.println("moveup ¾²·¹µå Á¾·á");
+					EnemyY--;
+					setLocation(EnemyX, EnemyY);
+					if (EnemyY < 0) { 
+						System.out.println("moveup ìŠ¤ë ˆë“œ ì¢…ë£Œ");
 
 						break;
 					}
@@ -95,10 +99,10 @@ abstract class EnemyUnit extends JLabel {
 			@Override
 			public void run() {
 				while (true) {
-					x++;
-					setLocation(x, y); // ³»ºÎ¿¡ repaint() Á¸Àç ÀÌº¥Æ®°¡ Á¾·áµÇ¾î¾ß ½ÇÇàµÇ¹Ç·Î, ½º·¹µå¸¦ È°¿ë
-					if (x > 500) { // ¾²·¹µå Á¾·áÁ¶°Ç
-						System.out.println("moveright ¾²·¹µå Á¾·á");
+					EnemyX++;
+					setLocation(EnemyX, EnemyY); 
+					if (EnemyX > 500) { 
+						System.out.println("moveright ìŠ¤ë ˆë“œ ì¢…ë£Œ");
 
 						break;
 					}
@@ -114,4 +118,11 @@ abstract class EnemyUnit extends JLabel {
 		}).start();
 
 	}
+	
+	
+	
+	
+	
+
+	
 }

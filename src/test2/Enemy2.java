@@ -20,8 +20,8 @@ public class Enemy2 extends EnemyUnit {
 
 
 	Enemy2(int x, int y) {
-		this.x =x;
-		this.y = y;
+		this.EnemyX =x;
+		this.EnemyY = y;
 		
 		icEnemy1 = new ImageIcon("images/PLANE3.png");
 		setIcon(icEnemy1);

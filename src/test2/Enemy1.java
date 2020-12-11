@@ -22,15 +22,18 @@ public class Enemy1 extends EnemyUnit {
 	ArrayList<EnemyBullet> enemyBullets = new ArrayList<>();
 
 	Enemy1(int x, int y) {
-		this.x = x;
-		this.y = y;
+		this.EnemyX = x;
+		this.EnemyY = y;
 		icEnemy1 = new ImageIcon("images/PLANE3.png");
 		setIcon(icEnemy1);
 		setSize(100, 50);
 		setLocation(x, y);
 
-		this.movedown();
-		this.enemyAttack();
+		this.movedown2();
+		// this.movedown();
+
+		// this.enemyAttack();
+
 	}
 
 	public Enemy1 getEnemy1() {
@@ -53,31 +56,75 @@ public class Enemy1 extends EnemyUnit {
 		return TAG;
 	}
 
+	public EnemyBullet getEnemyBullet() {
+		return enemyBullet;
+	}
+
+	public void setEnemyBullet(EnemyBullet enemyBullet) {
+		this.enemyBullet = enemyBullet;
+	}
+
+	public ArrayList<EnemyBullet> getEnemyBullets() {
+		return enemyBullets;
+	}
+
+	public void setEnemyBullets(ArrayList<EnemyBullet> enemyBullets) {
+		this.enemyBullets = enemyBullets;
+	}
+
 	private void enemyAttack() {
 
+//
+//		enemyBullets.add(new EnemyBullet(EnemyX + 30, EnemyY + 60)); //총알이 생성되는 위치
+//
+//		System.out.println("EnemyY: " + EnemyY + " bulletAppear:  " + bulletAppear + "  적 bullet 생성");
+//	
+//		
+//		if (bulletAppear % 100 == 0) {
+//			enemyBullets.add(new EnemyBullet(EnemyX + 30, EnemyY + 60)); //총알이 생성되는 위치
+//			//enemyBullets.get(0).fire();
+//			System.out.println("EnemyY: " + EnemyY + " bulletAppear:  " + bulletAppear + "  적 bullet 생성");
+//		}
+
+		if(bulletAppear %100 == 0) {
+			System.out.println("적 bullet 생성");
+			enemyBullet = new EnemyBullet(EnemyX+30, EnemyY+60);
+		}
+	}
+
+	public void movedown2() {
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				while (true) {
-					enemyBullet = new EnemyBullet(x - 20, y + 40); // 총알이 생성되는 위치
-					enemyBullet.fire();
 
-					System.out.println("적 총알 발사");
+					enemyAttack();
+					EnemyY++;
+					bulletAppear++;
+					
+					System.out.println(EnemyY);
+					setLocation(EnemyX, EnemyY);
+				
+					
+					if (EnemyY > 639) {
+						System.out.println("movedown2 쓰레드 종료");
+						break;
+					}
+
 					try {
 						Thread.sleep(5);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
 				}
-				
 			}
 		}).start();
+
 	}
 
-	
 	public void leftdown() {
 		movedown();
 		moveleft();
