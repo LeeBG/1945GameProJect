@@ -1,74 +1,67 @@
 package test2;
 
+import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-//라벨은 LOMBOK 안 먹음
 public class Enemy3 extends EnemyUnit {
 
-	public Enemy3 enemy3 = this;
-	public final static String TAG = "Enemy3: ";
-	private ImageIcon icEnemy3;
+	private Enemy3 enemyDown = this;
+	private static final String TAG = "EnemyDown : ";
 	
-	
-	Enemy3(int x, int y) {
+	Image EnemyDownImg = new ImageIcon("images/Enemy2.png").getImage();
 
-		this.EnemyX =x;
-		this.EnemyY =y;
-		icEnemy3 = new ImageIcon("images/PLANE3.png");
-		setIcon(icEnemy3);
-		setSize(100, 50);
-		setLocation(x, y);
+	public int count; 
 
-		this.moveRightDown();
+	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
+	private EnemyAttack enemyAttack;
 
+	public Enemy3(int x, int y) {
+		this.enemyX = x;
+		this.enemyY = y;
+		this.move();
 	}
 
-	public void leftdown() {
-		movedown();
-		moveleft();
 
-	}
-
-	public Enemy3 getEnemy2() {
-		return enemy3;
-	}
-
-	public void setEnemy2(Enemy3 enemy3) {
-		this.enemy3 = enemy3;
-	}
-
-	public ImageIcon getIcEnemy2() {
-		return icEnemy3;
-	}
-
-	public void setIcEnemy2(ImageIcon icEnemy3) {
-		this.icEnemy3 = icEnemy3;
-	}
-
-	public static String getTag() {
-		return TAG;
+	public void move() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				count = 0; 
+				while (true) {			
+					try {
+						Thread.sleep(3);	
+			
+						if (enemyX > 350 && enemyY < 400) {
+							moveleft();
+							movedown();
+						}
+						count++; 
+			
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 	}
 
-	public Enemy3(Enemy3 enemy3, ImageIcon icEnemy3) {
-		super();
-		this.enemy3 = enemy3;
-		this.icEnemy3 = icEnemy3;
+		
+
+
+	public void enemyUpdate(Graphics g) {
+		enemyDraw(g);
 	}
-	
-	
-	public void moveRightDown() {
-		moveright();
-		movedown();
-	}
-	
-	
+
+
+
+
+	public void enemyDraw(Graphics g) { //그림그리기
+			g.drawImage(EnemyDownImg, enemyX, enemyY,150,100, null);
+
+		}
 	
 
 }

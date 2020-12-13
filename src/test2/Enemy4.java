@@ -5,53 +5,45 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import test1.Map04;
+public class Enemy4 extends EnemyUnit {
 
-public class Enemy4 extends JLabel {
+	private Enemy4 enemyDown = this;
+	private static final String TAG = "EnemyDown : ";
+	
+	Image EnemyDownImg = new ImageIcon("images/PLANE3.png").getImage();
 
-	private Enemy4 enemy4 = this;
-	private static final String TAG = "Enemy4 : ";
-	public Map05 map05;
+	public int count; 
 
-	Image playerImg = new ImageIcon("images/PLANE3.png").getImage();
+	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
+	private EnemyAttack enemyAttack;
 
-	int playerWidth = playerImg.getWidth(null);
-	int playerHeight = playerImg.getHeight(null);
-
-	public int playerX = 100; //Enemy4 등장위치 x값
-	public int playerY = 50;  //Enemy4 등장위치 y값
-
-	public int count; // �Ѿ��� �ӵ��� �����ϱ� ���� �����Ѵ�
-
-	public boolean isUp = false;
-	public boolean isDown = false;
-	public boolean isLeft = false;
-	public boolean isRight = false;
-
-	ArrayList<PlayerAttack> playerAttackList = new ArrayList<PlayerAttack>();
-	private PlayerAttack playerAttack;
-
-	public Enemy4() {
-		move();
+	public Enemy4(int x, int y) {
+		this.enemyX = x;
+		this.enemyY = y;
+		this.move();
 	}
+
 
 	public void move() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				count = 0; 
-				while (true) {
+				while (true) {			
 					try {
 						Thread.sleep(5);
-						keyProcess();
-						playerAttackProcess();
-						setLocation(playerX, playerY); // repaint()
-						count++; // 1�� �þ��
+						movedown();
+						bulletCreate();
+						enemyAttack();
+						count++; 
+						
+						if (enemyY > 639) {
+							System.out.println("movedown 쓰레드 종료");
+							break;
+						}
+						
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -59,37 +51,33 @@ public class Enemy4 extends JLabel {
 		}).start();
 	}
 
-	private void keyProcess() {
-		playerY++;
-		if (count % 100 == 0) { // �Ѿ��� �߻� �ӵ��� ����
-			playerAttack = new PlayerAttack(playerX + 20, playerY + 40);
-			playerAttackList.add(playerAttack);
-		}
-
-	}
-
-	public void playerUpdate(Graphics g) {
-		playerDraw(g);
-	}
-
-	private void playerAttackProcess() {
-		for (int i = 0; i < playerAttackList.size(); i++) {
-			playerAttack = playerAttackList.get(i);
-			playerAttack.fire();
-			System.out.println("발사");
-
-		}
-	}
-
-	// �̹����� �׸���
-	public void playerDraw(Graphics g) {
-
 		
-			g.drawImage(playerImg, playerX, playerY, null);
-			for (int i = 0; i < playerAttackList.size(); i++) {
-				playerAttack = playerAttackList.get(i);
-				g.drawImage(playerAttack.bulletImg1, playerAttack.bulletX, playerAttack.bulletY, null);
-				//System.out.println(playerAttack.bulletX + "    " + playerAttack.bulletY);
+	private void bulletCreate() {
+		if (count % 100 == 0) {
+			enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
+			enemyAttackkList.add(enemyAttack);
+		}
+	}
+
+
+	public void enemyUpdate(Graphics g) {
+		enemyDraw(g);
+	}
+
+	private void enemyAttack() {
+		for (int i = 0; i < enemyAttackkList.size(); i++) {
+			enemyAttack = enemyAttackkList.get(i);
+			enemyAttack.fire();
+
+		}
+	}
+
+
+	public void enemyDraw(Graphics g) { //그림그리기
+			g.drawImage(EnemyDownImg, enemyX, enemyY, null);
+			for (int i = 0; i < enemyAttackkList.size(); i++) {
+				enemyAttack = enemyAttackkList.get(i);
+				g.drawImage(enemyAttack.bulletImg1, enemyAttack.bulletX, enemyAttack.bulletY, 10,10, null);
 
 			}
 		}

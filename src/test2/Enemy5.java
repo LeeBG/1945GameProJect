@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Enemy1 extends EnemyUnit {
+public class Enemy5 extends EnemyUnit {
 
-	private Enemy1 enemyDown = this;
+	private Enemy5 enemyDown = this;
 	private static final String TAG = "EnemyDown : ";
 	
-	Image EnemyDownImg = new ImageIcon("images/enemy_plane_yellow_1.png").getImage();
+	Image EnemyDownImg = new ImageIcon("images/PLANE3.png").getImage();
 
 	public int count; 
 
 	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
 	private EnemyAttack enemyAttack;
 
-	public Enemy1(int x, int y) {
+	public Enemy5(int x, int y) {
 		this.enemyX = x;
 		this.enemyY = y;
 		this.move();
@@ -38,8 +38,8 @@ public class Enemy1 extends EnemyUnit {
 						enemyAttack();
 						count++; 
 						
-						if (enemyY > 700) {
-							System.out.println("enemy1 쓰레드 종료");
+						if (enemyY > 639) {
+							System.out.println("movedown 쓰레드 종료");
 							break;
 						}
 						
@@ -53,7 +53,7 @@ public class Enemy1 extends EnemyUnit {
 
 		
 	private void bulletCreate() {
-		if (count % 200 == 0) {
+		if (count % 100 == 0) {
 			enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
 			enemyAttackkList.add(enemyAttack);
 		}

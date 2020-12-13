@@ -1,70 +1,121 @@
 package test2;
 
+import java.awt.Graphics;
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-//라벨은 LOMBOK 안 먹음
 public class Enemy2 extends EnemyUnit {
 
-	public Enemy2 Enemy1 = this;
-	public final static String TAG = "Enemy1: ";
+	private Enemy2 enemy2 = this;
+	private static final String TAG = "Enemy2 : ";
 
-	private ImageIcon icEnemy1;
+	Image Enemy2Img = new ImageIcon("images/enemy3U.png").getImage();
 
+	public int count;
 
+	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
+	private EnemyAttack enemyAttack;
 
-	Enemy2(int x, int y) {
-		this.EnemyX =x;
-		this.EnemyY = y;
+	public Enemy2(int x, int y) {
+		this.enemyX = x;
+		this.enemyY = y;
 		
-		icEnemy1 = new ImageIcon("images/PLANE3.png");
-		setIcon(icEnemy1);
-		setSize(100, 50);
-		setLocation(x, y);
-	
-		this.moveLeftDown();
-
+		if(x<100) {
+		this.move();}else {
+			this.move2();
+		}
 	}
 
-	public void moveLeftDown() {
-		movedown();
-		moveleft();
+	public void move() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				count = 0;
+				while (true) {
+					try {
+						Thread.sleep(5);
 
-	}
+						if (enemyX < 150 && enemyY > 50) {
+							moveup();
+							moveright();
+						}
+						bulletCreate();
+						enemyAttack();
+						count++;
 
-	public Enemy2 getEnemy1() {
-		return Enemy1;
-	}
 
-	public void setEnemy1(Enemy2 Enemy1) {
-		this.Enemy1 = Enemy1;
-	}
 
-	public ImageIcon getIcEnemy1() {
-		return icEnemy1;
-	}
-
-	public void setIcEnemy1(ImageIcon icEnemy1) {
-		this.icEnemy1 = icEnemy1;
-	}
-
-	public static String getTag() {
-		return TAG;
-	}
-
-	public Enemy2(Enemy2 Enemy1, ImageIcon icEnemy1) {
-		super();
-		this.Enemy1 = Enemy1;
-		this.icEnemy1 = icEnemy1;
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
 	}
 	
 	
+	public void move2() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				count = 0;
+				while (true) {
+					try {
+						Thread.sleep(5);
+
+						if (enemyX < 150 && enemyY > 50) {
+							moveup();
+							moveleft();
+						}
+						bulletCreate();
+						enemyAttack();
+						count++;
+
+
+
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
 	
+	
+	
+	
+
+	private void bulletCreate() {
+		if (count % 50 == 0) {
+			enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
+			enemyAttackkList.add(enemyAttack);
+			enemyAttack = new EnemyAttack(enemyX + 60, enemyY + 40);
+			enemyAttackkList.add(enemyAttack);	
+			
+		}
+	}
+
+	public void enemyUpdate(Graphics g) {
+		enemyDraw(g);
+	}
+
+	private void enemyAttack() {
+		for (int i = 0; i < enemyAttackkList.size(); i++) {
+			enemyAttack = enemyAttackkList.get(i);
+			enemyAttack.fire();
+
+		}
+	}
+
+	public void enemyDraw(Graphics g) { // 그림그리기
+		g.drawImage(Enemy2Img, enemyX, enemyY,200,150, null);
+		for (int i = 0; i < enemyAttackkList.size(); i++) {
+			enemyAttack = enemyAttackkList.get(i);
+			g.drawImage(enemyAttack.bulletImg1, enemyAttack.bulletX, enemyAttack.bulletY, 10, 10, null);
+
+		}
+	}
 
 }
