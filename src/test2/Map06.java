@@ -61,21 +61,21 @@ public class Map06 extends JFrame implements initable {
 	public void enemybatch() {
 
 		if (appear % 300 == 0) {
-			enemyUnits.add(new Enemy1(100, 0));
-			enemyUnits.add(new Enemy1(200, 0));
-			enemyUnits.add(new Enemy1(300, 0));
-			enemyUnits.add(new Enemy1(400, 0));
+			enemyUnits.add(new Enemy1(player,100, 0));
+			enemyUnits.add(new Enemy1(player,200, 0));
+			enemyUnits.add(new Enemy1(player,300, 0));
+			enemyUnits.add(new Enemy1(player,400, 0));
 		}
 
-		if (appear == 300) {
-			enemy2List.add(new Enemy2(0, 300));
-			enemy2List.add(new Enemy2(650, 300));
-
-		}
-
-		if (appear == 500 ) {
-			enemy3 = new Enemy3(700, 100);
-		}
+//		if (appear == 300) {
+//			enemy2List.add(new Enemy2(0, 300));
+//			enemy2List.add(new Enemy2(650, 300));
+//
+//		}
+//
+//		if (appear == 500 ) {
+//			enemy3 = new Enemy3(700, 100);
+//		}
 
 	}
 

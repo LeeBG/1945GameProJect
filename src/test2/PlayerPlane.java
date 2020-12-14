@@ -9,24 +9,89 @@ public class PlayerPlane extends JLabel {
 	public final static String TAG = "Player: ";
 
 	public ImageIcon icPlayer;
-	public int x = 55;
-	public int y = 400;
-
+	private int x = 250;
+	private int y = 400;
+	private int playerWidth;
+	private int playerHeight;
+	private int life;
+	
+	
 	public boolean isRight = false, isLeft = false, isUP = false, isDown = false; // is 붙여라
 
 	public PlayerPlane() {
+		life = 3;
+		playerWidth = 80;
+		playerHeight= 60;
+		
+		
 		icPlayer = new ImageIcon("images/PLANE4.png");
 		setIcon(icPlayer);
-		setSize(100, 50);
 		setLocation(x, y);
+		setSize(playerWidth, playerHeight);
+		
+	}
+
+	
+
+	
+	public int getPlayerWidth() {
+		return playerWidth;
+	}
+
+
+
+
+	public void setPlayerWidth(int playerWidth) {
+		this.playerWidth = playerWidth;
+	}
+
+
+
+	public int getPlayerHeight() {
+		return playerHeight;
+	}
+
+
+
+	public void setPlayerHeight(int playerHeight) {
+		this.playerHeight = playerHeight;
+	}
+
+
+
+
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
+
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	public void moveRight() {
 		System.out.println(TAG + "moveRight()");
-
+		
 		if (isRight == false) {
 			new Thread(new Runnable() {
-
+				
 				@Override
 				public void run() {
 					
@@ -43,11 +108,10 @@ public class PlayerPlane extends JLabel {
 					}
 				}
 			}).start();
-
+			
 		}
-
+		
 	}
-
 	public void moveLeft() {
 		System.out.println(TAG + "moveLeft()");
 

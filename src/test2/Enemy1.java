@@ -7,18 +7,20 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class Enemy1 extends EnemyUnit {
-
-	private Enemy1 enemyDown = this;
-	private static final String TAG = "EnemyDown : ";
 	
-	Image EnemyDownImg = new ImageIcon("images/enemy_plane_yellow_1.png").getImage();
+	private Enemy1 enemy1 = this;
+	private static final String TAG = "EnemyDown : ";
+	private PlayerPlane playerPlane;
+		
+	Image Enemy1Img = new ImageIcon("images/enemy_plane_yellow_1.png").getImage();
 
 	public int count; 
 
 	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
 	private EnemyAttack enemyAttack;
 
-	public Enemy1(int x, int y) {
+	public Enemy1(PlayerPlane playerPlane, int x, int y) {
+		this.playerPlane = playerPlane;
 		this.enemyX = x;
 		this.enemyY = y;
 		this.move();
@@ -53,8 +55,8 @@ public class Enemy1 extends EnemyUnit {
 
 		
 	private void bulletCreate() {
-		if (count % 200 == 0) {
-			enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
+		if (count % 300 == 0) {
+			enemyAttack = new EnemyAttack(enemy1, playerPlane, enemyX + 15, enemyY + 30,270,2,10,10);
 			enemyAttackkList.add(enemyAttack);
 		}
 	}
@@ -74,10 +76,10 @@ public class Enemy1 extends EnemyUnit {
 
 
 	public void enemyDraw(Graphics g) { //그림그리기
-			g.drawImage(EnemyDownImg, enemyX, enemyY, null);
+			g.drawImage(Enemy1Img, enemyX, enemyY, null);
 			for (int i = 0; i < enemyAttackkList.size(); i++) {
 				enemyAttack = enemyAttackkList.get(i);
-				g.drawImage(enemyAttack.bulletImg1, enemyAttack.bulletX, enemyAttack.bulletY, 10,10, null);
+				g.drawImage(enemyAttack.bulletImg1, enemyAttack.bulletX, enemyAttack.bulletY, enemyAttack.bulletWidth1, enemyAttack.bulletHeight1, null);
 
 			}
 		}
