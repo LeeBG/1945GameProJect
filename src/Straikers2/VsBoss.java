@@ -22,17 +22,11 @@ public class VsBoss extends JFrame implements Initable {
 	Image bossStageImg = new ImageIcon("images/vsBossStage.png").getImage();
 	// 배경 이미지 창 크기에 맞게 사이즈 조절
 
-	private Image bufferImg; // 더블 버퍼링을 위해 선언
-	private Graphics screenGraphics;
-
 	JPanel laBackground;
 
 	int stageY = -(stageImg.getHeight(null) - bossStageImg.getHeight(null));
 	int bossStageBY1 = -(stageImg.getHeight(null));
 	int bossStageBY2 = -(stageImg.getHeight(null) + bossStageImg.getHeight(null));
-
-//	int bossStageBY1 = 0;
-//	int bossStageBY2 = -bossStageImg.getHeight(null);
 
 	private Player player; // 플레이어의 레퍼런스
 	private Boss boss; // 보스의 레퍼런스
@@ -40,6 +34,7 @@ public class VsBoss extends JFrame implements Initable {
 	public VsBoss() {
 		init();
 		setting();
+		batch();
 		listener();
 
 		setVisible(true);
@@ -56,6 +51,7 @@ public class VsBoss extends JFrame implements Initable {
 						bossStageBY2++;
 
 						if (stageY > bossStageImg.getHeight(null)) {
+							stageY = bossStageImg.getHeight(null); // 밑으로 계속 내려가는 것을 방지
 							if (bossStageBY1 > (bossStageImg.getHeight(null) - 1)) {
 								bossStageBY1 = -(bossStageImg.getHeight(null) - 1);
 							}
@@ -108,6 +104,12 @@ public class VsBoss extends JFrame implements Initable {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setContentPane(laBackground);
+	}
+
+	@Override
+	public void batch() {
+		laBackground.add(player);
+		laBackground.add(boss);
 	}
 
 	@Override

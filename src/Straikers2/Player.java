@@ -15,7 +15,8 @@ public class Player extends JLabel {
 	private Player player = this;
 	private static final String TAG = "Player : ";
 
-	Image playerImg = new ImageIcon("images/PlayerPlane1.png").getImage();
+	ImageIcon playerIcon = new ImageIcon("images/PlayerPlane1.png");
+	Image playerImg = playerIcon.getImage();
 
 	int playerWidth = playerImg.getWidth(null);
 	int playerHeight = playerImg.getHeight(null);
@@ -25,6 +26,7 @@ public class Player extends JLabel {
 
 	public int count; // 총알의 속도를 조절하기 위해 선언한다
 	public int wepponLevel = 0;
+	public int restHp;
 
 	public boolean isWepponLevelUp = false;
 	public boolean isAttack = false;
@@ -33,11 +35,12 @@ public class Player extends JLabel {
 	public boolean isLeft = false;
 	public boolean isRight = false;
 
-	ArrayList<PlayerAttack> playerAttackList = new ArrayList<PlayerAttack>();
-	PlayerAttack playerAttack;
+	ArrayList<Attack> playerAttackList = new ArrayList<Attack>();
+	Attack playerAttack;
 	Boss boss = new Boss();
 
 	public Player() {
+		setIcon(playerIcon);
 		move();
 	}
 
@@ -67,45 +70,45 @@ public class Player extends JLabel {
 	private void keyProcess() {
 		if (isAttack && count % 30 == 0) { // 총알의 발사 속도를 조절
 			if (wepponLevel == 0) { // 총알 한줄만 발사
-				playerAttack = new PlayerAttack(playerX + 20, playerY - 40, 90, 2); // 총알이 생성되는 위치
+				playerAttack = new Attack(playerX + 20, playerY - 40, 90, 2); // 총알이 생성되는 위치
 				playerAttackList.add(playerAttack); // arrayList에 저장한다
 			}
 			if (wepponLevel == 1) { // 총알 2줄 발사
-				playerAttack = new PlayerAttack(playerX + 10, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 30, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 30, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 2) { // 총알 3줄 발사
-				playerAttack = new PlayerAttack(playerX + 0, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 0, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 20, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 20, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 40, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 40, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 3) { // 총알 4줄 발사
-				playerAttack = new PlayerAttack(playerX - 10, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX - 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 10, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 30, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 30, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 50, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 50, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 4) { // 양 옆 대각선으로 나가는 총알 2줄 추가
-				playerAttack = new PlayerAttack(playerX - 15, playerY - 40, 80, 2);
+				playerAttack = new Attack(playerX - 15, playerY - 40, 80, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX - 10, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX - 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 10, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 30, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 30, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 50, playerY - 40, 90, 2);
+				playerAttack = new Attack(playerX + 50, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(playerX + 55, playerY - 40, 100, 2);
+				playerAttack = new Attack(playerX + 55, playerY - 40, 100, 2);
 				playerAttackList.add(playerAttack);
 			}
 		}
@@ -130,29 +133,28 @@ public class Player extends JLabel {
 	private void playerAttackProcess() {
 		for (int i = 0; i < playerAttackList.size(); i++) {
 			playerAttack = playerAttackList.get(i);
-			playerAttack.fire();
-
+			playerAttack.Fire();
+			
 			// 총알이 벽과 충돌하면 사라짐
-			if (playerAttack.bulletX < 0 || playerAttack.bulletX > VsBoss.SCREEN_WIDTH || playerAttack.bulletY < 0
-					|| playerAttack.bulletY > VsBoss.SCREEN_HEIGHT) {
+			if (playerAttack.BulletX < 0 || playerAttack.BulletX > VsBoss.SCREEN_WIDTH || playerAttack.BulletY < 0
+					|| playerAttack.BulletY > VsBoss.SCREEN_HEIGHT) {
 				playerAttackList.remove(playerAttack);
 			}
+			
 			// 총알의 x,y값과 보스의 x,y값, 넓이 높이를 계산하여 충돌판정
-			if (playerAttack.bulletX > (boss.bossX + 160) && playerAttack.bulletX < (boss.bossX + boss.bossWidth - 190) // 가로
-					&& playerAttack.bulletY > (boss.bossY)
-					&& playerAttack.bulletY < (boss.bossY + boss.bossWidth - 190)) {// 세로 판정
-				playerAttackList.remove(playerAttack);
+			if (playerAttack.BulletX > (boss.bossX + 160) && playerAttack.BulletX < (boss.bossX + boss.bossWidth - 190) // 가로
+					&& playerAttack.BulletY > (boss.bossY)
+					&& playerAttack.BulletY < (boss.bossY + boss.bossWidth - 190)) {// 세로 판정
+				player.playerAttackList.remove(player.playerAttack);
 			}
 		}
 	}
 
 	// 이미지를 그린다
 	public void playerDraw(Graphics g) {
-		g.drawImage(playerImg, playerX, playerY, null); // 플레이어 캐릭터
-		setFocusable(true);
 		for (int i = 0; i < playerAttackList.size(); i++) {
 			playerAttack = playerAttackList.get(i);
-			g.drawImage(playerAttack.playerBulletImg1, (int) playerAttack.bulletX, (int) playerAttack.bulletY, null);
+			g.drawImage(playerAttack.playerBulletImg1, (int) playerAttack.BulletX, (int) playerAttack.BulletY, null);
 			// PlayaerAttack의 자료형을 double로 두고, drawImage를 돌릴 때만 형변환 해준다 (삼각함수 계산을 위해)
 		}
 	}

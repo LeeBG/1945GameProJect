@@ -12,7 +12,8 @@ public class Boss extends JLabel {
 	private Boss boss = this;
 	private static final String TAG = "Boss : ";
 
-	Image bossImg = new ImageIcon("images/bossSizeup.gif").getImage();
+	ImageIcon bossIcon = new ImageIcon("images/bossSizeup.gif");
+	Image bossImg = bossIcon.getImage();
 
 	int bossWidth = bossImg.getWidth(null);
 	int bossHeight = bossImg.getHeight(null);
@@ -20,11 +21,14 @@ public class Boss extends JLabel {
 	int bossX = (VsBoss.SCREEN_WIDTH / 2) - (bossWidth / 2);
 	int bossY = -280;
 
+	double way;
+	boolean bp = false;
 	int bCount;
-	boolean triger = false;
+	int bossAttackCount;
 
-	ArrayList<BossAttack> bossAttackList = new ArrayList<BossAttack>();
-	BossAttack bossAttack;
+	ArrayList<Attack> bossAttackList = new ArrayList<Attack>();
+	Attack bossAttack;
+	Player player;
 
 //	public int bossX = 100;
 //	public int bossY = 10;
@@ -38,55 +42,76 @@ public class Boss extends JLabel {
 			@Override
 			public void run() {
 				bCount = 0;
-				try {
-					Thread.sleep(5);
-					firePattern1();
-					bossAttackProcess();
-					setLocation(bossX, bossY);
-					bCount++;
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				while (true) {
+					try {
+						Thread.sleep(5);
+						firePattern1();
+						bossAttackProcess();
+						setIcon(bossIcon);
+						setLocation(bossX, bossY);
+						bCount++;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}).start();
 	}
 
 	private void firePattern1() {
-		for (int i = 1; i <= 6; i++) {
-			int way = 180 + (23 * i);
-			bossAttack = new BossAttack(70, 310, way, 0.3); // 총알이 생성되는 위치
-			bossAttackList.add(bossAttack); // arrayList에 저장한다
-		}
-
-		for (int i = 24; i <= 34; i++) {
-			int way = 180 + (27 * i);
-			bossAttack = new BossAttack(470, 310, way, 0.3); // 총알이 생성되는 위치
-			bossAttackList.add(bossAttack); // arrayList에 저장한다
-		}
-	}
-
-	public void bossAttackProcess() {
-		for (int i = 0; i < bossAttackList.size(); i++) {
-			bossAttack = bossAttackList.get(i);
-			bossAttack.fire();
-
-			if (bossAttack.bulletX < 0 || bossAttack.bulletX > VsBoss.SCREEN_WIDTH || bossAttack.bulletY < 0
-					|| bossAttack.bulletY > VsBoss.SCREEN_HEIGHT) {
-				bossAttackList.remove(bossAttack);
-			}
-		}
+//		if (bCount % 100 == 0) {
+//			if (bp == false) {
+//				bp = true;
+//				for (int j = 1; j <= 9; j++) {
+//					way = 180 + (15 * j);
+//					bossAttack = new Attack(70, 310, way, 0.8); // 총알이 생성되는 위치
+//					bossAttackList.add(bossAttack); // arrayList에 저장한다
+//				}
+//
+//				for (int j = 1; j <= 10; j++) {
+//					way = 180 + (17 * j);
+//					bossAttack = new Attack(470, 310, way, 0.8); // 총알이 생성되는 위치
+//					bossAttackList.add(bossAttack); // arrayList에 저장한다
+//				}
+//			} else if (bp == true) {
+//				bp = false;
+//				for (int j = 1; j <= 10; j++) {
+//					way = 180 + (14 * j);
+//					bossAttack = new Attack(70, 310, way, 0.8); // 총알이 생성되는 위치
+//					bossAttackList.add(bossAttack); // arrayList에 저장한다
+//				}
+//
+//				for (int j = 1; j <= 9; j++) {
+//					way = 180 + (18 * j);
+//					bossAttack = new Attack(470, 310, way, 0.8); // 총알이 생성되는 위치
+//					bossAttackList.add(bossAttack); // arrayList에 저장한다
+//				}
+//			}
+//		}
 	}
 
 	public void bossUpdate(Graphics g) {
 		bossDraw(g);
 	}
 
-	public void bossDraw(Graphics g) {
-		g.drawImage(bossImg, bossX, bossY, null);
+	public void bossAttackProcess() {
 		for (int i = 0; i < bossAttackList.size(); i++) {
 			bossAttack = bossAttackList.get(i);
-			g.drawImage(bossAttack.bossBulletImg1, (int) bossAttack.bulletX, (int) bossAttack.bulletY, null);
+			bossAttack.Fire();
+
+			// 총알이 벽과 충돌하면 사라짐
+			if (bossAttack.BulletX < -10 || bossAttack.BulletX > VsBoss.SCREEN_WIDTH || bossAttack.BulletY < -10
+					|| bossAttack.BulletY > VsBoss.SCREEN_HEIGHT) {
+				bossAttackList.remove(bossAttack);
+			}
+		}
+	}
+
+	public void bossDraw(Graphics g) {
+		for (int j = 0; j < bossAttackList.size(); j++) {
+			bossAttack = bossAttackList.get(j);
+			g.drawImage(bossAttack.bossBulletImg1, (int) bossAttack.BulletX, (int) bossAttack.BulletY, null);
 			// PlayaerAttack의 자료형을 double로 두고, drawImage를 돌릴 때만 형변환 해준다 (삼각함수 계산을 위해)
 		}
 	}
