@@ -254,13 +254,13 @@ public class EnemyPlane extends AirPlane{
 			@Override
 			public void run() {				
 				while (playerPlane.getLifecount() > 0) {	//생명이 0보다 크면 -- 충돌연산
-					isCrush = playerPlane.getX()+16>=getX()+15 && playerPlane.getX()+16<=getX()+getSizeX()-15&&												// player비행기 기준 좌표 (0,0)
+					isCrush = playerPlane.getX()+22>=getX()+19 && playerPlane.getX()+22<=getX()+getSizeX()-19&&												// player비행기 기준 좌표 (0,0)
 							playerPlane.getY()+10>=getY()+10 && playerPlane.getY()+10<=getY()+getSizeY()-10 ||
-							playerPlane.getX()+playerPlane.getSizeX()-15>=getX()+15 && playerPlane.getX()+playerPlane.getSizeX()-15<=getX()+getSizeX()-15&&	//(1,0)
+							playerPlane.getX()+playerPlane.getSizeX()-22>=getX()+19 && playerPlane.getX()+playerPlane.getSizeX()-22<=getX()+getSizeX()-19&&	//(1,0)
 							playerPlane.getY()+10>=getY()+10 && playerPlane.getY()+10<=getY()+getSizeY()-10 ||
-							playerPlane.getX()+15>=getX()+15 && playerPlane.getX()+15<=getX()+getSizeX()-15 &&												//(0,1)
+							playerPlane.getX()+15>=getX()+19 && playerPlane.getX()+22<=getX()+getSizeX()-19 &&												//(0,1)
 							playerPlane.getY()+playerPlane.getSizeY()-10>=getY()+10 && playerPlane.getY()+playerPlane.getSizeY()-10<=getY()+getSizeY()-10 ||
-							playerPlane.getX()+playerPlane.getSizeX()-15>=getX()+15 && playerPlane.getX()+playerPlane.getSizeX()-15<=getX()+getSizeX()-15 &&//(1,1)
+							playerPlane.getX()+playerPlane.getSizeX()-22>=getX()+19 && playerPlane.getX()+playerPlane.getSizeX()-22<=getX()+getSizeX()-19 &&//(1,1)
 							playerPlane.getY()+playerPlane.getSizeY()-10>=getY()+10 && playerPlane.getY()+playerPlane.getSizeY()-10<=getY()+getSizeY()-10;
 					try {
 						if (isCrush) {

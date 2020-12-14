@@ -30,9 +30,6 @@ public class GameFrame extends JFrame {
 	}
 
 	private void init() {
-		gameTitle = new GameTitle(gameFrame);
-		selectAPL = new SelectAPL(gameFrame);
-		gameMap = new GameMap(gameFrame);
 		change("gameTitle");				//초기 타이틀 화면
 		isgame = false;						//게임 중 이지 않은 상태
 		heightStart = 5515;
@@ -49,8 +46,11 @@ public class GameFrame extends JFrame {
 	}
 
 	private void batch(String playerPlane) {			//비행기 선택에서 받을것
-		if(playerPlane=="playerPlane")
+		if(playerPlane=="playerPlane") {
+			this.playerPlane = new PlayerPlane();
 			gameMap.add(this.playerPlane);
+		}
+			
 		else if(playerPlane == "playerPlane2")
 			return;
 	}
@@ -60,7 +60,42 @@ public class GameFrame extends JFrame {
 			gameMap.add(new EnemyPlane(playerPlane));
 		}
 	}
-	
+	private void listener() {
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT && isgame==true) {
+					playerPlane.moveRight();
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT && isgame==true) {
+
+					playerPlane.moveLeft(); 
+
+				} else if (e.getKeyCode() == KeyEvent.VK_UP && isgame==true) {
+
+					playerPlane.moveUp(); 
+
+				} else if (e.getKeyCode() == KeyEvent.VK_DOWN && isgame==true) {
+					playerPlane.moveDown();
+				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					change("GameMap");
+					batch("playerPlane");
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT && isgame==true) {
+					playerPlane.isRight = false;
+				} else if (e.getKeyCode() == KeyEvent.VK_LEFT && isgame==true) {
+					playerPlane.isLeft = false;
+				} else if (e.getKeyCode() == KeyEvent.VK_DOWN && isgame==true) {
+					playerPlane.isDown = false;
+				} else if (e.getKeyCode() == KeyEvent.VK_UP && isgame==true) {
+					playerPlane.isUp = false;
+				}
+			}
+
+		});
+	}
 	public void change(String panelName) {
 		if(panelName.equals("gameTitle")) {
 			gameTitle = new GameTitle(gameFrame);
@@ -83,46 +118,8 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	private void listener() { 
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					playerPlane.moveRight();
 
-				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-
-					playerPlane.moveLeft(); 
-
-				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-
-					playerPlane.moveUp(); 
-
-				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					playerPlane.moveDown();
-				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					change("GameMap");
-					batch("playerPlane");
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					playerPlane.isRight = false;
-				} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					playerPlane.isLeft = false;
-				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					playerPlane.isDown = false;
-				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					playerPlane.isUp = false;
-				}
-			}
-
-		});
-	}
-
-	public void crushBorder() {				//벽에 막힘
+	public void crushBorder() {				//벽에 충돌하는 조건함수				
 		if(playerPlane.getX()<=0) {
 			playerPlane.setX(0);
 			repaint();
@@ -141,6 +138,9 @@ public class GameFrame extends JFrame {
 	
 	class GameMap extends JPanel { // 사실상 맵
 		private GameFrame win;		
+		
+		
+		
 		public GameMap(GameFrame win) {
 			isgame = true;
 			setLayout(null);
@@ -158,15 +158,15 @@ public class GameFrame extends JFrame {
 							heightStart -= 1;
 							heightEnd -= 1;
 							Thread.sleep(10);
-							enemybatch();						//적 배치 함수 
-							crushBorder();						//벽에 막힘				
+							enemybatch();
+							crushBorder();					//벽에 충돌하는 조건함수		
 						}catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 				}
-			}).start();
+			}).start();	
 		}
 
 		@Override
@@ -196,13 +196,15 @@ public class GameFrame extends JFrame {
 		private GameFrame win;
 		
 		public SelectAPL(GameFrame win) {
-			icon = new ImageIcon("images/TitleImage.png");
+			setLayout(null);
+			this.win=win;
+			icon = new ImageIcon("images/SelectPlane.png");
 			img = icon.getImage();
 		}
 		@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				
+				g.drawImage(img, 0, 0, 480, 620, 0,0,196,182,this);
 			}
 	}
 	

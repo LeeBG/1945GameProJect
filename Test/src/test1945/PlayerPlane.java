@@ -75,10 +75,10 @@ public class PlayerPlane extends AirPlane {
 						setLocation(x, y);
 						try {
 							Thread.sleep(10);
+							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-
 					}
 				}
 			}).start();
