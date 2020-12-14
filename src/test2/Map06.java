@@ -69,7 +69,7 @@ public class Map06 extends JFrame implements initable {
 
 		if (appear == 300) {
 			enemy2List.add(new Enemy2(0, 300));
-			enemy2List.add(new Enemy2(700, 300));
+			enemy2List.add(new Enemy2(650, 300));
 
 		}
 
@@ -172,12 +172,15 @@ public class Map06 extends JFrame implements initable {
 
 			if (enemy3 != null) // null 체크
 				enemy3.enemyUpdate(g);
+			
 
-	
-			for (EnemyUnit e : enemyUnits) {
-				if(e != null) {
-					e.enemyUpdate(g);}
+			for(int i = 0; i<enemyUnits.size(); i++) {
+				if(enemyUnits.get(i) != null) {
+					enemyUnits.get(i).enemyUpdate(g);
+				}
+				
 			}
+			
 			
 			repaint();
 

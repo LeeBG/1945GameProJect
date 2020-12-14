@@ -65,7 +65,7 @@ public class Enemy2 extends EnemyUnit {
 					try {
 						Thread.sleep(5);
 
-						if (enemyX < 150 && enemyY > 50) {
+						if (enemyX > 150 && enemyY > 50) {
 							moveup();
 							moveleft();
 						}

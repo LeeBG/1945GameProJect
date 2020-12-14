@@ -9,11 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import test1.Enemy1test;
-
 public class Map05 extends JFrame implements initable {
 	private PlayerPlane player;
-	private Enemy1test enemy1;
+	
 
 	private JLabel laBackground;
 	private MyLabel laBg;
