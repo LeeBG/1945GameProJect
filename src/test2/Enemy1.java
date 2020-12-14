@@ -10,7 +10,7 @@ public class Enemy1 extends EnemyUnit {
 	
 	private Enemy1 enemy1 = this;
 	private static final String TAG = "EnemyDown : ";
-	private PlayerPlane playerPlane;
+
 		
 	Image Enemy1Img = new ImageIcon("images/enemy_plane_yellow_1.png").getImage();
 
@@ -56,7 +56,7 @@ public class Enemy1 extends EnemyUnit {
 		
 	private void bulletCreate() {
 		if (count % 300 == 0) {
-			enemyAttack = new EnemyAttack(enemy1, playerPlane, enemyX + 15, enemyY + 30,270,2,10,10);
+			enemyAttack = new EnemyAttack(enemy1, playerPlane, enemyX + 15, enemyY + 30,270,2,20,20);
 			enemyAttackkList.add(enemyAttack);
 		}
 	}

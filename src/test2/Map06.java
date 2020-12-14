@@ -18,6 +18,7 @@ public class Map06 extends JFrame implements initable {
 	private Enemy2 enemy2;
 	private Enemy3 enemy3;
 	private Enemy4 enemy4;
+	private Enemy5 enemy5;
 	private GamePanel gamePanel;
 	public int backY = -5635, appear = 1; // 등장 값
 	private ImageIcon iconbg;
@@ -60,22 +61,25 @@ public class Map06 extends JFrame implements initable {
 
 	public void enemybatch() {
 
-		if (appear % 300 == 0) {
-			enemyUnits.add(new Enemy1(player,100, 0));
-			enemyUnits.add(new Enemy1(player,200, 0));
-			enemyUnits.add(new Enemy1(player,300, 0));
-			enemyUnits.add(new Enemy1(player,400, 0));
-		}
-
-//		if (appear == 300) {
-//			enemy2List.add(new Enemy2(0, 300));
-//			enemy2List.add(new Enemy2(650, 300));
-//
+//		if (appear % 300 == 0) {
+//			enemyUnits.add(new Enemy1(player,100, 0));
+//			enemyUnits.add(new Enemy1(player,200, 0));
+//			enemyUnits.add(new Enemy1(player,300, 0));
+//			enemyUnits.add(new Enemy1(player,400, 0));
 //		}
+
+		if (appear == 300) {
+			enemy2List.add(new Enemy2(player, 0, 300)); //컨텍스트 넘기기
+			enemy2List.add(new Enemy2(player, 650, 300));
+		}
 //
 //		if (appear == 500 ) {
 //			enemy3 = new Enemy3(700, 100);
 //		}
+		
+		if(appear %300 ==0) {
+			enemy4 = new Enemy4(player, 300, 0);
+		}
 
 	}
 
@@ -172,7 +176,9 @@ public class Map06 extends JFrame implements initable {
 
 			if (enemy3 != null) // null 체크
 				enemy3.enemyUpdate(g);
-			
+	
+			if (enemy4 != null) // null 체크
+				enemy4.enemyUpdate(g);
 
 			for(int i = 0; i<enemyUnits.size(); i++) {
 				if(enemyUnits.get(i) != null) {

@@ -18,7 +18,8 @@ public class Enemy5 extends EnemyUnit {
 	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
 	private EnemyAttack enemyAttack;
 
-	public Enemy5(int x, int y) {
+	public Enemy5(PlayerPlane playerPlane, int x, int y) {
+		this.playerPlane = playerPlane;
 		this.enemyX = x;
 		this.enemyY = y;
 		this.move();

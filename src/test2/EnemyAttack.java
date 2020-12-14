@@ -10,8 +10,11 @@ public class EnemyAttack implements Runnable {
 	private PlayerPlane playerPlane;
 	private boolean collision;
 
-	Image bulletImg1 = new ImageIcon("images/bullet1.png").getImage(); // 1�� �Ѿ�
-
+	Image bulletImg1 = new ImageIcon("images/bullet1.png").getImage(); 
+	Image bulletImg2 = new ImageIcon("images/bullet2.png").getImage(); 
+	Image bulletImg3 = new ImageIcon("images/bullet3.png").getImage(); 
+	Image bulletImg4 = new ImageIcon("images/bullet4.png").getImage(); 
+	
 	int bulletX;
 	int bulletY;
 	double bulletAngel = 270; // 총알각도

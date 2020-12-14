@@ -18,7 +18,8 @@ public class Enemy2 extends EnemyUnit {
 	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
 	private EnemyAttack enemyAttack;
 
-	public Enemy2(int x, int y) {
+	public Enemy2(PlayerPlane playerPlane, int x, int y) {
+		this.playerPlane = playerPlane;
 		this.enemyX = x;
 		this.enemyY = y;
 		
@@ -88,10 +89,14 @@ public class Enemy2 extends EnemyUnit {
 	
 
 	private void bulletCreate() {
-		if (count % 50 == 0) {
-			enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
+		if (count % 100 == 0) {
+			enemyAttack = new EnemyAttack(enemy2, playerPlane, enemyX + 20, enemyY + 40,300,2,30,30);
+			
+			//enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
 			enemyAttackkList.add(enemyAttack);
-			enemyAttack = new EnemyAttack(enemyX + 60, enemyY + 40);
+			
+			enemyAttack = new EnemyAttack(enemy2, playerPlane, enemyX + 80, enemyY + 40,1300,2,30,30);
+			//enemyAttack = new EnemyAttack(enemyX + 60, enemyY + 40);
 			enemyAttackkList.add(enemyAttack);	
 			
 		}
@@ -113,7 +118,7 @@ public class Enemy2 extends EnemyUnit {
 		g.drawImage(Enemy2Img, enemyX, enemyY,200,150, null);
 		for (int i = 0; i < enemyAttackkList.size(); i++) {
 			enemyAttack = enemyAttackkList.get(i);
-			g.drawImage(enemyAttack.bulletImg1, enemyAttack.bulletX, enemyAttack.bulletY, 10, 10, null);
+			g.drawImage(enemyAttack.bulletImg2, enemyAttack.bulletX, enemyAttack.bulletY, enemyAttack.bulletWidth1, enemyAttack.bulletHeight1, null);
 
 		}
 	}

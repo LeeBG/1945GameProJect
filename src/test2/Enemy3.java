@@ -8,8 +8,8 @@ import javax.swing.ImageIcon;
 
 public class Enemy3 extends EnemyUnit {
 
-	private Enemy3 enemyDown = this;
-	private static final String TAG = "EnemyDown : ";
+	private Enemy3 enemy3 = this;
+	private static final String TAG = "Enemy3 : ";
 	
 	Image EnemyDownImg = new ImageIcon("images/Enemy2.png").getImage();
 
@@ -18,7 +18,8 @@ public class Enemy3 extends EnemyUnit {
 	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
 	private EnemyAttack enemyAttack;
 
-	public Enemy3(int x, int y) {
+	public Enemy3(PlayerPlane playerPlane, int x, int y) {
+		this.playerPlane = playerPlane;
 		this.enemyX = x;
 		this.enemyY = y;
 		this.move();

@@ -9,6 +9,8 @@ abstract class EnemyUnit extends JLabel {
 
 	protected int enemyX;
 	protected int enemyY;
+	protected PlayerPlane playerPlane;
+	
 
 	public void movedown() {
 		enemyY++;

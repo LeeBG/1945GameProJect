@@ -8,17 +8,18 @@ import javax.swing.ImageIcon;
 
 public class Enemy4 extends EnemyUnit {
 
-	private Enemy4 enemyDown = this;
-	private static final String TAG = "EnemyDown : ";
+	private Enemy4 enemy4 = this;
+	private static final String TAG = "Enemy4 : ";
 	
-	Image EnemyDownImg = new ImageIcon("images/PLANE3.png").getImage();
+	Image EnemyDownImg = new ImageIcon("images/enemy4.png").getImage();
 
 	public int count; 
 
 	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
 	private EnemyAttack enemyAttack;
 
-	public Enemy4(int x, int y) {
+	public Enemy4(PlayerPlane playerPlane, int x, int y) {
+		this.playerPlane = playerPlane;
 		this.enemyX = x;
 		this.enemyY = y;
 		this.move();
@@ -32,14 +33,13 @@ public class Enemy4 extends EnemyUnit {
 				count = 0; 
 				while (true) {			
 					try {
-						Thread.sleep(5);
+						Thread.sleep(1);
 						movedown();
-						bulletCreate();
-						enemyAttack();
+				
 						count++; 
 						
 						if (enemyY > 639) {
-							System.out.println("movedown 쓰레드 종료");
+							System.out.println("enemy4 쓰레드 종료");
 							break;
 						}
 						
@@ -51,35 +51,17 @@ public class Enemy4 extends EnemyUnit {
 		}).start();
 	}
 
-		
-	private void bulletCreate() {
-		if (count % 100 == 0) {
-			enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
-			enemyAttackkList.add(enemyAttack);
-		}
-	}
 
 
 	public void enemyUpdate(Graphics g) {
 		enemyDraw(g);
 	}
 
-	private void enemyAttack() {
-		for (int i = 0; i < enemyAttackkList.size(); i++) {
-			enemyAttack = enemyAttackkList.get(i);
-			enemyAttack.fire();
-
-		}
-	}
 
 
 	public void enemyDraw(Graphics g) { //그림그리기
-			g.drawImage(EnemyDownImg, enemyX, enemyY, null);
-			for (int i = 0; i < enemyAttackkList.size(); i++) {
-				enemyAttack = enemyAttackkList.get(i);
-				g.drawImage(enemyAttack.bulletImg1, enemyAttack.bulletX, enemyAttack.bulletY, 10,10, null);
+			g.drawImage(EnemyDownImg, enemyX, enemyY,50,50, null);
 
-			}
 		}
 	
 
