@@ -1,9 +1,15 @@
 package test1945;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -49,9 +55,7 @@ public class GameFrame extends JFrame {
 		if(playerPlane=="playerPlane") {
 			this.playerPlane = new PlayerPlane();
 			gameMap.add(this.playerPlane);
-		}
-			
-		else if(playerPlane == "playerPlane2")
+		}else if(playerPlane == "playerPlane2")
 			return;
 	}
 
@@ -77,8 +81,7 @@ public class GameFrame extends JFrame {
 				} else if (e.getKeyCode() == KeyEvent.VK_DOWN && isgame==true) {
 					playerPlane.moveDown();
 				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					change("GameMap");
-					batch("playerPlane");
+					change("selectAPL");
 				}
 			}
 			@Override
@@ -109,7 +112,7 @@ public class GameFrame extends JFrame {
 			getContentPane().add(selectAPL);
 			revalidate();
 			repaint();
-		}else {
+		}else if(panelName.equals("gameMap")){
 			gameMap = new GameMap(gameFrame);
 			getContentPane().removeAll();
 			getContentPane().add(gameMap);
@@ -194,18 +197,36 @@ public class GameFrame extends JFrame {
 	
 	class SelectAPL extends JPanel{						// 비행기 선택 화면
 		private GameFrame win;
-		
+		private ImageIcon p1icon,p2icon,p3icon;
 		public SelectAPL(GameFrame win) {
-			setLayout(null);
 			this.win=win;
 			icon = new ImageIcon("images/SelectPlane.png");
 			img = icon.getImage();
+			
+			p1icon = new ImageIcon("images/PLANE1.png");
+			p2icon = new ImageIcon("images/PLANE3.png");
+			p3icon = new ImageIcon("images/PLANE4.png");
+			
+			JButton btn = new JButton("",p1icon);
+			JButton btn2 = new JButton("",p2icon);
+			JButton btn3 = new JButton("",p3icon);
+			
+			this.add(btn);
+			this.add(btn2);
+			this.add(btn3);
 		}
 		@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(img, 0, 0, 480, 620, 0,0,196,182,this);
 			}
+		private class SelectPlayer1 implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+				JButton b = (JButton)e.getSource();
+				change("GameMap");
+				batch("playerPlane");
+			}
+		}
 	}
 	
 	public static void main(String[] args) {
