@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 
 public class GameFrame extends JFrame {
+	public GameFrame gameFrame = this;
 	private boolean isgame;
 	private GameMap gameMap;			//인게임 패널 
 	private GameTitle gameTitle;		//타이틀 패널
@@ -24,17 +25,19 @@ public class GameFrame extends JFrame {
 	public GameFrame() {
 		init();
 		setting();
-		batch();
 		listener();
 		setVisible(true);
 	}
 
-	private void init() {		
-		isgame = false;
-		gameMap = new GameMap();
+	private void init() {
+		gameTitle = new GameTitle(gameFrame);
+		selectAPL = new SelectAPL(gameFrame);
+		gameMap = new GameMap(gameFrame);
+		change("gameTitle");				//초기 타이틀 화면
+		isgame = false;						//게임 중 이지 않은 상태
 		heightStart = 5515;
 		heightEnd = 6135;
-		playerPlane = new PlayerPlane();
+		
 	}
 		
 
@@ -42,13 +45,14 @@ public class GameFrame extends JFrame {
 		setTitle("1945_MAP_TEST");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(480, 620);
-		gameMap.setLayout(null);
-		setContentPane(gameMap);
 		setLocationRelativeTo(null);
 	}
 
-	private void batch() {  
-		gameMap.add(playerPlane);
+	private void batch(String playerPlane) {			//비행기 선택에서 받을것
+		if(playerPlane=="playerPlane")
+			gameMap.add(this.playerPlane);
+		else if(playerPlane == "playerPlane2")
+			return;
 	}
 
 	public void enemybatch() { 
@@ -59,16 +63,19 @@ public class GameFrame extends JFrame {
 	
 	public void change(String panelName) {
 		if(panelName.equals("gameTitle")) {
+			gameTitle = new GameTitle(gameFrame);
 			getContentPane().removeAll();
 			getContentPane().add(gameTitle);
 			revalidate();
 			repaint();
 		}else if(panelName.equals("selectAPL")) {
+			selectAPL = new SelectAPL(gameFrame);
 			getContentPane().removeAll();
 			getContentPane().add(selectAPL);
 			revalidate();
 			repaint();
 		}else {
+			gameMap = new GameMap(gameFrame);
 			getContentPane().removeAll();
 			getContentPane().add(gameMap);
 			revalidate();
@@ -93,6 +100,9 @@ public class GameFrame extends JFrame {
 
 				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					playerPlane.moveDown();
+				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					change("GameMap");
+					batch("playerPlane");
 				}
 			}
 
@@ -112,7 +122,7 @@ public class GameFrame extends JFrame {
 		});
 	}
 
-	public void crushBorder() {						
+	public void crushBorder() {				//벽에 막힘
 		if(playerPlane.getX()<=0) {
 			playerPlane.setX(0);
 			repaint();
@@ -129,9 +139,15 @@ public class GameFrame extends JFrame {
 		}
 	}
 	
-	class GameMap extends JPanel { // 사실상 맵	
-		public GameMap() {
+	class GameMap extends JPanel { // 사실상 맵
+		private GameFrame win;		
+		public GameMap(GameFrame win) {
+			isgame = true;
+			setLayout(null);
+			this.win = win;
+
 //			setFocusable(true);
+			
 			icon = new ImageIcon("images/Stage1_1.png");
 			img = icon.getImage();
 			new Thread(new Runnable() {
@@ -142,8 +158,8 @@ public class GameFrame extends JFrame {
 							heightStart -= 1;
 							heightEnd -= 1;
 							Thread.sleep(10);
-							enemybatch();
-							crushBorder();							
+							enemybatch();						//적 배치 함수 
+							crushBorder();						//벽에 막힘				
 						}catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -163,10 +179,8 @@ public class GameFrame extends JFrame {
 
 	class GameTitle extends JPanel{//게임 시작화면 구현
 		private GameFrame win;
-
 		public GameTitle(GameFrame win) {
-			gameTitle.setLayout(null);
-			setContentPane(gameTitle);
+			setLayout(null);
 			this.win=win;
 			icon = new ImageIcon("images/gametitle.gif");
 			img = icon.getImage();
@@ -177,8 +191,11 @@ public class GameFrame extends JFrame {
 				g.drawImage(img, 0, 0, 480, 620, 0,0,338,566,this);
 			}
 	}
+	
 	class SelectAPL extends JPanel{						// 비행기 선택 화면
-		public SelectAPL() {
+		private GameFrame win;
+		
+		public SelectAPL(GameFrame win) {
 			icon = new ImageIcon("images/TitleImage.png");
 			img = icon.getImage();
 		}
