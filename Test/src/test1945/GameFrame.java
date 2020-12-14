@@ -15,7 +15,7 @@ public class GameFrame extends JFrame {
 	private boolean isgame;
 	private GameMap gameMap;			//인게임 패널 
 	private GameTitle gameTitle;		//타이틀 패널
-	private SelectAPL selectAPL;
+	private SelectAPL selectAPL;		//비행시 선택 패널
 	private int heightStart, heightEnd;
 	private PlayerPlane playerPlane;
 	private ImageIcon icon;
@@ -163,12 +163,13 @@ public class GameFrame extends JFrame {
 
 	class GameTitle extends JPanel{//게임 시작화면 구현
 		private GameFrame win;
+
 		public GameTitle(GameFrame win) {
-			setLayout(null);
+			gameTitle.setLayout(null);
+			setContentPane(gameTitle);
 			this.win=win;
 			icon = new ImageIcon("images/gametitle.gif");
 			img = icon.getImage();
-			setVisible(true);
 		}
 		@Override
 			protected void paintComponent(Graphics g) {
