@@ -271,8 +271,10 @@ public class EnemyPlane extends AirPlane{
 							Thread.sleep(10);
 						if(playerPlane.getLifecount() <= 0) {
 							Thread.sleep(1000);						//0.1초후
-							gameframe.change("null");
-							gameframe.change("gameTitle");
+							gameframe.isgame = false;				//쓰레드 강제 종료
+							gameframe.setHeightStart(5515);			//초기위치로 이동
+							gameframe.setHeightEnd(6135);
+							gameframe.change("gameTitle");			//타이틀 화면으로 돌아가기
 							
 							break;
 						}

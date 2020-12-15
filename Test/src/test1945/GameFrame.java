@@ -183,7 +183,7 @@ public class GameFrame extends JFrame implements initable{
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					while (heightStart > 0) {
+					while (heightStart > 0 && isgame==true) {
 						try {
 							heightStart -= 1;				//Map이 위로 올라가면서 바뀜
 							heightEnd -= 1;
@@ -218,7 +218,7 @@ public class GameFrame extends JFrame implements initable{
 		@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
-				g.drawImage(img, 0, 0, 670, 820, 0,0,338,566,this);
+				g.drawImage(img, 0, 0, 670, 820, 0,0,338,594,this);
 			}
 	}
 	

@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="test1945.GameFrame.GameTitle" project="Test" 
     file="/Test/src/test1945/GameFrame.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="610" y="300"/>    
+    <position height="-1" width="-1" x="604" y="368"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="test1945.GameFrame.SelectAPL" project="Test" 
     file="/Test/src/test1945/GameFrame.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="800" y="352"/>    
+    <position height="-1" width="-1" x="791" y="458"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="test1945.GameFrame.GameMap" project="Test" 
     file="/Test/src/test1945/GameFrame.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="990" y="296"/>    
+    <position height="-1" width="-1" x="984" y="371"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -82,80 +82,80 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <association id="10">    
+  <generalization id="10">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="11">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="11" name="map">        
+      <attribute id="12" name="map">        
         <position height="0" width="0" x="4" y="-145"/>      
       </attribute>      
-      <multiplicity id="12" minimum="0" maximum="1">        
+      <multiplicity id="13" minimum="0" maximum="1">        
         <position height="0" width="0" x="4" y="-145"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="13">    
+  <association id="14">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="14" name="playerPlane">        
-        <position height="0" width="0" x="-1" y="-24"/>      
+      <attribute id="15" name="gameTitle">        
+        <position height="0" width="0" x="24" y="-121"/>      
       </attribute>      
-      <multiplicity id="15" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1" y="-24"/>      
+      <multiplicity id="16" minimum="0" maximum="1">        
+        <position height="0" width="0" x="24" y="-121"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="16">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="17" name="airPlane">        
-        <position height="0" width="0" x="10" y="-13"/>      
-      </attribute>      
-      <multiplicity id="18" minimum="0" maximum="1">        
-        <position height="0" width="0" x="10" y="-13"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="19">    
-    <end type="SOURCE" refId="6" navigable="false">      
-      <attribute id="20" name="win">        
+  <association id="17">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="18" name="win">        
         <position height="0" width="0" x="4" y="-145"/>      
       </attribute>      
-      <multiplicity id="21" minimum="0" maximum="1">        
+      <multiplicity id="19" minimum="0" maximum="1">        
         <position height="0" width="0" x="4" y="-145"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="22">    
+  <nesting id="20">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="5"/>  
   </nesting>  
+  <nesting id="21">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </nesting>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
   <association id="23">    
-    <end type="SOURCE" refId="8" navigable="false">      
-      <attribute id="24" name="playerPlane">        
-        <position height="0" width="0" x="-1" y="-24"/>      
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="24" name="gameApp">        
+        <position height="0" width="0" x="-75" y="-104"/>      
       </attribute>      
       <multiplicity id="25" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1" y="-24"/>      
+        <position height="0" width="0" x="-75" y="-104"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="26">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="27" name="win">        
-        <position height="0" width="0" x="4" y="-145"/>      
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="27" name="gameMap">        
+        <position height="0" width="0" x="36" y="-118"/>      
       </attribute>      
       <multiplicity id="28" minimum="0" maximum="1">        
-        <position height="0" width="0" x="4" y="-145"/>      
+        <position height="0" width="0" x="36" y="-118"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="29">    
@@ -163,39 +163,39 @@
     <end type="TARGET" refId="9"/>  
   </realization>  
   <association id="30">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="31" name="gameTitle">        
-        <position height="0" width="0" x="30" y="-189"/>      
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="31" name="playerPlane">        
+        <position height="0" width="0" x="-1" y="-24"/>      
       </attribute>      
       <multiplicity id="32" minimum="0" maximum="1">        
-        <position height="0" width="0" x="30" y="-189"/>      
+        <position height="0" width="0" x="-1" y="-24"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="33">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="34" name="win">        
-        <position height="0" width="0" x="4" y="-145"/>      
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="34" name="playerPlane">        
+        <position height="0" width="0" x="-1" y="-24"/>      
       </attribute>      
       <multiplicity id="35" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-1" y="-24"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="36">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="37" name="win">        
+        <position height="0" width="0" x="4" y="-145"/>      
+      </attribute>      
+      <multiplicity id="38" minimum="0" maximum="1">        
         <position height="0" width="0" x="4" y="-145"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="36">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="37" name="selectAPL">        
-        <position height="0" width="0" x="35" y="-191"/>      
-      </attribute>      
-      <multiplicity id="38" minimum="0" maximum="1">        
-        <position height="0" width="0" x="35" y="-191"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="39">    
@@ -211,69 +211,69 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="42">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="43" name="gameMap">        
-        <position height="0" width="0" x="42" y="-193"/>      
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="43" name="airPlane">        
+        <position height="0" width="0" x="10" y="-13"/>      
       </attribute>      
       <multiplicity id="44" minimum="0" maximum="1">        
-        <position height="0" width="0" x="42" y="-193"/>      
+        <position height="0" width="0" x="10" y="-13"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="45">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="46" name="playerPlane">        
-        <position height="0" width="0" x="-1" y="-24"/>      
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="46" name="selectAPL">        
+        <position height="0" width="0" x="26" y="-85"/>      
       </attribute>      
       <multiplicity id="47" minimum="0" maximum="1">        
+        <position height="0" width="0" x="26" y="-85"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="48">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="49" name="playerPlane">        
+        <position height="0" width="0" x="-1" y="-24"/>      
+      </attribute>      
+      <multiplicity id="50" minimum="0" maximum="1">        
         <position height="0" width="0" x="-1" y="-24"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="48">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="49">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <nesting id="50">    
+  <nesting id="51">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="TARGET" refId="6"/>  
   </nesting>  
-  <association id="51">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="52" name="gameApp">        
-        <position height="0" width="0" x="-75" y="-104"/>      
-      </attribute>      
-      <multiplicity id="53" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-75" y="-104"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="54">    
+  <association id="52">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="55" name="enemyPlane">        
+      <attribute id="53" name="enemyPlane">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="56" minimum="0" maximum="1">        
+      <multiplicity id="54" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <nesting id="57">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="6"/>  
-  </nesting>  
+  <association id="55">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="56" name="win">        
+        <position height="0" width="0" x="4" y="-145"/>      
+      </attribute>      
+      <multiplicity id="57" minimum="0" maximum="1">        
+        <position height="0" width="0" x="4" y="-145"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
