@@ -15,8 +15,9 @@ import lombok.Data;
 
 public class StrikersApp extends JFrame implements Initable{
 	//implements Initable, 이미지니까 라벨, 이미지니까 imp안해도 됨
-	private StrikersApp strikerApp = this;
 	private static final String TAG = "StrikerApp: ";
+	
+	private StrikersApp strikerApp = this;
 	private JLabel laBackground = new JLabel();
 	private Player player;
 	private Item item;
@@ -41,7 +42,7 @@ public class StrikersApp extends JFrame implements Initable{
 	public static int speed2 = 2;
 	public static int speed5 = 5;
 	public static int speed10 = 10;
-	public static int speed20 = 15;
+	public static int speed15 = 15;
 	
 	public StrikersApp() {
 		init();
@@ -58,9 +59,9 @@ public class StrikersApp extends JFrame implements Initable{
 		es = new Vector<>();
 		player = new Player();
 		
-		items = new Vector<>();
-		item = new Item();
 		
+		item = new Item();
+		items = new Vector<>();
 		
 		for (int i = 0; i < 8; i++) {
 			es.add(new Enemy());
@@ -70,7 +71,6 @@ public class StrikersApp extends JFrame implements Initable{
 			items.add(new Item());
 			//vItem.get(i).start();
 		}
-		
 		
 	}
 

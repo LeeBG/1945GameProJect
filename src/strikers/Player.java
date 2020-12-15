@@ -7,25 +7,39 @@ import lombok.Data;
 
 @Data
 public class Player extends JLabel {
-//implements Initable, 檜嘐雖棲梱 塭漣, 檜嘐雖棲梱 imp寰п紫 脾
-
+	//private final static String TAG = "Player: ";
+	
 	private Player player = this;
-	private final static String TAG = "Player: ";
 	ImageIcon icPlayerR;
 	private ImageIcon icPlayerL;
 	private ImageIcon icPlayerU;
 	private ImageIcon icPlayerD;
-	private int x=200;
-	private int y=480;
+	private int x;
+	private int y;
 	
-	private int sizeX=79; //歜衛 囀萄
-	private int sizeY=69; //歜衛 囀萄
+	private int sizeX;
+	private int sizeY;
 	
 	private int lifecount;//歜衛 囀萄
 	
-	public boolean isRight, isLeft, isUp, isDown = false;
+	public boolean isRight, isLeft, isUp, isDown;
 
 	public Player() {
+		init();
+	
+	}
+	
+	public void init() {
+		x=200;
+		y=480;
+		sizeX=79; //歜衛 囀萄
+		sizeY=69; //歜衛 囀萄
+		
+		isRight = false;
+		isLeft = false;
+		isUp = false;
+		isDown = false;
+		
 		icPlayerR = new ImageIcon("image/PLANE1.png");
 		icPlayerL = new ImageIcon("image/PLANE1.png");
 		icPlayerU = new ImageIcon("image/PLANE1.png");
@@ -37,7 +51,7 @@ public class Player extends JLabel {
 
 //天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天天
 	public void moveRight() {
-		System.out.println(TAG + "moveRight");
+		//System.out.println(TAG + "moveRight");
 		
 
 		if (isRight == false) {
@@ -48,7 +62,7 @@ public class Player extends JLabel {
 					isRight = true;
 					while (isRight) {
 						if (x < StrikersApp.XAXIS - 87) { //StrikersApp.X = 500
-							System.out.println("x 謝ル: " + x);
+							//System.out.println("x 謝ル: " + x);
 							x++;
 							setLocation(x, y);
 						}
@@ -64,8 +78,8 @@ public class Player extends JLabel {
 	}
 
 	public void moveLeft() {
-		System.out.println(TAG + "moveLeft");
-		System.out.println("x 謝ル: " + x);
+		//System.out.println(TAG + "moveLeft");
+		//System.out.println("x 謝ル: " + x);
 
 		if (isLeft == false) {
 			new Thread(new Runnable() {
@@ -90,8 +104,8 @@ public class Player extends JLabel {
 	}
 
 	public void moveUp() {
-		System.out.println(TAG + "moveUp");
-		System.out.println("y 謝ル: " + y);
+		//System.out.println(TAG + "moveUp");
+		//System.out.println("y 謝ル: " + y);
 		
 		if (isUp == false) {
 			new Thread(new Runnable() {
@@ -116,8 +130,8 @@ public class Player extends JLabel {
 	}
 
 	public void moveDown() {
-		System.out.println(TAG + "moveDown");
-		System.out.println("y 謝ル: " + y);
+		//System.out.println(TAG + "moveDown");
+		//System.out.println("y 謝ル: " + y);
 		
 		if (isDown == false) {
 			new Thread(new Runnable() {
