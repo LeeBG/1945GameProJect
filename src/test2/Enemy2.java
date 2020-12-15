@@ -24,7 +24,8 @@ public class Enemy2 extends EnemyUnit {
 		this.enemyY = y;
 		
 		if(x<100) {
-		this.move();}else {
+		this.move();
+		}else {
 			this.move2();
 		}
 	}
