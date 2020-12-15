@@ -20,8 +20,8 @@ public class EnemyAttack implements Runnable {
 	double bulletAngel = 270; // 총알각도
 	double bulletSpeed = 2; // 총알속도
 
-	int bulletWidth1 = bulletImg1.getWidth(null);
-	int bulletHeight1 = bulletImg1.getHeight(null);
+	int bulletWidth1;
+	int bulletHeight1;
 
 	public EnemyAttack(int x, int y) {
 		this.bulletX = x;
@@ -57,8 +57,8 @@ public class EnemyAttack implements Runnable {
 
 	@Override
 	public void run() {
+		
 
-		System.out.println("충돌");
 
 		while (playerPlane.getLife() > 0) { // 생명이 0보다 크면 
 			
@@ -69,10 +69,17 @@ public class EnemyAttack implements Runnable {
 					explosePlayer(playerPlane); // 충돌 폭발 메서드
 				}
 				Thread.sleep(10);
-				if (playerPlane.getLife() <= 0) {
-					Thread.sleep(100); // 1초후
-					System.exit(1); // 프로그램 종료
+//				if (playerPlane.getLife() <= 0) {
+//					Thread.sleep(100); // 1초후
+//					System.exit(1); // 프로그램 종료
+//				}
+				
+				
+				if(bulletX > 600 || bulletX <-50 || bulletY < -50 || bulletY >700 ) {
+					System.out.println("bullet thread terminate");
+					return; 	//Thread 종료구문
 				}
+				
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -94,7 +101,7 @@ public class EnemyAttack implements Runnable {
 	}
 	
 	
-	public void explosePlayer(PlayerPlane playerPlane) { // 충돌후 이미지 변경 및 목숨카운트--
+	public void explosePlayer(PlayerPlane playerPlane) { // 충돌후 이미지 변경 및 목숨카운트
 
 		try {
 			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");

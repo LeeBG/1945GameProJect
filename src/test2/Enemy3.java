@@ -11,7 +11,7 @@ public class Enemy3 extends EnemyUnit {
 	private Enemy3 enemy3 = this;
 	private static final String TAG = "Enemy3 : ";
 	
-	Image EnemyDownImg = new ImageIcon("images/Enemy2.png").getImage();
+	Image EnemyDownImg = new ImageIcon("images/enemy3.png").getImage();
 
 	public int count; 
 
@@ -40,6 +40,12 @@ public class Enemy3 extends EnemyUnit {
 							movedown();
 						}
 						count++; 
+						
+						if (enemyY > 900) {
+							System.out.println("enemy1 쓰레드 종료");
+							break;
+						}
+						
 			
 					} catch (InterruptedException e) {
 						e.printStackTrace();

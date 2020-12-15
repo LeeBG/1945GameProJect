@@ -19,12 +19,12 @@ public class PlayerPlane extends JLabel {
 	public boolean isRight = false, isLeft = false, isUP = false, isDown = false; // is 붙여라
 
 	public PlayerPlane() {
-		life = 3;
+		life = 10;
 		playerWidth = 80;
 		playerHeight= 60;
 		
 		
-		icPlayer = new ImageIcon("images/PLANE4.png");
+		icPlayer = new ImageIcon("images/PLANE1.png");
 		setIcon(icPlayer);
 		setLocation(x, y);
 		setSize(playerWidth, playerHeight);

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class Enemy4 extends EnemyUnit {
-
+	
 	private Enemy4 enemy4 = this;
 	private static final String TAG = "Enemy4 : ";
-	
-	Image EnemyDownImg = new ImageIcon("images/enemy4.png").getImage();
+		
+	Image enemy4Img = new ImageIcon("images/enemy4.png").getImage();
 
 	public int count; 
 
@@ -33,12 +33,13 @@ public class Enemy4 extends EnemyUnit {
 				count = 0; 
 				while (true) {			
 					try {
-						Thread.sleep(1);
+						Thread.sleep(5);
 						movedown();
-				
+						bulletCreate();
+						enemyAttack();
 						count++; 
 						
-						if (enemyY > 639) {
+						if (enemyY > 800) {
 							System.out.println("enemy4 쓰레드 종료");
 							break;
 						}
@@ -51,17 +52,37 @@ public class Enemy4 extends EnemyUnit {
 		}).start();
 	}
 
+		
+	private void bulletCreate() { //총알 생성
+		if (count % 300 == 0) { //count: 총알 발사 속도 조절			
+			enemyAttack = new EnemyAttack(enemy4, playerPlane, enemyX + 15, enemyY + 30,270,2,20,20);
+			//컨텍스트 넘기고, 총알생성위치, 크기, 속도, 각도 조절 
+			enemyAttackkList.add(enemyAttack);
+		}
+	}
 
 
 	public void enemyUpdate(Graphics g) {
 		enemyDraw(g);
 	}
 
+	
+	private void enemyAttack() { //총알발사
+		for (int i = 0; i < enemyAttackkList.size(); i++) {
+			enemyAttack = enemyAttackkList.get(i);
+			enemyAttack.fire();
+
+		}
+	}
 
 
 	public void enemyDraw(Graphics g) { //그림그리기
-			g.drawImage(EnemyDownImg, enemyX, enemyY,50,50, null);
+			g.drawImage(enemy4Img, enemyX, enemyY, null); //적 그리기
+			for (int i = 0; i < enemyAttackkList.size(); i++) { //총알 그리기
+				enemyAttack = enemyAttackkList.get(i);
+				g.drawImage(enemyAttack.bulletImg1, enemyAttack.bulletX, enemyAttack.bulletY, enemyAttack.bulletWidth1, enemyAttack.bulletHeight1, null);
 
+			}
 		}
 	
 

@@ -11,7 +11,7 @@ public class Enemy2 extends EnemyUnit {
 	private Enemy2 enemy2 = this;
 	private static final String TAG = "Enemy2 : ";
 
-	Image Enemy2Img = new ImageIcon("images/enemy3U.png").getImage();
+	Image Enemy2Img = new ImageIcon("images/enemy2U.png").getImage();
 
 	public int count;
 
@@ -45,6 +45,12 @@ public class Enemy2 extends EnemyUnit {
 						bulletCreate();
 						enemyAttack();
 						count++;
+						
+						
+						if (enemyY > 900) {
+							System.out.println("enemy2 쓰레드 종료");
+							break;
+						}
 
 
 
