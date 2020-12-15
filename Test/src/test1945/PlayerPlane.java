@@ -21,7 +21,10 @@ public class PlayerPlane extends AirPlane {
 	public boolean isUp;
 	public boolean isDown;
 
-	public PlayerPlane() {
+	
+	public PlayerPlane(String Plane) {	
+		playerIcon = new ImageIcon("images/"+Plane+".png");
+		System.out.println("images/"+Plane+".png");
 		init();
 	}
 
@@ -31,7 +34,6 @@ public class PlayerPlane extends AirPlane {
 		y = 520;
 		sizeX = 79;
 		sizeY = 60;
-		playerIcon = new ImageIcon("images/PLANE1.png");
 		setIcon(playerIcon);
 		setLocation(x, y);
 		setSize(sizeX, sizeY);

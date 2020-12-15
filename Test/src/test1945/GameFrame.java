@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,14 +15,14 @@ import javax.swing.JPanel;
 
 public class GameFrame extends JFrame {
 	public GameFrame gameFrame = this;
-	private boolean isgame;
+	private boolean isgame;				//게임실행 여부
 	private GameMap gameMap;			//인게임 패널 
 	private GameTitle gameTitle;		//타이틀 패널
 	private SelectAPL selectAPL;		//비행시 선택 패널
-	private int heightStart, heightEnd;
-	private PlayerPlane playerPlane;
-	private ImageIcon icon;
-	private Image img;
+	private int heightStart, heightEnd;	//화면에보이는 시작점 높이
+	private PlayerPlane playerPlane;	//플레이어
+	private ImageIcon icon;				//배경이미지아이콘
+	private Image img;					//이미지
 	
 	public GameFrame() {
 		init();
@@ -34,7 +36,6 @@ public class GameFrame extends JFrame {
 		isgame = false;						//게임 중 이지 않은 상태
 		heightStart = 5515;
 		heightEnd = 6135;
-		
 	}
 		
 
@@ -47,12 +48,15 @@ public class GameFrame extends JFrame {
 
 	private void batch(String playerPlane) {			//비행기 선택에서 받을것
 		if(playerPlane=="playerPlane") {
-			this.playerPlane = new PlayerPlane();
+			this.playerPlane = new PlayerPlane("PLANE1");
+			gameMap.add(this.playerPlane);
+		}else if(playerPlane == "playerPlane2") {
+			this.playerPlane = new PlayerPlane("PLANE3");
+			gameMap.add(this.playerPlane);
+		}else if(playerPlane=="playerPlane3") {
+			this.playerPlane = new PlayerPlane("PLANE4");
 			gameMap.add(this.playerPlane);
 		}
-			
-		else if(playerPlane == "playerPlane2")
-			return;
 	}
 
 	public void enemybatch() { 
@@ -77,8 +81,8 @@ public class GameFrame extends JFrame {
 				} else if (e.getKeyCode() == KeyEvent.VK_DOWN && isgame==true) {
 					playerPlane.moveDown();
 				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					change("GameMap");
-					batch("playerPlane");
+					change("selectAPL");
+					
 				}
 			}
 			@Override
@@ -93,8 +97,9 @@ public class GameFrame extends JFrame {
 					playerPlane.isUp = false;
 				}
 			}
-
+			
 		});
+		
 	}
 	public void change(String panelName) {
 		if(panelName.equals("gameTitle")) {
@@ -137,16 +142,11 @@ public class GameFrame extends JFrame {
 	}
 	
 	class GameMap extends JPanel { // 사실상 맵
-		private GameFrame win;		
-		
-		
-		
+		private GameFrame win;	
 		public GameMap(GameFrame win) {
 			isgame = true;
 			setLayout(null);
 			this.win = win;
-
-//			setFocusable(true);
 			
 			icon = new ImageIcon("images/Stage1_1.png");
 			img = icon.getImage();
@@ -161,14 +161,12 @@ public class GameFrame extends JFrame {
 							enemybatch();
 							crushBorder();					//벽에 충돌하는 조건함수		
 						}catch (Exception e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
 				}
 			}).start();	
 		}
-
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -177,7 +175,7 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	class GameTitle extends JPanel{//게임 시작화면 구현
+	class GameTitle extends JPanel{					//게임 시작화면 구현
 		private GameFrame win;
 		public GameTitle(GameFrame win) {
 			setLayout(null);
@@ -194,17 +192,106 @@ public class GameFrame extends JFrame {
 	
 	class SelectAPL extends JPanel{						// 비행기 선택 화면
 		private GameFrame win;
-		
+		private ImageIcon p1icon,p2icon,p3icon;			//버튼 이미지 
+		private ImageIcon bp1icon,bp2icon,bp3icon;
 		public SelectAPL(GameFrame win) {
 			setLayout(null);
 			this.win=win;
 			icon = new ImageIcon("images/SelectPlane.png");
 			img = icon.getImage();
+			
+			p1icon = new ImageIcon("images/PLANE1.png");
+			p2icon = new ImageIcon("images/PLANE3.png");
+			p3icon = new ImageIcon("images/PLANE4.png");
+			bp1icon = new ImageIcon("images/BIGPLANE1.png");
+			bp2icon = new ImageIcon("images/BIGPLANE3.png");
+			bp3icon = new ImageIcon("images/BIGPLANE4.png");
+			
+			JButton btn = new JButton("",p1icon);
+			JButton btn2 = new JButton("",p2icon);
+			JButton btn3 = new JButton("",p3icon);
+			
+			// 버튼 꾸미기
+			
+			btn.setBorderPainted(false);
+			btn2.setBorderPainted(false);
+			btn3.setBorderPainted(false);
+			
+			btn.setContentAreaFilled(false);
+			btn2.setContentAreaFilled(false);
+			btn3.setContentAreaFilled(false);
+			
+			
+			btn.setOpaque(false);
+			btn2.setOpaque(false);
+			btn3.setOpaque(false);
+			
+			//버튼 액션
+			btn.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					change("GameMap");
+					batch("playerPlane");
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					btn.setSize(100, 89);
+					btn.setIcon(bp1icon);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					btn.setSize(70,59);
+					btn.setIcon(p1icon);
+				}
+			});
+			btn2.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					change("GameMap");
+					batch("playerPlane2");
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					btn2.setSize(100, 89);
+					btn2.setIcon(bp2icon);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					btn2.setSize(70,59);
+					btn2.setIcon(p2icon);
+				}
+			});
+
+			btn3.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					change("GameMap");
+					batch("playerPlane3");
+				}
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					btn3.setSize(100, 89);
+					btn3.setIcon(bp3icon);
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					btn3.setSize(70,59);
+					btn3.setIcon(p3icon);
+				}
+			});
+			btn.setBounds(60,240,70,59);
+			btn2.setBounds(200,240,70,59);
+			btn3.setBounds(340,240,70,59);
+			this.add(btn);
+			this.add(btn2);
+			this.add(btn3);
 		}
+		
 		@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(img, 0, 0, 480, 620, 0,0,196,182,this);
+				repaint();
 			}
 	}
 	
