@@ -10,13 +10,12 @@ public class GameApp {
 	}
 
 	private void init() {
-		map = new GameFrame();
+		new GameFrame();
 
 	}
 
 	public static void main(String[] args) {
-//		new Start();		
-//		new GameApp();
+		new GameApp();
 	}
 
 }

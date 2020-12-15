@@ -22,7 +22,7 @@ public class PlayerPlane extends AirPlane {
 	public boolean isDown;
 
 	
-	public PlayerPlane(String Plane) {	
+	public PlayerPlane(String Plane) {							//비행기의 종류를 인수로 받아서 게임 실행
 		playerIcon = new ImageIcon("images/"+Plane+".png");
 		System.out.println("images/"+Plane+".png");
 		init();
@@ -30,10 +30,10 @@ public class PlayerPlane extends AirPlane {
 
 	private void init() {
 		lifecount = 3;
-		x = 200;
-		y = 520;
-		sizeX = 79;
-		sizeY = 60;
+		x = 305;
+		y = 820;
+		sizeX = 70;
+		sizeY = 59;
 		setIcon(playerIcon);
 		setLocation(x, y);
 		setSize(sizeX, sizeY);

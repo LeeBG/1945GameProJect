@@ -14,7 +14,7 @@ public class EnemyPlane extends AirPlane{
 	private int sizeX; 			// 비행기이미지의 X크기
 	private int sizeY; 			// 비행기이미지의 Y크기
 	private int rand;			// 랜덤 정수
-
+	private GameFrame gameframe;//  LifeCount = 0 이 되면 되돌아 갈때 
 	public boolean isRightUp; 	//	오른쪽 위로 가는 중인지 판별
 	public boolean isLeftUp; 	//	왼쪽 위로 가는 중인지 판별 
 	public boolean isRightDown;	//	오른쪽 아래로 가는 중인지 판별
@@ -23,8 +23,9 @@ public class EnemyPlane extends AirPlane{
 	public boolean isDown;		//	아래로 가는 중인지 판별
 	public boolean isCrush;		//	충돌범위에 들어왔는지 판별(충돌 연산)
 	
-	public EnemyPlane(PlayerPlane playerPlane) { 	//생성자 Play객체를 매개변수로 받음
+	public EnemyPlane(PlayerPlane playerPlane,GameFrame gameframe) { 	//생성자 Player객체를 매개변수로 받음
 		init();
+		this.gameframe=gameframe;
 		switch (rand) {								// 랜덤 위치 정하기 SWITCH문
 		case 0:					
 			System.out.println(TAG+"아래로");
@@ -59,9 +60,10 @@ public class EnemyPlane extends AirPlane{
 
 	
 	private void init() {								//초기화 함수
+		
 		rand = (int)(Math.random()*6);					//적비행기 움직임의 방향을 랜덤으로
-		x = 70*rand;									//적비행기 x좌표 랜덤
-		y = 20*(int)(Math.random()*7+1);				//적비행기 Y좌표 랜덤
+		x = 100*rand;									//적비행기 x좌표 랜덤
+		y = 40*(int)(Math.random()*7+1);				//적비행기 Y좌표 랜덤
 		sizeX = 70;										//비행기의 X크기 = 이미지의 크기
 		sizeY = 65;										//비행기의 Y크기 = 이미지의 크기
 		enemyIcon = new ImageIcon("images/PLANE2.png");	//비행기 이미지
@@ -76,7 +78,7 @@ public class EnemyPlane extends AirPlane{
 		isDown = false;									//우측으로 움직이는 상태
 		isCrush = false;
 	}
-
+	
 	public void moveLeftDown() {						//왼쪽 아래로 움직임
 		System.out.println(TAG + "왼쪽 아래");
 		int endY = getY();				//도착 위치X 저장
@@ -98,7 +100,7 @@ public class EnemyPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(y>520)
+						if(y>720)
 							return;
 					}
 				}
@@ -126,7 +128,7 @@ public class EnemyPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(y>520)
+						if(y>720)
 							return;
 					}
 				}
@@ -154,7 +156,7 @@ public class EnemyPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(y>520)
+						if(y>720)
 							return;
 					}
 				}
@@ -182,7 +184,7 @@ public class EnemyPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(y>520)
+						if(y>720)
 							return;
 					}
 				}
@@ -206,29 +208,29 @@ public class EnemyPlane extends AirPlane{
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if(y>520)
+						if(y>720)
 							return;
 					}
 				}
 			}).start();
 		}
 	}
-	public void shotToEnemy() {						// 미사일 쏘기
-//		new Missile(x,y);							// 미구현
-	}
-	
-	
-	public void explosion(/* 플레이어가 쏜 미사일 객체를 넣어야할듯*/) {		//미사일 객체 생성?후 발사
-		new Thread(new Runnable() {			
-			@Override
-			public void run() {
-				for(int i=0;i<7;i++) {
-					break;
-				}
-				
-			}
-		}).start();
-	}
+//	public void shotToEnemy() {						// 미사일 쏘기
+////		new Missile(x,y);							// 미구현
+//	}
+//	
+//	
+//	public void explosion(/* 플레이어가 쏜 미사일 객체를 넣어야할듯*/) {
+//		new Thread(new Runnable() {			
+//			@Override
+//			public void run() {
+//				for(int i=0;i<7;i++) {
+//					break;
+//				}
+//				
+//			}
+//		}).start();
+//	}
 
 	public void explosePlayer(PlayerPlane playerPlane) {	//충돌후 이미지 변경 및 목숨카운트--
 		
@@ -239,8 +241,8 @@ public class EnemyPlane extends AirPlane{
 			playerPlane.setIcon(playerPlane.playerIcon);
 			playerPlane.setLifecount(playerPlane.getLifecount()-1);
 			System.out.println(TAG +"남은목숨:"+playerPlane.getLifecount());
-			playerPlane.setX(200);
-			playerPlane.setY(520);
+			playerPlane.setX(305);
+			playerPlane.setY(620);
 			playerPlane.repaint();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -269,7 +271,8 @@ public class EnemyPlane extends AirPlane{
 							Thread.sleep(10);
 						if(playerPlane.getLifecount() <= 0) {
 							Thread.sleep(100);						//1초후
-							System.exit(1);							//프로그램 종료
+							gameframe.change("gameTitle");
+							break;
 						}
 									
 					} catch (Exception e) {
@@ -280,4 +283,5 @@ public class EnemyPlane extends AirPlane{
 		}).start();
 
 	}
+	
 }
