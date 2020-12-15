@@ -6,26 +6,25 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Enemy3 extends EnemyUnit {
+public class Enemy6 extends EnemyUnit {
 
-	private Enemy3 enemy3 = this;
-	private static final String TAG = "Enemy3 : ";
+	private Enemy6 enemy6 = this;
+	private static final String TAG = "Enemy6 : ";
 
 	public int count;
 
 	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
 	private EnemyAttack enemyAttack;
 
-	public Enemy3(PlayerPlane playerPlane, int x, int y,int w, int h) {
+	public Enemy6(PlayerPlane playerPlane, int x, int y,int w, int h) {
 		this.playerPlane = playerPlane;
 		this.enemyX = x;
 		this.enemyY = y;
 		this.enemyWidth = w;
 		this.enemyHeight = h;
-		this.enemyImage = new ImageIcon("images/enemy3.png").getImage();
+		this.enemyImage = new ImageIcon("images/enemy6_2.png").getImage();
 		
 		this.move();
-		
 		this.crush();
 		
 	}
@@ -38,13 +37,10 @@ public class Enemy3 extends EnemyUnit {
 				while (true) {
 					try {
 						Thread.sleep(5);
-				
-						movedown();
-						enemyY++;
-						
-						if (enemyY < 400) {
-							moveleft();
-		
+
+						if (enemyX < 150 && enemyY > 50) {
+							moveup();
+							moveright();
 						}
 						bulletCreate();
 						enemyAttack();
@@ -52,7 +48,7 @@ public class Enemy3 extends EnemyUnit {
 						
 						
 						if (enemyY > 900) {
-							System.out.println("enemy3 쓰레드 종료");
+							System.out.println("enemy6 쓰레드 종료");
 							break;
 						}
 
@@ -67,7 +63,32 @@ public class Enemy3 extends EnemyUnit {
 	}
 	
 	
+	public void move2() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				count = 0;
+				while (true) {
+					try {
+						Thread.sleep(5);
 
+						if (enemyX > 150 && enemyY > 50) {
+							moveup();
+							moveleft();
+						}
+						bulletCreate();
+						enemyAttack();
+						count++;
+
+
+
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
 	
 	
 	public void crush() { // 적비행기-Player 충돌
@@ -92,7 +113,7 @@ public class Enemy3 extends EnemyUnit {
 
 					try {
 						if (collision) {
-							explosePlayer(playerPlane, enemy3); // 충돌 폭발 메서드
+							explosePlayer(playerPlane, enemy6); // 충돌 폭발 메서드
 						}
 						Thread.sleep(10);
 //						if(playerPlane.getLife() <= 0) {
@@ -114,9 +135,14 @@ public class Enemy3 extends EnemyUnit {
 
 	private void bulletCreate() {
 		if (count % 100 == 0) {
-			enemyAttack = new EnemyAttack(enemy3, playerPlane, enemyX + 20, enemyY + 40,270,3,20,20);
+			enemyAttack = new EnemyAttack(enemy6, playerPlane, enemyX + 20, enemyY + 40,300,2,30,30);
+			
+			//enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
 			enemyAttackkList.add(enemyAttack);
 			
+			enemyAttack = new EnemyAttack(enemy6, playerPlane, enemyX + 80, enemyY + 40,1300,2,30,30);
+			//enemyAttack = new EnemyAttack(enemyX + 60, enemyY + 40);
+			enemyAttackkList.add(enemyAttack);	
 			
 		}
 	}
@@ -137,7 +163,7 @@ public class Enemy3 extends EnemyUnit {
 		g.drawImage(enemyImage, enemyX, enemyY,enemyWidth, enemyHeight, null);
 		for (int i = 0; i < enemyAttackkList.size(); i++) {
 			enemyAttack = enemyAttackkList.get(i);
-			g.drawImage(enemyAttack.bulletImg1, enemyAttack.bulletX, enemyAttack.bulletY, enemyAttack.bulletWidth1, enemyAttack.bulletHeight1, null);
+			g.drawImage(enemyAttack.bulletImg2, enemyAttack.bulletX, enemyAttack.bulletY, enemyAttack.bulletWidth1, enemyAttack.bulletHeight1, null);
 
 		}
 	}

@@ -78,8 +78,8 @@ public class Map06 extends JFrame implements initable {
 	public void enemybatch() {
 
 		if (appear % 500 == 0) {
-//			enemyUnits.add(new Enemy1(player,100, 0));
-//			enemyUnits.add(new Enemy1(player,200, 0));
+			enemyUnits.add(new Enemy3(player,600, 100,100,100));
+			enemyUnits.add(new Enemy4(player,-50, -50,100,100));
 //			enemyUnits.add(new Enemy1(player,300, 0));
 //			enemyUnits.add(new Enemy1(player,400, 0));
 			
@@ -104,10 +104,10 @@ public class Map06 extends JFrame implements initable {
 		
 		
 		
-
+//
 //		if (appear == 500) {
-//			enemy2List.add(new Enemy2(player, -100, 300)); //컨텍스트 넘기기
-//			enemy2List.add(new Enemy2(player, 500, 300));
+//			enemy2List.add(new Enemy2(player, -100, 300, 150,150)); //컨텍스트 넘기기
+//			enemy2List.add(new Enemy2(player, 500, 300, 150,150));
 //		}
 //
 //		if (appear == 500 ) {

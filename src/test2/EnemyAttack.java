@@ -14,6 +14,7 @@ public class EnemyAttack implements Runnable {
 	Image bulletImg2 = new ImageIcon("images/bullet2.png").getImage(); 
 	Image bulletImg3 = new ImageIcon("images/bullet3.png").getImage(); 
 	Image bulletImg4 = new ImageIcon("images/bullet4.png").getImage(); 
+	Image bulletImg5 = new ImageIcon("images/missle.png").getImage(); 
 	
 	int bulletX;
 	int bulletY;
@@ -75,7 +76,7 @@ public class EnemyAttack implements Runnable {
 //				}
 				
 				
-				if(bulletX > 600 || bulletX <-50 || bulletY < -50 || bulletY >700 ) {
+				if(bulletX > 1000 || bulletX <-500 || bulletY < -500 || bulletY >1000 ) {
 					System.out.println("bullet thread terminate");
 					return; 	//Thread 종료구문
 				}

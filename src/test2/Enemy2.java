@@ -11,22 +11,26 @@ public class Enemy2 extends EnemyUnit {
 	private Enemy2 enemy2 = this;
 	private static final String TAG = "Enemy2 : ";
 
-	Image Enemy2Img = new ImageIcon("images/enemy2U.png").getImage();
-
 	public int count;
 
 	ArrayList<EnemyAttack> enemyAttackkList = new ArrayList<EnemyAttack>();
 	private EnemyAttack enemyAttack;
 
-	public Enemy2(PlayerPlane playerPlane, int x, int y) {
+	public Enemy2(PlayerPlane playerPlane, int x, int y,int w, int h) {
 		this.playerPlane = playerPlane;
 		this.enemyX = x;
 		this.enemyY = y;
+		this.enemyWidth = w;
+		this.enemyHeight = h;
+		this.enemyImage = new ImageIcon("images/enemy2.png").getImage();
 		
 		if(x<100) {
 		this.move();}else {
 			this.move2();
 		}
+		
+		this.crush();
+		
 	}
 
 	public void move() {
@@ -91,7 +95,46 @@ public class Enemy2 extends EnemyUnit {
 	}
 	
 	
-	
+	public void crush() { // 적비행기-Player 충돌
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				while (playerPlane.getLife() > 0) {
+
+					if (Math.abs((playerPlane.getX() + playerPlane.getPlayerWidth() / 2)
+							- (enemyX + playerPlane.getPlayerWidth() / 2)) < (enemyWidth / 2
+									+ playerPlane.getPlayerWidth() / 2)
+							&& Math.abs((playerPlane.getY() + playerPlane.getPlayerHeight() / 2)
+									- (enemyY + enemyHeight / 2)) < (enemyHeight / 2
+											+ playerPlane.getPlayerHeight() / 2)) {
+						collision = true;
+					} else {
+						collision = false;
+					}
+
+					try {
+						if (collision) {
+							explosePlayer(playerPlane, enemy2); // 충돌 폭발 메서드
+						}
+						Thread.sleep(10);
+//						if(playerPlane.getLife() <= 0) {
+//							Thread.sleep(100);						//1초후
+//							System.exit(1);							//프로그램 종료
+//						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+				}
+
+			}
+		}).start();
+
+	}
 	
 
 	private void bulletCreate() {
@@ -121,7 +164,7 @@ public class Enemy2 extends EnemyUnit {
 	}
 
 	public void enemyDraw(Graphics g) { // 그림그리기
-		g.drawImage(Enemy2Img, enemyX, enemyY,200,150, null);
+		g.drawImage(enemyImage, enemyX, enemyY,enemyWidth, enemyHeight, null);
 		for (int i = 0; i < enemyAttackkList.size(); i++) {
 			enemyAttack = enemyAttackkList.get(i);
 			g.drawImage(enemyAttack.bulletImg2, enemyAttack.bulletX, enemyAttack.bulletY, enemyAttack.bulletWidth1, enemyAttack.bulletHeight1, null);
