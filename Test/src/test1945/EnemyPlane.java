@@ -270,8 +270,10 @@ public class EnemyPlane extends AirPlane{
 						}
 							Thread.sleep(10);
 						if(playerPlane.getLifecount() <= 0) {
-							Thread.sleep(100);						//1초후
+							Thread.sleep(1000);						//0.1초후
+							gameframe.change("null");
 							gameframe.change("gameTitle");
+							
 							break;
 						}
 									

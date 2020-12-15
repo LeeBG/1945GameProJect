@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 public class GameFrame extends JFrame implements initable{
 	public GameFrame gameFrame = this;
-	private boolean isgame;				//게임실행 여부
+	public boolean isgame;				//게임실행 여부
 	private GameMap gameMap;			//인게임 패널 
 	private GameTitle gameTitle;		//타이틀 패널
 	private SelectAPL selectAPL;		//비행시 선택 패널
@@ -25,6 +25,12 @@ public class GameFrame extends JFrame implements initable{
 	private ImageIcon icon;				//배경이미지아이콘
 	private Image img;					//이미지
 	
+	public void setHeightStart(int heightStart) {
+		this.heightStart = heightStart;
+	}
+	public void setHeightEnd(int heightEnd) {
+		this.heightEnd=heightEnd;
+	}
 	public PlayerPlane getPlayerPlane() {
 		return playerPlane;
 	}
@@ -130,10 +136,18 @@ public class GameFrame extends JFrame implements initable{
 			getContentPane().add(selectAPL);
 			revalidate();
 			repaint();
-		}else {
+		}else if(panelName.equals("gameMap")){
 			gameMap = new GameMap(gameFrame);
 			getContentPane().removeAll();
 			getContentPane().add(gameMap);
+			revalidate();
+			repaint();
+		}else {
+			gameTitle = null;
+			selectAPL = null;
+			gameMap = null;
+			isgame=false;
+			getContentPane().removeAll();
 			revalidate();
 			repaint();
 		}
@@ -175,7 +189,7 @@ public class GameFrame extends JFrame implements initable{
 							heightEnd -= 1;
 							Thread.sleep(10);
 							enemybatch();
-							crushBorder();					//벽에 충돌하는 조건함수		
+							crushBorder();					//벽에 충돌하는 조건함수
 						}catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -186,7 +200,9 @@ public class GameFrame extends JFrame implements initable{
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(img, 0, 0, 670, 820, 0, heightStart, 318, heightEnd, this);
+			if(isgame == true) {
+				g.drawImage(img, 0, 0, 670, 820, 0, heightStart, 318, heightEnd, this);
+			}
 			repaint();
 		}
 	}
@@ -254,7 +270,7 @@ public class GameFrame extends JFrame implements initable{
 			btn.addMouseListener(new MouseAdapter() {			//버튼 클릭 리스너
 				@Override
 				public void mousePressed(MouseEvent e) {
-					change("GameMap");
+					change("gameMap");
 					batch("playerPlane");
 				}
 				@Override
@@ -273,7 +289,7 @@ public class GameFrame extends JFrame implements initable{
 			btn2.addMouseListener(new MouseAdapter() {			//버튼 클릭 리스너
 				@Override
 				public void mousePressed(MouseEvent e) {
-					change("GameMap");
+					change("gameMap");
 					batch("playerPlane2");
 				}
 				@Override
@@ -293,7 +309,7 @@ public class GameFrame extends JFrame implements initable{
 			btn3.addMouseListener(new MouseAdapter() {			//버튼 클릭 리스너
 				@Override
 				public void mousePressed(MouseEvent e) {
-					change("GameMap");
+					change("gameMap");
 					batch("playerPlane3");
 				}
 				@Override

@@ -54,7 +54,7 @@ public class PlayerPlane extends AirPlane {
 						x--;
 						setLocation(x, y);
 						try {
-							Thread.sleep(10);
+							Thread.sleep(5);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -76,7 +76,7 @@ public class PlayerPlane extends AirPlane {
 						x++;
 						setLocation(x, y);
 						try {
-							Thread.sleep(10);
+							Thread.sleep(5);
 							
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -98,7 +98,7 @@ public class PlayerPlane extends AirPlane {
 						y--;
 						setLocation(x, y);
 						try {
-							Thread.sleep(10);
+							Thread.sleep(5);
 							System.out.println("X:"+getX()+"Y:"+getY());
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -121,7 +121,7 @@ public class PlayerPlane extends AirPlane {
 						y++;
 						setLocation(x, y);
 						try {
-							Thread.sleep(10);
+							Thread.sleep(5);
 							System.out.println("X:"+getX()+"Y:"+getY());
 						} catch (Exception e) {
 							e.printStackTrace();
