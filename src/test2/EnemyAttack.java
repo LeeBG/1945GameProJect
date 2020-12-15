@@ -14,14 +14,15 @@ public class EnemyAttack implements Runnable {
 	Image bulletImg2 = new ImageIcon("images/bullet2.png").getImage(); 
 	Image bulletImg3 = new ImageIcon("images/bullet3.png").getImage(); 
 	Image bulletImg4 = new ImageIcon("images/bullet4.png").getImage(); 
+	Image bulletImg5 = new ImageIcon("images/missle.png").getImage(); 
 	
 	int bulletX;
 	int bulletY;
 	double bulletAngel = 270; // 총알각도
 	double bulletSpeed = 2; // 총알속도
 
-	int bulletWidth1 = bulletImg1.getWidth(null);
-	int bulletHeight1 = bulletImg1.getHeight(null);
+	int bulletWidth1;
+	int bulletHeight1;
 
 	public EnemyAttack(int x, int y) {
 		this.bulletX = x;
@@ -57,8 +58,8 @@ public class EnemyAttack implements Runnable {
 
 	@Override
 	public void run() {
+		
 
-		System.out.println("충돌");
 
 		while (playerPlane.getLife() > 0) { // 생명이 0보다 크면 
 			
@@ -69,10 +70,17 @@ public class EnemyAttack implements Runnable {
 					explosePlayer(playerPlane); // 충돌 폭발 메서드
 				}
 				Thread.sleep(10);
-				if (playerPlane.getLife() <= 0) {
-					Thread.sleep(100); // 1초후
-					System.exit(1); // 프로그램 종료
+//				if (playerPlane.getLife() <= 0) {
+//					Thread.sleep(100); // 1초후
+//					System.exit(1); // 프로그램 종료
+//				}
+				
+				
+				if(bulletX > 1000 || bulletX <-500 || bulletY < -500 || bulletY >1000 ) {
+					System.out.println("bullet thread terminate");
+					return; 	//Thread 종료구문
 				}
+				
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -84,17 +92,28 @@ public class EnemyAttack implements Runnable {
 	
 	
 	
-	public void crash() { //충돌연산
-        if(Math.abs((playerPlane.getX() + playerPlane.getPlayerWidth() / 2) - ( bulletX + playerPlane.getPlayerWidth()/ 2)) < ( bulletWidth1 / 2 + playerPlane.getPlayerWidth() / 2) &&
-                Math.abs( (playerPlane.getY() + playerPlane.getPlayerHeight() / 2) - (bulletY + bulletHeight1 / 2)) < ( bulletHeight1 /2 + playerPlane.getPlayerHeight() / 2)) {
-        		collision = true;} else {
-        			collision = false;
-        		}
-		
+//	public void crash() { //충돌연산
+//        if(Math.abs((playerPlane.getX() + playerPlane.getPlayerWidth() / 2) - ( bulletX + playerPlane.getPlayerWidth()/ 2)) < ( bulletWidth1 / 2 + playerPlane.getPlayerWidth() / 2) &&
+//                Math.abs( (playerPlane.getY() + playerPlane.getPlayerHeight() / 2) - (bulletY + bulletHeight1 / 2)) < ( bulletHeight1 /2 + playerPlane.getPlayerHeight() / 2)) {
+//        		collision = true;} else {
+//        			collision = false;
+//        		}
+//		
+//	}
+	
+	public void crash() { // 충돌연산
+		if (Math.abs(((playerPlane.getX() - 11) + playerPlane.getPlayerWidth() / 3)
+				- (bulletX + bulletWidth1 / 3)) < (bulletWidth1 / 3 + playerPlane.getPlayerWidth() / 3)
+				&& Math.abs(((playerPlane.getY() - 5) + playerPlane.getPlayerHeight() / 3)
+						- (bulletY + bulletHeight1 / 3)) < (bulletHeight1 / 3 + playerPlane.getPlayerHeight() / 3 )) {
+			collision = true;
+		} else {
+			collision = false;
+		}
 	}
 	
 	
-	public void explosePlayer(PlayerPlane playerPlane) { // 충돌후 이미지 변경 및 목숨카운트--
+	public void explosePlayer(PlayerPlane playerPlane) { // 충돌후 이미지 변경 및 목숨카운트
 
 		try {
 			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
