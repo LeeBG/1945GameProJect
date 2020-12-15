@@ -22,8 +22,9 @@ public class VsBoss extends JFrame implements Initable {
 	Image bossStageImg = new ImageIcon("images/vsBossStage.png").getImage();
 	// 배경 이미지 창 크기에 맞게 사이즈 조절
 
-	JPanel laBackground;
+	GamePanel gamePanel;
 
+	int appear;
 	int stageY = -(stageImg.getHeight(null) - bossStageImg.getHeight(null));
 	int bossStageBY1 = -(stageImg.getHeight(null));
 	int bossStageBY2 = -(stageImg.getHeight(null) + bossStageImg.getHeight(null));
@@ -34,14 +35,15 @@ public class VsBoss extends JFrame implements Initable {
 	public VsBoss() {
 		init();
 		setting();
-		batch();
 		listener();
+		batch();
 
 		setVisible(true);
 	}
 
-	class MyPanel extends JPanel {
-		public MyPanel() { // 생성자
+	class GamePanel extends JPanel {
+		public GamePanel() { // 생성자
+			appear = 0;
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -49,9 +51,12 @@ public class VsBoss extends JFrame implements Initable {
 						stageY++;
 						bossStageBY1++;
 						bossStageBY2++;
+						appear++;
+						System.out.println(appear);
+
+						enemyBatch();
 
 						if (stageY > bossStageImg.getHeight(null)) {
-							stageY = bossStageImg.getHeight(null); // 밑으로 계속 내려가는 것을 방지
 							if (bossStageBY1 > (bossStageImg.getHeight(null) - 1)) {
 								bossStageBY1 = -(bossStageImg.getHeight(null) - 1);
 							}
@@ -80,18 +85,13 @@ public class VsBoss extends JFrame implements Initable {
 			g.drawImage(bossStageImg, 0, bossStageBY1, null);
 			g.drawImage(bossStageImg, 0, bossStageBY2, null);
 			player.playerUpdate(g);
-			boss.bossUpdate(g);
 			repaint();
 		}
 	}
 
-	public static void main(String[] args) {
-		new VsBoss();
-	}
-
 	@Override
 	public void init() {
-		laBackground = new MyPanel();
+		gamePanel = new GamePanel();
 		player = new Player();
 		boss = new Boss();
 	}
@@ -103,13 +103,18 @@ public class VsBoss extends JFrame implements Initable {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
-		setContentPane(laBackground);
+		setContentPane(gamePanel);
 	}
 
 	@Override
 	public void batch() {
-		laBackground.add(player);
-		laBackground.add(boss);
+		gamePanel.add(player);
+	}
+	
+	public void enemyBatch() {
+		if (appear == 10500) {
+			gamePanel.add(boss);
+		}
 	}
 
 	@Override
@@ -163,5 +168,9 @@ public class VsBoss extends JFrame implements Initable {
 				}
 			}
 		});
+	}
+
+	public static void main(String[] args) {
+		new VsBoss();
 	}
 }

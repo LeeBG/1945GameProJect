@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Boss extends JLabel {
+public class EnemyBoss extends JLabel {
 
-	private Boss boss = this;
+	private EnemyBoss boss = this;
 	private static final String TAG = "Boss : ";
 
 	ImageIcon bossIcon = new ImageIcon("images/bossSizeup.gif");
@@ -33,7 +33,7 @@ public class Boss extends JLabel {
 //	public int bossX = 100;
 //	public int bossY = 10;
 
-	public Boss() {
+	public EnemyBoss() {
 		this.bossPattern();
 	}
 

@@ -37,7 +37,7 @@ public class Player extends JLabel {
 
 	ArrayList<Attack> playerAttackList = new ArrayList<Attack>();
 	Attack playerAttack;
-	Boss boss = new Boss();
+	Boss boss;
 
 	public Player() {
 		setIcon(playerIcon);
@@ -141,12 +141,12 @@ public class Player extends JLabel {
 				playerAttackList.remove(playerAttack);
 			}
 			
-			// 총알의 x,y값과 보스의 x,y값, 넓이 높이를 계산하여 충돌판정
-			if (playerAttack.BulletX > (boss.bossX + 160) && playerAttack.BulletX < (boss.bossX + boss.bossWidth - 190) // 가로
-					&& playerAttack.BulletY > (boss.bossY)
-					&& playerAttack.BulletY < (boss.bossY + boss.bossWidth - 190)) {// 세로 판정
-				player.playerAttackList.remove(player.playerAttack);
-			}
+//			// 총알의 x,y값과 보스의 x,y값, 넓이 높이를 계산하여 충돌판정
+//			if (playerAttack.BulletX > (boss.bossX + 160) && playerAttack.BulletX < (boss.bossX + boss.bossWidth - 190) // 가로
+//					&& playerAttack.BulletY > (boss.bossY)
+//					&& playerAttack.BulletY < (boss.bossY + boss.bossWidth - 190)) {// 세로 판정
+//				player.playerAttackList.remove(player.playerAttack);
+//			}
 		}
 	}
 
