@@ -15,7 +15,66 @@ abstract class EnemyUnit extends JLabel {
 	protected int enemyWidth;
 	protected int enemyHeight;
 	protected Image enemyImage;
+	protected int life;
 	
+	
+	
+	public int getEnemyX() {
+		return enemyX;
+	}
+
+	public void setEnemyX(int enemyX) {
+		this.enemyX = enemyX;
+	}
+
+	public int getEnemyY() {
+		return enemyY;
+	}
+
+	public void setEnemyY(int enemyY) {
+		this.enemyY = enemyY;
+	}
+
+	public PlayerPlane getPlayerPlane() {
+		return playerPlane;
+	}
+
+	public void setPlayerPlane(PlayerPlane playerPlane) {
+		this.playerPlane = playerPlane;
+	}
+
+	public int getEnemyWidth() {
+		return enemyWidth;
+	}
+
+	public void setEnemyWidth(int enemyWidth) {
+		this.enemyWidth = enemyWidth;
+	}
+
+	public int getEnemyHeight() {
+		return enemyHeight;
+	}
+
+	public void setEnemyHeight(int enemyHeight) {
+		this.enemyHeight = enemyHeight;
+	}
+
+	public Image getEnemyImage() {
+		return enemyImage;
+	}
+
+	public void setEnemyImage(Image enemyImage) {
+		this.enemyImage = enemyImage;
+	}
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
+	}
+
 	public void movedown() {
 		enemyY++;
 		setLocation(enemyX, enemyY);

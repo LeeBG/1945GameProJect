@@ -19,15 +19,17 @@ public class Map06 extends JFrame implements initable {
 //	private Enemy3 enemy3;
 //	private Enemy4 enemy4;
 //	private Enemy5 enemy5;
+//	private Enemy6 enemy6;
+	private EnemyUnit enemyUnit;
 	public static final int SCREEN_WIDTH = 600; // â ũ�� ���밪���� ����
 	public static final int SCREEN_HEIGHT = 820;
 	private GamePanel gamePanel;
 	public int appear = 1; // 등장 값
 	private ImageIcon iconbg, iconbossbg;
-	
+
 	Image stageImg = new ImageIcon("images/stage.png").getImage();
 	Image bossStageImg = new ImageIcon("images/vsBossStage.png").getImage();
-	
+
 	int stageY = -(stageImg.getHeight(null) - bossStageImg.getHeight(null));
 	int bossStageBY1 = -(stageImg.getHeight(null));
 	int bossStageBY2 = -(stageImg.getHeight(null) + bossStageImg.getHeight(null));
@@ -35,9 +37,6 @@ public class Map06 extends JFrame implements initable {
 	Vector<EnemyUnit> enemyUnits = new Vector<>();
 	ArrayList<Enemy2> enemy2List = new ArrayList<>();
 	Vector<Enemy1> enemy1List = new Vector<>();
-	
-	
-	
 
 	public Map06() {
 		init();
@@ -53,15 +52,11 @@ public class Map06 extends JFrame implements initable {
 		player = new PlayerPlane();
 		iconbg = new ImageIcon("images/stage1.png");
 		iconbossbg = new ImageIcon("images/vsBossStage.png");
-		//imgbg = iconbg.getImage();
 
-		
-	
 	}
 
 	public void setting() {
 		setTitle("Map06");
-		//setSize(700, 639);
 		setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -80,87 +75,108 @@ public class Map06 extends JFrame implements initable {
 		if (appear % 500 == 0) {
 			enemyUnits.add(new Enemy3(player,600, 100,100,100));
 			enemyUnits.add(new Enemy4(player,-50, -50,100,100));
+			
+			
+			for (int i = 0; i < enemyUnits.size(); i++) {
+				player.contextAdd(enemyUnits.get(i));
+			}
+			
+			player.contextAdd(enemyUnits.get(0));
+			
 //			enemyUnits.add(new Enemy1(player,300, 0));
 //			enemyUnits.add(new Enemy1(player,400, 0));
 			
 			
 		}
-		
-		if(appear == 1000 || appear == 3000) {
-			enemy1List.add(new Enemy1(player, 50, 0 ,50, 50));
-			enemy1List.add(new Enemy1(player, 100, -50,50, 50));
-			enemy1List.add(new Enemy1(player, 150, -100,50, 50));
-			enemy1List.add(new Enemy1(player, 200, -150,50, 50));
-			enemy1List.add(new Enemy1(player, 250, -200,50, 50));		
+
+		if (appear == 1000 || appear == 3000) {
+			enemy1List.add(new Enemy1(player, 50, 0, 50, 50));
+			enemy1List.add(new Enemy1(player, 100, -50, 50, 50));
+			enemy1List.add(new Enemy1(player, 150, -100, 50, 50));
+			enemy1List.add(new Enemy1(player, 200, -150, 50, 50));
+			enemy1List.add(new Enemy1(player, 250, -200, 50, 50));
 		}
-		
-		if(appear == 2000 || appear == 4000) {
-			enemy1List.add(new Enemy1(player, 500, 0,50, 50));
-			enemy1List.add(new Enemy1(player, 450, -50,50, 50));
-			enemy1List.add(new Enemy1(player, 400, -100,50, 50));
-			enemy1List.add(new Enemy1(player, 350, -150,50, 50));
-			enemy1List.add(new Enemy1(player, 300, -200,50, 50));		
+
+		if (appear == 2000 || appear == 4000) {
+			enemy1List.add(new Enemy1(player, 500, 0, 50, 50));
+			enemy1List.add(new Enemy1(player, 450, -50, 50, 50));
+			enemy1List.add(new Enemy1(player, 400, -100, 50, 50));
+			enemy1List.add(new Enemy1(player, 350, -150, 50, 50));
+			enemy1List.add(new Enemy1(player, 300, -200, 50, 50));
 		}
-		
-		
-		
+
 //
 //		if (appear == 500) {
 //			enemy2List.add(new Enemy2(player, -100, 300, 150,150)); //컨텍스트 넘기기
 //			enemy2List.add(new Enemy2(player, 500, 300, 150,150));
 //		}
 //
-//		if (appear == 500 ) {
-//			enemy3 = new Enemy3(700, 100);
-//		}
-		
-//		if(appear %300 ==0) {
-//			enemy4 = new Enemy4(player, 300, 0);
-//		}
+		if (appear == 500) {
+			enemyUnit = new Enemy6(player, 500, 300, 200, 200);
+			player.contextAdd(enemyUnit);
+		} 
+
+
 
 	}
 
 	public void listener() {
 
 		addKeyListener(new KeyAdapter() {
-
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					player.moveRight();
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_1:
+					player.setWepponLevelUp(true);
+					break;
+				case KeyEvent.VK_2:
+					player.setPlayerChange(true);
+					break;
+				case KeyEvent.VK_SPACE:
+					player.setAttack(true);
+					break;
+				case KeyEvent.VK_UP:
+					player.setUp(true);
+					break;
+				case KeyEvent.VK_DOWN:
+					player.setDown(true);
+					break;
+				case KeyEvent.VK_LEFT:
+					player.setLeft(true);
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.setRight(true);
+					break;
 				}
-
-				else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					player.moveLeft();
-				}
-
-				else if (e.getKeyCode() == KeyEvent.VK_UP) {
-					player.moveUp();
-				} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					player.moveDown();
-				}
-
 			}
 
+			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					player.isRight = false;
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_1:
+					player.setWepponLevelUp(false);
+					break;
+				case KeyEvent.VK_2:
+					player.setPlayerChange(false);
+					break;
+				case KeyEvent.VK_SPACE:
+					player.setAttack(false);
+					break;
+				case KeyEvent.VK_UP:
+					player.setUp(false);
+					break;
+				case KeyEvent.VK_DOWN:
+					player.setDown(false);
+					break;
+				case KeyEvent.VK_LEFT:
+					player.setLeft(false);
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.setRight(false);
+					break;
 				}
-
-				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					player.isLeft = false;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					player.isUP = false;
-				}
-				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					player.isDown = false;
-				}
-
 			}
-
 		});
-
 	}
 
 	class GamePanel extends JPanel {
@@ -187,11 +203,8 @@ public class Map06 extends JFrame implements initable {
 							}
 						}
 
-						
-						
 						enemybatch();
-						
-						
+
 						appear++;
 						repaint();
 
@@ -216,51 +229,39 @@ public class Map06 extends JFrame implements initable {
 			g.drawImage(stageImg, 0, stageY, null);
 			g.drawImage(bossStageImg, 0, bossStageBY1, null);
 			g.drawImage(bossStageImg, 0, bossStageBY2, null);
-			
-			for(int i = 0; i<enemy2List.size(); i++) {
-				if(enemy2List.get(i) != null) {
-					enemy2List.get(i).enemyUpdate(g);
-				}			
-			}
-			
-			
-			for(int i = 0; i<enemy1List.size(); i++) {
-				if(enemy1List.get(i) != null) {
-					enemy1List.get(i).enemyUpdate(g);
-				}			
-			}
-			
-//			if (enemy2 != null) // null 체크
-//				enemy2.enemyUpdate(g);
-//
-//			if (enemy3 != null) // null 체크
-//				enemy3.enemyUpdate(g);
-//	
-//			if (enemy4 != null) // null 체크
-//				enemy4.enemyUpdate(g);
 
-			for(int i = 0; i<enemyUnits.size(); i++) {
-				if(enemyUnits.get(i) != null) {
+			for (int i = 0; i < enemy2List.size(); i++) {
+				if (enemy2List.get(i) != null) {
+					enemy2List.get(i).enemyUpdate(g);
+				}
+			}
+
+			for (int i = 0; i < enemy1List.size(); i++) {
+				if (enemy1List.get(i) != null) {
+					enemy1List.get(i).enemyUpdate(g);
+				}
+			}
+
+			if (player != null) {
+				player.playerUpdate(g);
+			}
+
+			if (enemyUnit != null) // null 체크
+				enemyUnit.enemyUpdate(g);
+
+			for (int i = 0; i < enemyUnits.size(); i++) {
+				if (enemyUnits.get(i) != null) {
 					enemyUnits.get(i).enemyUpdate(g);
 				}
-				
+
 			}
-			
-			
+
 			repaint();
 
 		}
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public static void main(String[] args) {
 
 		new Map06();

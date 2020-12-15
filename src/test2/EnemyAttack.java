@@ -92,13 +92,24 @@ public class EnemyAttack implements Runnable {
 	
 	
 	
-	public void crash() { //충돌연산
-        if(Math.abs((playerPlane.getX() + playerPlane.getPlayerWidth() / 2) - ( bulletX + playerPlane.getPlayerWidth()/ 2)) < ( bulletWidth1 / 2 + playerPlane.getPlayerWidth() / 2) &&
-                Math.abs( (playerPlane.getY() + playerPlane.getPlayerHeight() / 2) - (bulletY + bulletHeight1 / 2)) < ( bulletHeight1 /2 + playerPlane.getPlayerHeight() / 2)) {
-        		collision = true;} else {
-        			collision = false;
-        		}
-		
+//	public void crash() { //충돌연산
+//        if(Math.abs((playerPlane.getX() + playerPlane.getPlayerWidth() / 2) - ( bulletX + playerPlane.getPlayerWidth()/ 2)) < ( bulletWidth1 / 2 + playerPlane.getPlayerWidth() / 2) &&
+//                Math.abs( (playerPlane.getY() + playerPlane.getPlayerHeight() / 2) - (bulletY + bulletHeight1 / 2)) < ( bulletHeight1 /2 + playerPlane.getPlayerHeight() / 2)) {
+//        		collision = true;} else {
+//        			collision = false;
+//        		}
+//		
+//	}
+	
+	public void crash() { // 충돌연산
+		if (Math.abs(((playerPlane.getX() - 11) + playerPlane.getPlayerWidth() / 3)
+				- (bulletX + bulletWidth1 / 3)) < (bulletWidth1 / 3 + playerPlane.getPlayerWidth() / 3)
+				&& Math.abs(((playerPlane.getY() - 5) + playerPlane.getPlayerHeight() / 3)
+						- (bulletY + bulletHeight1 / 3)) < (bulletHeight1 / 3 + playerPlane.getPlayerHeight() / 3 )) {
+			collision = true;
+		} else {
+			collision = false;
+		}
 	}
 	
 	

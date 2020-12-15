@@ -23,6 +23,7 @@ public class Enemy6 extends EnemyUnit {
 		this.enemyWidth = w;
 		this.enemyHeight = h;
 		this.enemyImage = new ImageIcon("images/enemy6_2.png").getImage();
+		this.life= 10;
 		
 		this.move();
 		this.crush();
@@ -38,10 +39,11 @@ public class Enemy6 extends EnemyUnit {
 					try {
 						Thread.sleep(5);
 
-						if (enemyX < 150 && enemyY > 50) {
+						if (enemyY > 50) {
 							moveup();
-							moveright();
+							moveleft();
 						}
+						
 						bulletCreate();
 						enemyAttack();
 						count++;
@@ -63,32 +65,6 @@ public class Enemy6 extends EnemyUnit {
 	}
 	
 	
-	public void move2() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				count = 0;
-				while (true) {
-					try {
-						Thread.sleep(5);
-
-						if (enemyX > 150 && enemyY > 50) {
-							moveup();
-							moveleft();
-						}
-						bulletCreate();
-						enemyAttack();
-						count++;
-
-
-
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}).start();
-	}
 	
 	
 	public void crush() { // 적비행기-Player 충돌
@@ -135,14 +111,9 @@ public class Enemy6 extends EnemyUnit {
 
 	private void bulletCreate() {
 		if (count % 100 == 0) {
-			enemyAttack = new EnemyAttack(enemy6, playerPlane, enemyX + 20, enemyY + 40,300,2,30,30);
-			
-			//enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
-			enemyAttackkList.add(enemyAttack);
-			
-			enemyAttack = new EnemyAttack(enemy6, playerPlane, enemyX + 80, enemyY + 40,1300,2,30,30);
-			//enemyAttack = new EnemyAttack(enemyX + 60, enemyY + 40);
-			enemyAttackkList.add(enemyAttack);	
+//			enemyAttack = new EnemyAttack(enemy6, playerPlane, enemyX + 20, enemyY + 40,300,2,30,30);
+//			enemyAttackkList.add(enemyAttack);
+		
 			
 		}
 	}
