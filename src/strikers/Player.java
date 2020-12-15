@@ -3,61 +3,65 @@ package strikers;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import lombok.Data;
+
+@Data
 public class Player extends JLabel {
-//implements Initable{ //이미지니까 라벨, 이미지니까 imp안해도 됨
+//implements Initable, 이미지니까 라벨, 이미지니까 imp안해도 됨
 
-	public Player player = this;
-	public final static String TAG = "Player: ";
-
-	public ImageIcon icPlayerR, icPlayerL, icPlayerU, icPlayerD;
-	public int x = 55;
-	public int y = 535;
+	private Player player = this;
+	private final static String TAG = "Player: ";
+	ImageIcon icPlayerR;
+	private ImageIcon icPlayerL;
+	private ImageIcon icPlayerU;
+	private ImageIcon icPlayerD;
+	private int x=200;
+	private int y=480;
 	
-	public boolean isRight = false;
-	public boolean isLeft = false;
-	public boolean isUp = false;
-	public boolean isDown = false;
-
-	public int floor = 1; // 535, 415, 295, 177 enum
+	private int sizeX=79; //임시 코드
+	private int sizeY=69; //임시 코드
+	
+	private int lifecount;//임시 코드
+	
+	public boolean isRight, isLeft, isUp, isDown = false;
 
 	public Player() {
-		icPlayerR = new ImageIcon("image/playerR.png");
-		icPlayerL = new ImageIcon("image/playerL.png");
-		icPlayerU = new ImageIcon("image/playerU.png");
-		icPlayerD = new ImageIcon("image/playerD.png");
+		icPlayerR = new ImageIcon("image/PLANE1.png");
+		icPlayerL = new ImageIcon("image/PLANE1.png");
+		icPlayerU = new ImageIcon("image/PLANE1.png");
+		icPlayerD = new ImageIcon("image/PLANE1.png");
 		setIcon(icPlayerR);
-		setSize(50, 50);
+		setSize(sizeX, sizeY);
 		setLocation(x, y);
 	}
 
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public void moveRight() {
 		System.out.println(TAG + "moveRight");
-		System.out.println("x 좌표: " + x);
 		
+
 		if (isRight == false) {
-			
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
 					setIcon(icPlayerR);
 					isRight = true;
 					while (isRight) {
-						if(x >=50 && x <100) {
-						x++;
-						setLocation(x, y);
-						}// 내부에 repaint()가 있음
+						if (x < StrikersApp.XAXIS - 87) { //StrikersApp.X = 500
+							System.out.println("x 좌표: " + x);
+							x++;
+							setLocation(x, y);
+						}
 						try {
-							Thread.sleep(10);
+							Thread.sleep(StrikersApp.speed2);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
 				}
 			}).start();
-			
 		}
 	}
-
 
 	public void moveLeft() {
 		System.out.println(TAG + "moveLeft");
@@ -70,12 +74,12 @@ public class Player extends JLabel {
 					setIcon(icPlayerL);
 					isLeft = true;
 					while (isLeft) {
-						if(x >=50 && x <100) {
-						x--;
-						setLocation(x, y);
+						if (x >= StrikersApp.ZAXIS) { //StrikersApp.Z = 0
+							x--;
+							setLocation(x, y);
 						}
 						try {
-							Thread.sleep(110);
+							Thread.sleep(StrikersApp.speed2);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -87,7 +91,8 @@ public class Player extends JLabel {
 
 	public void moveUp() {
 		System.out.println(TAG + "moveUp");
-
+		System.out.println("y 좌표: " + y);
+		
 		if (isUp == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -95,12 +100,12 @@ public class Player extends JLabel {
 					setIcon(icPlayerU);
 					isUp = true;
 					while (isUp) {
-						
+						if (y > StrikersApp.ZAXIS) { //StrikersApp.Z = 0
 							y--;
 							setLocation(x, y);
-							
+						}
 						try {
-							Thread.sleep(5);
+							Thread.sleep(StrikersApp.speed2);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -112,7 +117,8 @@ public class Player extends JLabel {
 
 	public void moveDown() {
 		System.out.println(TAG + "moveDown");
-
+		System.out.println("y 좌표: " + y);
+		
 		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -120,10 +126,12 @@ public class Player extends JLabel {
 					setIcon(icPlayerD);
 					isDown = true;
 					while (isDown) {
-						y++;
-						setLocation(x, y);
+						if (y < StrikersApp.YAXIS - 100) { //StrikersApp.Y = 700
+							y++;
+							setLocation(x, y);
+						}
 						try {
-							Thread.sleep(5);
+							Thread.sleep(StrikersApp.speed2);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -132,12 +140,6 @@ public class Player extends JLabel {
 			}).start();
 		}
 	}
-
-	public void attack() {
-		System.out.println(TAG + "attack");
-	}
-
-	public void moveJump() {
-		System.out.println(TAG + "jump");
-	}
+	
+	
 }

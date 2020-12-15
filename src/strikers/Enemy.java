@@ -2,45 +2,49 @@ package strikers;
 
 import java.util.Random;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import lombok.Data;
+
+@Data
 public class Enemy extends JLabel {
-//implements Initable{ //�̹����ϱ� ��, �̹����ϱ� imp���ص� ��
+	//implements Initable, 이미지니까 라벨, 이미지니까 imp안해도 됨
 
-	public Enemy enemy = this;
-	public final static String TAG = "Player: ";
+	private Enemy enemy = this;
+	private final static String TAG = "Player: ";
 
-	public ImageIcon icEnemy;
-	public int x = 1000;
-	public int y = 0;
+	private ImageIcon icEnemy;
+	private int x = -50;
+	private int y = -50;
 	
-	public boolean isRight = false;
-	public boolean isLeft = false;
-	public boolean isUp = false;
-	public boolean isDown = false;
-	public boolean TenUp = false;
-	public boolean TwoUp = false;
-	public boolean FiveDown = false;
-	public boolean SevenDown = false;
-
-	public int floor = 1; 
+	private boolean isRight, isLeft, isUp, isDown = false;
+	private boolean TenUp, TwoUp, FiveDown, SevenDown = false;
 	
-	Random enemyY = new Random();
-	Random delay = new Random();
-
+	Random eny = new Random();
+	Random dly = new Random();
+	
+	//占쏙옙占쏙옙占시곤옙 占쌍댐옙5占쏙옙 
+	private int delay = dly.nextInt(5000)+1;
+	//占쏙옙占쏙옙 占쏙옙표(x,y占쏙옙) 占쏙옙치. Y占쏙옙 y占쏙옙占싱띰옙 占쏙옙占� 占쏙옙占쏙옙
+	private int ranEnemyY300 = eny.nextInt(300)+1;//
+	private int ranEnemyY400 = eny.nextInt(400)+1;
+	private int ranEnemyY600 = eny.nextInt(600)+1;
+	
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public Enemy() {
 		icEnemy = new ImageIcon("image/enemy.png");
 		setIcon(icEnemy);
 		setSize(50, 50);
 		setLocation(x, y);
+		
+		//setIcon(icPlayerR);
 	}
 
-	public void moveRight() {
-		
+	public void EnemymoveRight() {
 		this.x = 0;
-		this.y = enemyY.nextInt(300)+1;
-		System.out.println(TAG + "moveRight");
+		this.y = ranEnemyY300;
 		
 		if (isRight == false) {
 			new Thread(new Runnable() {
@@ -50,31 +54,27 @@ public class Enemy extends JLabel {
 					isRight = true;
 					while (isRight) {
 						x++;
-						setLocation(x, y);// ���ο� repaint()�� ����
-						
+						setLocation(x, y);
 						try {
-							Thread.sleep(2);
-							if(x>1000) {
-								//setIcon(null);
-								Random r = new Random();
-								
-								Thread.sleep(delay.nextInt(5000)+1);
-								x = 0;
-								y = enemyY.nextInt(300)+1;
+							Thread.sleep(StrikersApp.speed2); //占쌈듸옙
+							if(x > StrikersApp.XAXIS) { // StrikersApp.X占쏙옙 = 500
+								Thread.sleep(delay);
+								x = StrikersApp.ZAXIS; // StrikersApp.Z占쏙옙 = 0
+								y = ranEnemyY300;
+								System.out.println(TAG + "moveRight");
 							}
-							
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
 				}
-			}).start(); //new Thread(new Runnable() {
+			}).start(); 
 		}
 	}
 	
 	public void moveLeft() {
 		this.x = 1000;
-		this.y = enemyY.nextInt(300)+1;
+		this.y = ranEnemyY300;
 		System.out.println(TAG + "moveLeft");
 
 		if (isLeft == false) {
@@ -87,12 +87,11 @@ public class Enemy extends JLabel {
 						x--;
 						setLocation(x, y);
 						try {
-							Thread.sleep(2);
+							Thread.sleep(StrikersApp.speed2);
 							if(x<-50) {
-								//setIcon(null);
-								Thread.sleep(delay.nextInt(5000)+1);
-								x = 1000;
-								y = enemyY.nextInt(300)+1;
+								Thread.sleep(delay);
+								x = StrikersApp.XAXIS; // StrikersApp.X占쏙옙 = 500
+								y = ranEnemyY300;
 							}
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -117,12 +116,10 @@ public class Enemy extends JLabel {
 					while (isUp) {
 						y--;
 						setLocation(x, y);
-						
 						try {
-							Thread.sleep(5);
+							Thread.sleep(StrikersApp.speed5); 
 							if(y<-50) {
-								//setIcon(null);
-								Thread.sleep(delay.nextInt(5000)+1);
+								Thread.sleep(delay);
 								x = 500;
 								y = 600;
 							}
@@ -136,7 +133,7 @@ public class Enemy extends JLabel {
 	}
 
 	public void moveDown() {
-		this.x = enemyY.nextInt(300)+1;
+		this.x = ranEnemyY300;
 		this.y = -50;
 		System.out.println(TAG + "moveDown");
 
@@ -150,11 +147,10 @@ public class Enemy extends JLabel {
 						y++;
 						setLocation(x, y);
 						try {
-							Thread.sleep(5);
+							Thread.sleep(StrikersApp.speed5);
 							if(y>600) {
-								//setIcon(null);
-								Thread.sleep(delay.nextInt(5000)+1);
-								x = enemyY.nextInt(300)+1;
+								Thread.sleep(delay);
+								x = ranEnemyY300;
 								y = -50;
 							}
 						} catch (InterruptedException e) {
@@ -165,10 +161,10 @@ public class Enemy extends JLabel {
 			}).start();
 		}
 	}
-	//10�ù��� ������ �ö󰡴� ��
+	//10占시뱄옙占쏙옙 占쏙옙占쏙옙占쏙옙 占시라가댐옙 占쏙옙
 	public void moveTenUp() {
-		this.x = 1000;
-		this.y = enemyY.nextInt(400)+1;
+		this.x = StrikersApp.XAXIS;
+		this.y = ranEnemyY400;
 		System.out.println(TAG + "moveDown");
 
 		if (TenUp == false) {
@@ -182,12 +178,11 @@ public class Enemy extends JLabel {
 						y--;
 						setLocation(x, y);
 						try {
-							Thread.sleep(5);
+							Thread.sleep(StrikersApp.speed5);
 							if(y<-50) {
-								//setIcon(null);
-								Thread.sleep(delay.nextInt(5000)+1);
-								x = 1000;
-								y = enemyY.nextInt(400)+1;
+								Thread.sleep(delay);
+								x = StrikersApp.XAXIS; //x占쏙옙 500
+								y = ranEnemyY400;
 							}
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -197,10 +192,10 @@ public class Enemy extends JLabel {
 			}).start();
 		}
 	}
-	//2�� �������� �ö󰡴� ��
+	//2占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占시라가댐옙 占쏙옙
 	public void moveTwoUp() {
 		this.x = 0;
-		this.y = enemyY.nextInt(400)+1;
+		this.y = ranEnemyY400;
 		System.out.println(TAG + "moveDown");
 
 		if (TwoUp == false) {
@@ -214,12 +209,11 @@ public class Enemy extends JLabel {
 						y--;
 						setLocation(x, y);
 						try {
-							Thread.sleep(5);
+							Thread.sleep(StrikersApp.speed5);
 							if(y<-50) {
-								//setIcon(null);
-								Thread.sleep(delay.nextInt(5000)+1);
-								x = 0;
-								y = enemyY.nextInt(400)+1;
+								Thread.sleep(delay);
+								x = StrikersApp.ZAXIS; // x占쏙옙 0
+								y = ranEnemyY400;
 							}
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -230,9 +224,9 @@ public class Enemy extends JLabel {
 		}
 	}
 	
-	//5�� �������� �������� ��
+	//5占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙
 	public void moveFiveDown() {
-		this.x = enemyY.nextInt(400)+1;
+		this.x = ranEnemyY400;
 		this.y = -50;
 		System.out.println(TAG + "moveDown");
 
@@ -247,11 +241,10 @@ public class Enemy extends JLabel {
 						y++;
 						setLocation(x, y);
 						try {
-							Thread.sleep(5);
+							Thread.sleep(StrikersApp.speed5);
 							if(y>600) {
-								//setIcon(null);
-								Thread.sleep(delay.nextInt(5000)+1);
-								x = enemyY.nextInt(400)+1;
+								Thread.sleep(delay);
+								x = ranEnemyY400;
 								y = -50;
 							}
 						} catch (InterruptedException e) {
@@ -263,9 +256,9 @@ public class Enemy extends JLabel {
 		}
 	}
 	
-	//7�� �������� �������� ��
+	//7占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙
 	public void moveSevenDown() {
-		this.x = enemyY.nextInt(600)+1;
+		this.x = ranEnemyY600;
 		this.y = -50;
 		System.out.println(TAG + "moveDown");
 
@@ -280,11 +273,10 @@ public class Enemy extends JLabel {
 						y++;
 						setLocation(x, y);
 						try {
-							Thread.sleep(5);
+							Thread.sleep(StrikersApp.speed5);
 							if(y>600) {
-								//setIcon(null);
-								Thread.sleep(delay.nextInt(5000)+1);
-								x = enemyY.nextInt(600)+1;
+								Thread.sleep(delay);
+								x = ranEnemyY600;
 								y = -50;
 							}
 						} catch (InterruptedException e) {
@@ -295,12 +287,6 @@ public class Enemy extends JLabel {
 			}).start();
 		}
 	}
+	
 
-	public void attack() {
-		System.out.println(TAG + "attack");
-	}
-
-	public void moveJump() {
-		System.out.println(TAG + "jump");
-	}
 }

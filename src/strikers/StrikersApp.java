@@ -1,5 +1,7 @@
 package strikers;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
@@ -7,45 +9,75 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import lombok.Data;
 
 public class StrikersApp extends JFrame implements Initable{
-	// ¾²´ø ¾È¾²´ø ÇÊ¼ö ÀÛ¼º
-	private StrikersApp bubbleApp = this;
-	// ÅÂ±×
-	private static final String TAG = "BubbleApp: ";
-	private JLabel laBackground;
+	//implements Initable, ì´ë¯¸ì§€ë‹ˆê¹Œ ë¼ë²¨, ì´ë¯¸ì§€ë‹ˆê¹Œ impì•ˆí•´ë„ ë¨
+	private StrikersApp strikerApp = this;
+	private static final String TAG = "StrikerApp: ";
+	private JLabel laBackground = new JLabel();
 	private Player player;
+	private Item item;
+	private Enemy enemy;
 	private Vector<Enemy> es;
-	//private Enemy enemy1, enemy2;
+	private Vector<Item> items;
 	
-
+	public JLabel getLaBackground() {
+		return laBackground;
+	}
+	public void setLaBackground(JLabel laBackground) {
+		this.laBackground = laBackground;
+	}
+		
+	//x,y,zì¶• ì„¤ì •
+	public final static int XAXIS = 480; // x 480 y 620
+	public final static int YAXIS = 620;
+	public final static int ZAXIS= 0;
+	
+	//í”Œë ˆì´ì–´, ì , ì•„ì´í…œ ì†ë„
+	public static int speed1 = 1;
+	public static int speed2 = 2;
+	public static int speed5 = 5;
+	public static int speed10 = 10;
+	public static int speed20 = 15;
+	
 	public StrikersApp() {
 		init();
 		setting();
 		batch();
 		listener();
-		
 		setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new StrikersApp();
 	}
 
 	@Override
 	public void init() {
-		es = new Vector<>();
 		laBackground = new JLabel(new ImageIcon("image/bg.png"));
+				
+		es = new Vector<>();
 		player = new Player();
+		
+		items = new Vector<>();
+		item = new Item();
+		
+		
 		for (int i = 0; i < 8; i++) {
 			es.add(new Enemy());
 		}
+		
+		for (int i = 0; i < 3; i++) {
+			items.add(new Item());
+			//vItem.get(i).start();
+		}
+		
+		
 	}
 
 	@Override
 	public void setting() {
-		setTitle("¹öºí¹öºí");
-		setSize(1000, 639);
+		setTitle("1945");
+		setSize(XAXIS, YAXIS); // 480, 620
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setContentPane(laBackground);
@@ -56,9 +88,15 @@ public class StrikersApp extends JFrame implements Initable{
 	@Override
 	public void batch() {
 		add(player);
+		add(item);
+		
 		for (int i = 0; i < 8; i++) {
 			add(es.get(i));
 		}
+		for (int i = 0; i < 3; i++) {
+			add(items.get(i));
+		}
+		
 	}
 
 	@Override
@@ -66,56 +104,52 @@ public class StrikersApp extends JFrame implements Initable{
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					player.moveRight();
-					//enemy.moveRight();
-				
 				} else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 					player.moveLeft();
-					//enemy.moveLeft();
+					
 				} else if (e.getKeyCode() == KeyEvent.VK_UP) {
 					player.moveUp();
-					//enemy.moveUp();
+					
 				}else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					player.moveDown();
-					//enemy.moveDown();
+					
 				}else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
-					es.get(0).moveRight();
-					es.get(1).moveLeft();
-					//es.get(2).moveUp();
-					es.get(3).moveDown();
-					es.get(4).moveTenUp();
-					es.get(5).moveTwoUp();
-					es.get(6).moveFiveDown();
-					es.get(7).moveSevenDown();
+					es.get(0).EnemymoveRight();
+					//items.get(1).moveRight();
+					//items.get(2).itemAppear();
+//					es.get(1).moveLeft();
+//					es.get(2).moveUp();
+//					es.get(3).moveDown();
+//					es.get(4).moveTenUp();
+//					es.get(5).moveTwoUp();
+//					es.get(6).moveFiveDown();
+//					es.get(7).moveSevenDown();
+					//items.get(1).itemreflect();
+					items.get(1).itemAppear(player);
 				}
 			}
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 					player.isRight = false;
-					//enemy.isRight = false;
+					//item.isRight = false;
 				} else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 					player.isLeft = false;
-					//enemy.isLeft = false;
+					//item.isRight = false;
 				} else if(e.getKeyCode() == KeyEvent.VK_UP) {
 					player.isUp = false;
-					//enemy.isUp = false;
+					//item.isRight = false;
 				} else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 					player.isDown = false;
-					//enemy.isDown = false;
+					//item.isRight = false;
 				} 
 			}
 		});
+	}	
 	
-		
-	
+	public static void main(String[] args) {
+		new StrikersApp();
 	}
-	
-	
-	
-	
-	
-	
 }
