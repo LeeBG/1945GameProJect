@@ -60,9 +60,9 @@ public class Item extends JLabel {
 		// 아이템 먹고 다시 나타나기 까지 걸리는 시간 10초
 		delay = 10000;
 		
-		icPlayeritem = new ImageIcon("image/item2.png");
+		icPlayeritem = new ImageIcon("image/item.gif");
 		setIcon(icPlayeritem);
-		setSize(50, 50);
+		setSize(44, 33);
 		setLocation(x, y) ;
 		
 //		for (int i = 0; i < 100; i++) {
@@ -178,7 +178,7 @@ public class Item extends JLabel {
 							itemVisible = true; 			//하고 itemVisible 상태는 true
 							itemCount += 1; 			// 아이템 카운터는 1씩증가
 								if(itemVisible) { 			//itemVisible = true 이면
-									Thread.sleep(delay); 			//딜레이 후 
+									Thread.sleep(3000); 			//딜레이 후 
 									item.setVisible(true); 			//아이템 이미지 재등장
 
 									reSet(ranEnemy400, ranEnemy600);
@@ -199,8 +199,8 @@ public class Item extends JLabel {
 					}
 				}
 			}
- 			private int getSizeY() {return 69;}
-			private int getSizeX() {return 79;}
+ 			private int getSizeY() {return 69;} // 플레이어 크기 만큼
+			private int getSizeX() {return 79;} // 플레이어 크기 만큼
 			
 		}).start();
 
