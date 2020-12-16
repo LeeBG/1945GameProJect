@@ -52,7 +52,7 @@ public class Enemy6 extends EnemyUnit {
 						
 						
 						if (enemyY > 900) {
-							//System.out.println("enemy6 쓰레드 종료");
+							System.out.println("enemy6 쓰레드 종료");
 							break;
 						}
 
@@ -98,6 +98,10 @@ public class Enemy6 extends EnemyUnit {
 //							Thread.sleep(100);						//1초후
 //							System.exit(1);							//프로그램 종료
 //						}
+						
+						if(crushCheck) {
+							explosePlayer(enemy6);
+						}
 
 					} catch (Exception e) {
 						e.printStackTrace();

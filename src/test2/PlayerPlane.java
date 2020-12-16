@@ -287,14 +287,14 @@ public class PlayerPlane extends JLabel {
 		//System.out.println("playerbulletsize1 :  " + playerAttackList.size());
 
 		for (int i = 0; i < this.enemyUnitList.size(); i++) {
-			if (enemyUnitList.get(i).enemyY > 900 && enemyUnitList.size() != 0) {
+			if (enemyUnitList.get(i).enemyY > 1000 && enemyUnitList.size() != 0) {
 				enemyUnitList.remove(i);
 			}
 		}
 
 		for (int i = 0; i < this.playerAttackList.size(); i++) {
 
-			if (playerAttackList.get(i).bulletY < -50) {
+			if (playerAttackList.get(i).bulletY < -100) {
 				playerAttackList.remove(i);
 			}
 		}
@@ -307,63 +307,48 @@ public class PlayerPlane extends JLabel {
 
 
 			PlayerAttack bullet = this.playerAttackList.get(i);
-			// System.out.println("불렛"+ bullet);
 
 			// 플레이어 총알이 일반 적 비행기에 맞을때 처리.
 			for (int j = 0; j < this.enemyUnitList.size(); j++) {
-
+				
+				//enemyUnitList.get(j).crushCheck = false;
 				// System.out.println("Y값: " + enemyUnitList.get(j).getEnemyY());
 
 				if (Crash((int) bullet.bulletX, (int) bullet.bulletY, enemyUnitList.get(j).enemyX,
 						enemyUnitList.get(j).enemyY, bullet.bulletWidth, bullet.bulletHeight,
 						enemyUnitList.get(j).enemyWidth, enemyUnitList.get(j).enemyHeight)) {
-					// System.out.println("들어감?");
-					playerAttackList.remove(i);
-					// System.out.println("bullet remove");
+					
+					System.out.println("하기 전: "+enemyUnitList.get(j).crushCheck);
+					
+					
+					playerAttackList.remove(i); //총알 사라짐 충돌판정		
 					enemyUnitList.get(j).setLife(enemyUnitList.get(j).getLife() - 1);
 
-//					if (enemyUnitList.get(j).life == 0) {
-//						explosePlayer(enemyUnitList.get(j));
-////		 				ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
-////						enemyUnitList.get(j).enemyImage = explosionIcon.getImage();
-//						enemyUnitList.remove(j);// 아오
-////						System.out.println("되나?" + enemyUnitList.size());
-//
-//					}
 					if (enemyUnitList.get(j).life == 0) {
-
-						explosePlayer(enemyUnitList.get(j));
+						//enemyUnit.explosePlayer(enemyUnit);
+						enemyUnitList.get(j).crushCheck = true;
+						System.out.println("한 후: "+enemyUnitList.get(j).crushCheck);
 						check.add(j);
-					}
+					}    
 				}
-
+				
 			}
 
-			for (Integer j : check) {
-				enemyUnitList.remove(j);
-			}
+//			for (Integer j : check) {
+//				enemyUnitList.remove(j);
+//			}
 
 		}
 	}
 
-	public void testThread() {
-		new Thread(new Runnable() {
 
-			@Override
-			public void run() {
-				PlayerBullet();
-
-			}
-		}).start();
-
-	}
+	
 
 	public void explosePlayer(EnemyUnit enemyUnit) { // 충돌후 이미지 변경 및 목숨카운트
 
 			
 			enemyUnit.explosePlayer(enemyUnit);
-			
-
+		
 			//개멍청하게 threed.sleep을 여기다 걸었구나 이걸 왜 못봤지!!!!
 
 	}

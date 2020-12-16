@@ -103,7 +103,10 @@ public class Enemy3 extends EnemyUnit {
 //							Thread.sleep(100);						//1초후
 //							System.exit(1);							//프로그램 종료
 //						}
-
+						
+						if(crushCheck) {
+							explosePlayer(enemy3);
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

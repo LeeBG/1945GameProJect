@@ -46,7 +46,9 @@ public class Enemy1 extends EnemyUnit {
 				while (true) {
 					try {
 						Thread.sleep(2);
+						
 
+						
 						movedown();
 
 //						if(enemyY>0 && enemyY<50 || enemyY>100 && enemyY<150 || enemyY>200 && enemyY<250)
@@ -93,6 +95,11 @@ public class Enemy1 extends EnemyUnit {
 						if (collision) {
 							explosePlayer(playerPlane, enemy1); // 충돌 폭발 메서드
 						}
+						
+						if(crushCheck) {
+							explosePlayer(enemy1);
+						}
+						
 						Thread.sleep(10);
 //						if(playerPlane.getLife() <= 0) {
 //							Thread.sleep(100);						//1초후
@@ -118,5 +125,7 @@ public class Enemy1 extends EnemyUnit {
 		g.drawImage(enemyImage, enemyX, enemyY, enemyWidth, enemyHeight, null);
 
 	}
+	
+	
 
 }
