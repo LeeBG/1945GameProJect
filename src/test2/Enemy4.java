@@ -115,12 +115,12 @@ public class Enemy4 extends EnemyUnit {
 
 	private void bulletCreate() {
 		if (count % 100 == 0) {
-			enemyAttack = new EnemyAttack(enemy4, playerPlane, enemyX + 20, enemyY + 40,270,2,20,20);
+			enemyAttack = new EnemyAttack(enemy4, playerPlane, enemyX + 20, enemyY + 40,270,3,20,20);
 			
 			//enemyAttack = new EnemyAttack(enemyX + 30, enemyY + 40);
 			enemyAttackkList.add(enemyAttack);
 			
-			enemyAttack = new EnemyAttack(enemy4, playerPlane, enemyX + 40, enemyY + 40,270,2,20,20);
+			enemyAttack = new EnemyAttack(enemy4, playerPlane, enemyX + 40, enemyY + 40,270,3,20,20);
 			//enemyAttack = new EnemyAttack(enemyX + 60, enemyY + 40);
 			enemyAttackkList.add(enemyAttack);	
 			

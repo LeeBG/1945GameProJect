@@ -39,7 +39,8 @@ public class PlayerPlane extends JLabel {
 
 	public ArrayList<PlayerAttack> playerAttackList = new ArrayList<PlayerAttack>();
 	private PlayerAttack playerAttack;
-
+	ArrayList<Integer> check = new ArrayList<>();
+	
 	public PlayerPlane() {
 
 		setIcon(icPlayer);
@@ -284,11 +285,11 @@ public class PlayerPlane extends JLabel {
 
 		// enemyUnitList.add(enemyUnit);
 
-		for (int i = 0; i < this.playerAttackList.size(); i++) {
-			if (playerAttackList.get(i).bulletY < -50  && playerAttackList.get(i) != null) {
-				playerAttackList.remove(i);
-			}
-		}
+//		for (int i = 0; i < this.playerAttackList.size(); i++) {
+//			if (playerAttackList.get(i).bulletY < -50  && playerAttackList.get(i) != null) {
+//				playerAttackList.remove(i);
+//			}
+//		}
 
 		System.out.println("playerbulletsize :  " + playerAttackList.size());
 		System.out.println("enemyunits size : " + enemyUnitList.size());
@@ -301,11 +302,9 @@ public class PlayerPlane extends JLabel {
 
 			// 플레이어 총알이 일반 적 비행기에 맞을때 처리.
 			for (int j = 0; j < this.enemyUnitList.size(); j++) {
+				
+				
 
-				if (enemyUnitList.get(j).enemyY > 900) {
-					enemyUnitList.remove(j);
-					System.out.println("삭제");
-				}
 
 				if (Crash((int) bullet.bulletX, (int) bullet.bulletY, enemyUnitList.get(j).enemyX,
 						enemyUnitList.get(j).enemyY, bullet.bulletWidth, bullet.bulletHeight,
@@ -315,16 +314,29 @@ public class PlayerPlane extends JLabel {
 					System.out.println("bullet remove");
 					enemyUnitList.get(j).setLife(enemyUnitList.get(j).getLife() - 1);
 
-					if (enemyUnitList.get(j).life == 0) {
+//					if (enemyUnitList.get(j).life == 0) {
+//						explosePlayer(enemyUnitList.get(j));
+////		 				ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
+////						enemyUnitList.get(j).enemyImage = explosionIcon.getImage();
+//						enemyUnitList.remove(j);// 아오
+////						System.out.println("되나?" + enemyUnitList.size());
+//
+//					}
+					if (enemyUnitList.get(j).enemyY > 900 || enemyUnitList.get(j).life == 0) {
 						explosePlayer(enemyUnitList.get(j));
-//		 				ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
-//						enemyUnitList.get(j).enemyImage = explosionIcon.getImage();
-						enemyUnitList.remove(j);// 아오
-						System.out.println("되나?" + enemyUnitList.size());
-
+						check.add(j); 
 					}
 				}
+				
 			}
+			
+			for (Integer j : check) {
+				enemyUnitList.remove(j);
+			}
+			
+			
+
+			
 
 		}
 	}
