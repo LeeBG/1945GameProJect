@@ -2,12 +2,11 @@ package objects;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-abstract class EnemyUnit extends JLabel {
+public abstract class EnemyUnit extends JLabel { //public으로 선언해야지 다른 패키지에서 접근가능!
 
 	protected int x;
 	protected int y;

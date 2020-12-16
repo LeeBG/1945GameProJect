@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 
 import objects.Enemy1;
 import objects.Enemy2;
+import objects.EnemyUnit;
+
 import objects.PlayerPlane;
 
 public class GameFrame extends JFrame implements Initable {
@@ -28,7 +30,7 @@ public class GameFrame extends JFrame implements Initable {
 
 	private PlayerPlane player; // 플레이어 선언
 	
-	
+	private EnemyUnit enemyUnit;
 	//private EnemyBoss enemyBoss; //보스 선언
 
 	public boolean isgame; // 게임실행 여부
@@ -53,7 +55,7 @@ public class GameFrame extends JFrame implements Initable {
 	private int bossStageBY2 = -(stageImg.getHeight(null) + bossStageImg.getHeight(null)); // 보스 스테이지 이미지 2의 Y좌표
 	private int appear = 1; // 적 비행기 출현 위치를 정하기 위해 선언
 	
-	//Vector<EnemyUnit> enemyUnits = new Vector<>(); // 적 유닛을 모아놓을 배열
+	Vector<EnemyUnit> enemyUnits = new Vector<>(); // 적 유닛을 모아놓을 배열
 	Vector<Enemy1> enemy1List = new Vector<>(); // 1번 적을 모아놓을 배열
 	ArrayList<Enemy2> enemy2List = new ArrayList<>(); // 2번 적을 모아놓을 배열
 
@@ -71,7 +73,7 @@ public class GameFrame extends JFrame implements Initable {
 	}
 
 	public void setting() {
-		setTitle("Map06");
+		setTitle("Strikers 1945");
 		setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
