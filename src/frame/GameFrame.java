@@ -124,12 +124,12 @@ public class GameFrame extends JFrame implements Initable {
 		
 		
 		if(appear == 6000) {
-			enemyUnits.add(new Enemy5(player, 100, -50, 100, 100));
 			enemyUnits.add(new Enemy5(player, 300, -50, 100, 100));
+			enemyUnits.add(new Enemy5(player, 500, -50, 100, 100));
 		}
 		
 		if(appear == 7000) {
-			enemyUnits.add(new Enemy6(player, 650, 300, 200, 200));
+			enemyUnits.add(new Enemy6(player, 650, 400, 200, 200));
 		
 		}
 		
