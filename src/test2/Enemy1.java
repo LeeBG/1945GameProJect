@@ -27,6 +27,7 @@ public class Enemy1 extends EnemyUnit {
 		this.life =1;
 				
 		this.playerPlane.contextAdd(enemy1);
+
 		
 		this.move();
 		this.crush();

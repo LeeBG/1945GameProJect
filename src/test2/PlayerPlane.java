@@ -3,7 +3,6 @@ package test2;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -45,6 +44,7 @@ public class PlayerPlane extends JLabel {
 
 		setIcon(icPlayer);
 		move();
+		// testThread();
 	}
 
 	public void move() {
@@ -57,7 +57,7 @@ public class PlayerPlane extends JLabel {
 						Thread.sleep(5);
 						keyProcess();
 						playerAttackProcess();
-						
+						PlayerBullet();
 						setLocation(playerX, playerY); // repaint()
 						setSize(playerWidth, playerHeight);
 						pCount++; // 1씩 늘어난다
@@ -113,46 +113,48 @@ public class PlayerPlane extends JLabel {
 	private void keyProcess() {
 		if (isAttack && pCount % 30 == 0) { // 총알의 발사 속도를 조절
 			if (wepponLevel == 0) { // 총알 한줄만 발사
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 20, playerY - 40, 90, 2); // 총알이 생성되는 위치
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 20, playerY - 40, 90, 2); // 총알이
+																												// 생성되는
+																												// 위치
 				playerAttackList.add(playerAttack); // arrayList에 저장한다
 				// playerAttack.addEnemyList(enemyUnit);
 			}
 			if (wepponLevel == 1) { // 총알 2줄 발사
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 10, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 30, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 30, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 2) { // 총알 3줄 발사
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 0, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 0, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 20, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 20, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 40, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 40, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 3) { // 총알 4줄 발사
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX - 10, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX - 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 10, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 30, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 30, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 50, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 50, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 4) { // 양 옆 대각선으로 나가는 총알 2줄 추가
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX - 15, playerY - 40, 80, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX - 15, playerY - 40, 80, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX - 10, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX - 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 10, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 10, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 30, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 30, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 50, playerY - 40, 90, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 50, playerY - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack(enemyUnitList,enemyUnit, playerX + 55, playerY - 40, 100, 2);
+				playerAttack = new PlayerAttack(enemyUnitList, enemyUnit, playerX + 55, playerY - 40, 100, 2);
 				playerAttackList.add(playerAttack);
 			}
 		}
@@ -253,7 +255,8 @@ public class PlayerPlane extends JLabel {
 	public void contextAdd(EnemyUnit enemyUnit) {
 		this.enemyUnit = enemyUnit;
 
-		enemyUnitList.add(enemyUnit);
+		if (enemyUnit != null)
+			this.enemyUnitList.add(enemyUnit);
 
 //		System.out.println("에너미유닛리스트 사이즈:  " + enemyUnitList.size());
 //		for (int i = 0; i < enemyUnitList.size(); i++) {
@@ -269,13 +272,109 @@ public class PlayerPlane extends JLabel {
 
 		if (enemyUnit != null && playerAttack != null) { // 무조건 먼저 총알을 쏘야지, 생성자가 생성되면서 밑에 함수를 실행할 수 있다. 시발!
 			// 3시간 삽질
-			//playerAttack.addEnemyList(enemyUnitList);
+			// playerAttack.addEnemyList(enemyUnitList);
+		}
+
+		// PlayerBullet(enemyUnit);
+
+	}
+
+	// 플레이어가 쏜 총알에 대한 처리.
+	public void PlayerBullet() {
+
+		// enemyUnitList.add(enemyUnit);
+
+		for (int i = 0; i < this.playerAttackList.size(); i++) {
+			if (playerAttackList.get(i).bulletY < -50  && playerAttackList.get(i) != null) {
+				playerAttackList.remove(i);
+			}
+		}
+
+		System.out.println("playerbulletsize :  " + playerAttackList.size());
+		System.out.println("enemyunits size : " + enemyUnitList.size());
+
+		// 플레이어가 쏜 총알에 적이 맞았을 때에 대한 처리.
+		for (int i = 0; i < this.playerAttackList.size(); i++) {
+
+			PlayerAttack bullet = this.playerAttackList.get(i);
+			// System.out.println("불렛"+ bullet);
+
+			// 플레이어 총알이 일반 적 비행기에 맞을때 처리.
+			for (int j = 0; j < this.enemyUnitList.size(); j++) {
+
+				if (enemyUnitList.get(j).enemyY > 900) {
+					enemyUnitList.remove(j);
+					System.out.println("삭제");
+				}
+
+				if (Crash((int) bullet.bulletX, (int) bullet.bulletY, enemyUnitList.get(j).enemyX,
+						enemyUnitList.get(j).enemyY, bullet.bulletWidth, bullet.bulletHeight,
+						enemyUnitList.get(j).enemyWidth, enemyUnitList.get(j).enemyHeight)) {
+					System.out.println("들어감?");
+					playerAttackList.remove(i);
+					System.out.println("bullet remove");
+					enemyUnitList.get(j).setLife(enemyUnitList.get(j).getLife() - 1);
+
+					if (enemyUnitList.get(j).life == 0) {
+						explosePlayer(enemyUnitList.get(j));
+//		 				ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
+//						enemyUnitList.get(j).enemyImage = explosionIcon.getImage();
+						enemyUnitList.remove(j);// 아오
+						System.out.println("되나?" + enemyUnitList.size());
+
+					}
+				}
+			}
+
+		}
+	}
+
+	public void testThread() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				PlayerBullet();
+
+			}
+		}).start();
+
+	}
+
+	public void explosePlayer(EnemyUnit enemyUnit) { // 충돌후 이미지 변경 및 목숨카운트
+
+		try {
+			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
+			enemyUnit.enemyImage = explosionIcon.getImage();
+			Thread.sleep(1000);
+			// enemyUnit.enemyImage = enemyUnit.enemyImage;
+
+			// enemyUnit.setEnemyX(enemyUnit.getEnemyX());
+			// enemyUnit.setEnemyY(enemyUnit.getEnemyY());
+			enemyUnit.setEnemyY(1500);
+
+			enemyUnit.repaint();
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
 
-	
-	
+	static boolean Crash(int x1, int y1, int x2, int y2, int w1, int h1, int w2, int h2) {
+		// x,y : 위치값 , w,h : 이미지의 높이와 길이.
+		boolean result = false;
+		if (Math.abs((x1 + w1 / 2) - (x2 + w2 / 2)) < (w2 / 2 + w1 / 2)
+				&& Math.abs((y1 + h1 / 2) - (y2 + h2 / 2)) < (h2 / 2 + h1 / 2))
+			result = true;
+		else
+			result = false;
 
+		if (result == true) {
+			System.out.println("result 값: " + result);
+		}
+		return result;
+	}
 
 }

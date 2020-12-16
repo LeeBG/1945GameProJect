@@ -23,7 +23,7 @@ public class Enemy4 extends EnemyUnit {
 		this.enemyWidth = w;
 		this.enemyHeight = h;
 		this.enemyImage = new ImageIcon("images/enemy4.png").getImage();
-		this.life = 5;
+		this.life = 3;
 		this.playerPlane.contextAdd(enemy4);
 		
 		this.move();

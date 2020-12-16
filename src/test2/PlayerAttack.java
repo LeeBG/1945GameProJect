@@ -16,8 +16,10 @@ public class PlayerAttack implements Runnable {
 	Image playerBulletImg3 = new ImageIcon("images/bullet3.png").getImage();
 
 	private boolean collision;
-	double bulletX;
-	double bulletY;
+	//double bulletX;
+	//double bulletY;
+	int bulletX;
+	int bulletY;
 	double bulletAngle;
 	double bulletSpeed;
 	int bulletWidth;
@@ -32,7 +34,30 @@ public class PlayerAttack implements Runnable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PlayerAttack(ArrayList<EnemyUnit> enemyUnitList,EnemyUnit enemyUnit, double x, double y, double bulletAngle, double bulletSpeed) {
+//	public PlayerAttack(ArrayList<EnemyUnit> enemyUnitList,EnemyUnit enemyUnit, double x, double y, double bulletAngle, double bulletSpeed) {
+//		
+//		this.enemyUnitList = enemyUnitList;
+//		
+//		if (enemyUnit != null) {
+//			this.enemyUnit = enemyUnit;
+//			enemyUnitList2.add(enemyUnit);
+//		}
+//
+//		this.bulletX = x;
+//		this.bulletY = y;
+//		this.bulletAngle = bulletAngle;
+//		this.bulletSpeed = bulletSpeed;
+//
+//		collision = false;
+//
+////		Thread bulletthread2 = new Thread(this); // 총알 충돌 thread 생성, 실행
+////		bulletthread2.start();
+//		
+//	//	this.crash2();
+//	}
+	
+	
+	public PlayerAttack(ArrayList<EnemyUnit> enemyUnitList,EnemyUnit enemyUnit, int x, int y, double bulletAngle, double bulletSpeed) {
 		
 		this.enemyUnitList = enemyUnitList;
 		
@@ -48,8 +73,8 @@ public class PlayerAttack implements Runnable {
 
 		collision = false;
 
-		Thread bulletthread2 = new Thread(this); // 총알 충돌 thread 생성, 실행
-		bulletthread2.start();
+//		Thread bulletthread2 = new Thread(this); // 총알 충돌 thread 생성, 실행
+//		bulletthread2.start();
 		
 	//	this.crash2();
 	}
@@ -76,7 +101,7 @@ public class PlayerAttack implements Runnable {
 				}
 				Thread.sleep(10);
 
-				if (bulletX > 1000 || bulletX < -500 || bulletY < -500 || bulletY > 1000) {
+				if (bulletX > 1000 || bulletX < -500 || bulletY < -100 || bulletY > 1000) {
 					System.out.println("playerbullet thread terminate");
 					return; // Thread 종료구문
 				}
