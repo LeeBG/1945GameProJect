@@ -77,7 +77,7 @@ public class EnemyAttack implements Runnable {
 				
 				
 				if(bulletX > 1000 || bulletX <-500 || bulletY < -500 || bulletY >1000 ) {
-					System.out.println("bullet thread terminate");
+					//System.out.println("bullet thread terminate");
 					return; 	//Thread 종료구문
 				}
 				

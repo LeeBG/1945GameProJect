@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 abstract class EnemyUnit extends JLabel {
-
+	
 	protected int enemyX;
 	protected int enemyY;
 	protected PlayerPlane playerPlane;
@@ -17,6 +17,8 @@ abstract class EnemyUnit extends JLabel {
 	protected int enemyHeight;
 	protected Image enemyImage;
 	protected int life;
+
+	
 
 	
 	
@@ -125,5 +127,22 @@ abstract class EnemyUnit extends JLabel {
 
 	}
 	
+	public void explosePlayer(EnemyUnit enemyUnit) { // 적기가 아군총알에 충돌하는 구현, 오버로딩
+
+		
+			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
+			enemyUnit.enemyImage = explosionIcon.getImage();
+			//Thread.sleep(1000); //이걸 안 걸고 대기하는 방법이 없을까.
+	
+			enemyUnit.movedown();
+			
+			//enemyUnit.enemyY = 1000; //Thread 강제종료 방법이 마땅히 안 떠오름 대충 이렇게
+			enemyUnit.repaint();
+
+
+	}
+	
+	
+
 
 }

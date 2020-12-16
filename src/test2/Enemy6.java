@@ -52,7 +52,7 @@ public class Enemy6 extends EnemyUnit {
 						
 						
 						if (enemyY > 900) {
-							System.out.println("enemy6 쓰레드 종료");
+							//System.out.println("enemy6 쓰레드 종료");
 							break;
 						}
 

@@ -18,6 +18,7 @@ public class Enemy1 extends EnemyUnit {
 	private EnemyAttack enemyAttack;
 
 	public Enemy1(PlayerPlane playerPlane, int x, int y, int w, int h) {
+
 		this.playerPlane = playerPlane;
 		this.enemyX = x;
 		this.enemyY = y;
@@ -56,7 +57,7 @@ public class Enemy1 extends EnemyUnit {
 						count++;
 
 						if (enemyY > 900) {
-							System.out.println("enemy1 쓰레드 종료");
+							//System.out.println("enemy1 쓰레드 종료");
 							break;
 						}
 

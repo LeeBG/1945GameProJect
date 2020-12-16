@@ -40,7 +40,7 @@ public class PlayerPlane extends JLabel {
 	public ArrayList<PlayerAttack> playerAttackList = new ArrayList<PlayerAttack>();
 	private PlayerAttack playerAttack;
 	ArrayList<Integer> check = new ArrayList<>();
-	
+
 	public PlayerPlane() {
 
 		setIcon(icPlayer);
@@ -284,34 +284,42 @@ public class PlayerPlane extends JLabel {
 	public void PlayerBullet() {
 
 		// enemyUnitList.add(enemyUnit);
+		//System.out.println("playerbulletsize1 :  " + playerAttackList.size());
 
-//		for (int i = 0; i < this.playerAttackList.size(); i++) {
-//			if (playerAttackList.get(i).bulletY < -50  && playerAttackList.get(i) != null) {
-//				playerAttackList.remove(i);
-//			}
-//		}
+		for (int i = 0; i < this.enemyUnitList.size(); i++) {
+			if (enemyUnitList.get(i).enemyY > 900 && enemyUnitList.size() != 0) {
+				enemyUnitList.remove(i);
+			}
+		}
 
-		System.out.println("playerbulletsize :  " + playerAttackList.size());
-		System.out.println("enemyunits size : " + enemyUnitList.size());
+		for (int i = 0; i < this.playerAttackList.size(); i++) {
+
+			if (playerAttackList.get(i).bulletY < -50) {
+				playerAttackList.remove(i);
+			}
+		}
+
+		//System.out.println("playerbulletsize2 :  " + playerAttackList.size());
+		//System.out.println("enemyunits size : " + enemyUnitList.size());
 
 		// 플레이어가 쏜 총알에 적이 맞았을 때에 대한 처리.
 		for (int i = 0; i < this.playerAttackList.size(); i++) {
+
 
 			PlayerAttack bullet = this.playerAttackList.get(i);
 			// System.out.println("불렛"+ bullet);
 
 			// 플레이어 총알이 일반 적 비행기에 맞을때 처리.
 			for (int j = 0; j < this.enemyUnitList.size(); j++) {
-				
-				
 
+				// System.out.println("Y값: " + enemyUnitList.get(j).getEnemyY());
 
 				if (Crash((int) bullet.bulletX, (int) bullet.bulletY, enemyUnitList.get(j).enemyX,
 						enemyUnitList.get(j).enemyY, bullet.bulletWidth, bullet.bulletHeight,
 						enemyUnitList.get(j).enemyWidth, enemyUnitList.get(j).enemyHeight)) {
-					System.out.println("들어감?");
+					// System.out.println("들어감?");
 					playerAttackList.remove(i);
-					System.out.println("bullet remove");
+					// System.out.println("bullet remove");
 					enemyUnitList.get(j).setLife(enemyUnitList.get(j).getLife() - 1);
 
 //					if (enemyUnitList.get(j).life == 0) {
@@ -322,21 +330,18 @@ public class PlayerPlane extends JLabel {
 ////						System.out.println("되나?" + enemyUnitList.size());
 //
 //					}
-					if (enemyUnitList.get(j).enemyY > 900 || enemyUnitList.get(j).life == 0) {
+					if (enemyUnitList.get(j).life == 0) {
+
 						explosePlayer(enemyUnitList.get(j));
-						check.add(j); 
+						check.add(j);
 					}
 				}
-				
+
 			}
-			
+
 			for (Integer j : check) {
 				enemyUnitList.remove(j);
 			}
-			
-			
-
-			
 
 		}
 	}
@@ -355,22 +360,11 @@ public class PlayerPlane extends JLabel {
 
 	public void explosePlayer(EnemyUnit enemyUnit) { // 충돌후 이미지 변경 및 목숨카운트
 
-		try {
-			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
-			enemyUnit.enemyImage = explosionIcon.getImage();
-			Thread.sleep(1000);
-			// enemyUnit.enemyImage = enemyUnit.enemyImage;
+			
+			enemyUnit.explosePlayer(enemyUnit);
+			
 
-			// enemyUnit.setEnemyX(enemyUnit.getEnemyX());
-			// enemyUnit.setEnemyY(enemyUnit.getEnemyY());
-			enemyUnit.setEnemyY(1500);
-
-			enemyUnit.repaint();
-
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			//개멍청하게 threed.sleep을 여기다 걸었구나 이걸 왜 못봤지!!!!
 
 	}
 
@@ -384,7 +378,7 @@ public class PlayerPlane extends JLabel {
 			result = false;
 
 		if (result == true) {
-			System.out.println("result 값: " + result);
+			// System.out.println("result 값: " + result);
 		}
 		return result;
 	}

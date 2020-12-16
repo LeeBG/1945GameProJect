@@ -56,7 +56,7 @@ public class Enemy3 extends EnemyUnit {
 						
 						
 						if (enemyY > 900) {
-							System.out.println("enemy3 쓰레드 종료");
+							//System.out.println("enemy3 쓰레드 종료");
 							break;
 						}
 
