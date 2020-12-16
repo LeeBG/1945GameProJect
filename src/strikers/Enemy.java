@@ -6,9 +6,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import lombok.Data;
-
-@Data
 public class Enemy extends JLabel {
 	//implements Initable, 이미지니까 라벨, 이미지니까 imp안해도 됨
 	//private final static String TAG = "Player: ";
