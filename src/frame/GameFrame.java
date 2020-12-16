@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import objects.Boss;
 import objects.Enemy1;
 import objects.Enemy2;
 import objects.Enemy3;
@@ -31,35 +32,33 @@ public class GameFrame extends JFrame implements Initable {
 	public static final int SCREEN_HEIGHT = 820;
 
 	private PlayerPlane player; // 플레이어 선언
-	
+
 	private EnemyUnit enemyUnit;
-	//private EnemyBoss enemyBoss; //보스 선언
+	private Boss boss; // 보스 선언
 
 	public boolean isgame; // 게임실행 여부
 	private GamePanel gamePanel; // 인게임 패널 이거 잘 봐야된다. 오류 !!
 	private GameTitle gameTitle; // 타이틀 패널
 	private SelectAPL selectAPL; // 비행시 선택 패널
-	
-	private JLabel laLifecount,laLifecount2,laLifecount3;		// lifecount 라벨
+
+	private JLabel laLifecount, laLifecount2, laLifecount3; // lifecount 라벨
 	private ImageIcon lifeCounticon;
 
-	ImageIcon stageIcon = new ImageIcon("images/Stage.png"); // 배경 이미지 아이콘
-	Image stageImg = stageIcon.getImage(); // 배경 이미지
+	private ImageIcon stageIcon = new ImageIcon("images/Stage.png"); // 배경 이미지 아이콘
+	private Image stageImg = stageIcon.getImage(); // 배경 이미지
 
-	ImageIcon bossStageIcon = new ImageIcon("images/vsBossStage.png"); // 보스 스테이지 배경 아이콘
-	Image bossStageImg = bossStageIcon.getImage(); // 보스 스테이지 이미지
+	private ImageIcon bossStageIcon = new ImageIcon("images/vsBossStage.png"); // 보스 스테이지 배경 아이콘
+	private Image bossStageImg = bossStageIcon.getImage(); // 보스 스테이지 이미지
 
-	ImageIcon titleIcon = new ImageIcon("images/GameTitle.gif");
-	Image titleImg = titleIcon.getImage();
+	private ImageIcon titleIcon = new ImageIcon("images/GameTitle.gif");
+	private Image titleImg = titleIcon.getImage();
 
 	int stageY = -(stageImg.getHeight(null) - bossStageImg.getHeight(null)); // 배경 이미지의 Y좌표
 	int bossStageBY1 = -(stageImg.getHeight(null)); // 보스 스테이지 이미지 1의 Y좌표
 	int bossStageBY2 = -(stageImg.getHeight(null) + bossStageImg.getHeight(null)); // 보스 스테이지 이미지 2의 Y좌표
 	int appear = 1; // 적 비행기 출현 위치를 정하기 위해 선언
-	
+
 	Vector<EnemyUnit> enemyUnits = new Vector<>(); // 적 유닛을 모아놓을 배열
-	Vector<Enemy1> enemy1List = new Vector<>(); // 1번 적을 모아놓을 배열
-	ArrayList<Enemy2> enemy2List = new ArrayList<>(); // 2번 적을 모아놓을 배열
 
 	public GameFrame() {
 		init();
@@ -94,45 +93,38 @@ public class GameFrame extends JFrame implements Initable {
 		}
 	}
 
-	public void enemyBatch() { //적기 맵에 배치
-		
+	public void enemyBatch() { // 적기 맵에 배치
+
 //		if (appear % 700 == 0) {
 //			enemyUnits.add(new Enemy3(player, 600, 100,100,100));
 //			enemyUnits.add(new Enemy4(player,-50, -50,100,100));
 //		}
 
 		if (appear == 1000 || appear == 3000) {
-			enemy1List.add(new Enemy1(player, 50, 0, 50, 50));
-			enemy1List.add(new Enemy1(player, 100, -50, 50, 50));
-			enemy1List.add(new Enemy1(player, 150, -100, 50, 50));
-			enemy1List.add(new Enemy1(player, 200, -150, 50, 50));
-			enemy1List.add(new Enemy1(player, 250, -200, 50, 50));
+			enemyUnits.add(new Enemy1(player, 50, 0, 50, 50));
+			enemyUnits.add(new Enemy1(player, 100, -50, 50, 50));
+			enemyUnits.add(new Enemy1(player, 150, -100, 50, 50));
+			enemyUnits.add(new Enemy1(player, 200, -150, 50, 50));
+			enemyUnits.add(new Enemy1(player, 250, -200, 50, 50));
 		}
 
 		if (appear == 2000 || appear == 4000) {
-			enemy1List.add(new Enemy1(player, 500, 0, 50, 50));
-			enemy1List.add(new Enemy1(player, 450, -50, 50, 50));
-			enemy1List.add(new Enemy1(player, 400, -100, 50, 50));
-			enemy1List.add(new Enemy1(player, 350, -150, 50, 50));
-			enemy1List.add(new Enemy1(player, 300, -200, 50, 50));
+			enemyUnits.add(new Enemy1(player, 500, 0, 50, 50));
+			enemyUnits.add(new Enemy1(player, 450, -50, 50, 50));
+			enemyUnits.add(new Enemy1(player, 400, -100, 50, 50));
+			enemyUnits.add(new Enemy1(player, 350, -150, 50, 50));
+			enemyUnits.add(new Enemy1(player, 300, -200, 50, 50));
 		}
 
-//
-//		if (appear == 500) {
-//			enemy2List.add(new Enemy2(player, -100, 300, 150,150)); //컨텍스트 넘기기
-//			enemy2List.add(new Enemy2(player, 500, 300, 150,150));
-//		}
-//
-//		if (appear == 500 || appear == 4000) {
-//			enemyUnit = new Enemy6(player, 500, 300, 200, 200);
-//			//player.contextAdd(enemyUnit);
-//		} 
+		if (appear == 500 || appear == 1500 || appear == 3500 || appear == 5000 || appear == 6000) {
+			enemyUnits.add(new Enemy3(player, 600, -200, 100, 100)); // 컨텍스트 넘기기
+			enemyUnits.add(new Enemy4(player, 0, 0, 100, 100));
+		}
 
-		
-//		if(appear == 10000) {
-//			enemy1List.remove(enemyUnits);
-//			enemyBoss = new EnemyBoss(player, 0, -300);
-//		}
+		if (appear == 10000) {
+			// enemy1List.remove(enemyUnits);
+			boss = new Boss(player, 0, -300);
+		}
 	}
 
 	public void listener() {
@@ -220,8 +212,25 @@ public class GameFrame extends JFrame implements Initable {
 			repaint();
 		}
 	}
-	
-	class GamePanel extends JPanel { //맵 쓰레드
+
+	public void crushBorder() { // 벽에 충돌하는 조건함수 >> Map 스레드 안에 적용
+		if (player.getX() <= 0) {
+			player.setX(0);
+			repaint();
+		} else if (player.getX() >= 585) {
+			player.setX(585);
+			repaint();
+		}
+		if (player.getY() <= 0) {
+			player.setY(0);
+			repaint();
+		} else if (player.getY() >= 720) {
+			player.setY(720);
+			repaint();
+		}
+	}
+
+	class GamePanel extends JPanel { // 맵 쓰레드
 		public GamePanel() {
 			new Thread(new Runnable() {
 				@Override
@@ -229,14 +238,14 @@ public class GameFrame extends JFrame implements Initable {
 					while (true) {
 						isgame = true;
 						setLayout(null);
-						//lifeLaInit();
-						
-						//플레이어 생명 표시
-						//이걸 너무 막 넣은 거 같습니다... 매번 쓰레드 돌아갈 때마다 연산하고 new하고 추가하고, add하면 느려집니다..
+						// lifeLaInit();
+
+						// 플레이어 생명 표시
+						// 이걸 너무 막 넣었네.. 매번 쓰레드 돌아갈 때마다 연산하고 new하고 추가하고, add하면 느려집니다..
 //						gamePanel.add(laLifecount);
 //						gamePanel.add(laLifecount2);
 //						gamePanel.add(laLifecount3);
-						
+
 						stageY++;
 						bossStageBY1++;
 						bossStageBY2++;
@@ -251,11 +260,12 @@ public class GameFrame extends JFrame implements Initable {
 							}
 						}
 						try {
-							//lifeCounting();
+							// lifeCounting();
 							enemyBatch();
+							crushBorder();
 							appear++;
 							repaint();
-							Thread.sleep(5);
+							Thread.sleep(3);
 						} catch (Exception e) {
 							// TODO: handle exception
 						}
@@ -272,21 +282,9 @@ public class GameFrame extends JFrame implements Initable {
 			g.drawImage(bossStageImg, 0, bossStageBY1, null);
 			g.drawImage(bossStageImg, 0, bossStageBY2, null);
 
-//			for (int i = 0; i < enemyUnits.size(); i++) {
-//				if (enemyUnits.get(i) != null) {
-//					enemyUnits.get(i).enemyUpdate(g);
-//				}
-//			}
-			
-			for (int i = 0; i < enemy2List.size(); i++) {
-				if (enemy2List.get(i) != null) {
-					enemy2List.get(i).enemyUpdate(g);
-				}
-			}
-
-			for (int i = 0; i < enemy1List.size(); i++) {
-				if (enemy1List.get(i) != null) {
-					enemy1List.get(i).enemyUpdate(g);
+			for (int i = 0; i < enemyUnits.size(); i++) { // null이 아니면 그려라
+				if (enemyUnits.get(i) != null) {
+					enemyUnits.get(i).enemyUpdate(g);
 				}
 			}
 
@@ -294,14 +292,10 @@ public class GameFrame extends JFrame implements Initable {
 				player.playerUpdate(g);
 			}
 
-//			if (enemyUnit != null) {
-//				enemyUnit.enemyUpdate(g);
-//			}
-//
-//			if (enemyBoss != null) {
-//				enemyBoss.enemyUpdate(g);
-//			}
-			
+			if (boss != null) {
+				boss.bossUpdate(g);
+			}
+
 			repaint();
 		}
 	}
@@ -322,40 +316,40 @@ public class GameFrame extends JFrame implements Initable {
 		}
 	}
 
-	private void lifeLaInit() {
+	private void lifeLaInit() { // 당장 안 써요. 괜히 만들어달라 했나..
 		lifeCounticon = new ImageIcon("images/LifeCount.png");
 		laLifecount = new JLabel(lifeCounticon);
 		laLifecount2 = new JLabel(lifeCounticon);
-		laLifecount3= new JLabel(lifeCounticon);
-		laLifecount.setBounds(0,0,50,50);
-		laLifecount2.setBounds(50,0,50,50);
-		laLifecount3.setBounds(100,0,50,50);
+		laLifecount3 = new JLabel(lifeCounticon);
+		laLifecount.setBounds(0, 0, 50, 50);
+		laLifecount2.setBounds(50, 0, 50, 50);
+		laLifecount3.setBounds(100, 0, 50, 50);
 	}
-	
+
 	public void lifeCounting() {
-		if(player.getLife() == 3) {
+		if (player.getLife() == 3) {
 			laLifecount.setVisible(true);
 			laLifecount2.setVisible(true);
 			laLifecount3.setVisible(true);
 			repaint();
-		}else if(player.getLife()==2) {
+		} else if (player.getLife() == 2) {
 			laLifecount.setVisible(true);
 			laLifecount2.setVisible(true);
 			laLifecount3.setVisible(false);
 			repaint();
-		}else if(player.getLife()==1) {
+		} else if (player.getLife() == 1) {
 			laLifecount.setVisible(true);
 			laLifecount2.setVisible(false);
 			laLifecount3.setVisible(false);
 			repaint();
-		}else {
+		} else {
 			laLifecount.setVisible(false);
 			laLifecount2.setVisible(false);
 			laLifecount3.setVisible(false);
 			repaint();
 		}
 	}
-	
+
 	class SelectAPL extends JPanel { // 비행기 선택 화면
 		private GameFrame win;
 		private SelectAPL selectAPL = this;
@@ -486,7 +480,7 @@ public class GameFrame extends JFrame implements Initable {
 		}
 	}
 
-//	@Override // 이게 이벤트 큐 에러의 원인
+//	@Override // 필요없는데
 //	public void batch() {
 //		// TODO Auto-generated method stub
 //		

@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class PlayerAttack { // 시간없으니까 지금말고, 나중에 스레드로 여기에 총알 충돌 구현
+public class PlayerAttack implements Runnable { // 시간없으니까 지금말고, 나중에 스레드로 여기에 총알 충돌 구현
 	private PlayerAttack playerAttack = this;
 	private EnemyUnit enemyUnit; // 지금은 쓸데없지만 나중에
+	private Boss boss;
 
 	Image playerBulletImg1 = new ImageIcon("images/playerBullet1.png").getImage();
 	Image playerBulletImg2 = new ImageIcon("images/bullet1.png").getImage();
@@ -25,7 +26,11 @@ public class PlayerAttack { // 시간없으니까 지금말고, 나중에 스레
 		// TODO Auto-generated constructor stub
 	}
 
-	public PlayerAttack(int x, int y, double bulletAngle, double bulletSpeed) {
+	public PlayerAttack(Boss boss, int x, int y, double bulletAngle, double bulletSpeed) {
+
+		if (boss != null) {
+			this.boss = boss;
+		}
 
 		this.x = x;
 		this.y = y;
@@ -33,11 +38,12 @@ public class PlayerAttack { // 시간없으니까 지금말고, 나중에 스레
 		this.speed = bulletSpeed;
 
 		collision = false;
+		
+		Thread bulletthread = new Thread(this); // 총알 충돌 thread 생성, 실행
+		bulletthread.start();
 
 	}
 
-	
-	
 	public PlayerAttack getPlayerAttack() {
 		return playerAttack;
 	}
@@ -115,4 +121,66 @@ public class PlayerAttack { // 시간없으니까 지금말고, 나중에 스레
 		y -= Math.sin(Math.toRadians(angle)) * speed;
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while (boss.getLife() > 0) { // 생명이 0보다 크면
+
+			crash();
+
+			try {
+				if (collision) {
+					y = -100;
+					boss.setLife(boss.getLife() - 1);
+
+				}
+
+				if (boss.getLife() == 0) {
+
+					explosePlayer(boss); // 충돌 폭발 메서드
+				}
+				Thread.sleep(10);
+				// if (playerPlane.getLife() <= 0) {
+				// Thread.sleep(100); // 1초후
+				// System.exit(1); // 프로그램 종료
+				// }
+
+				if (x > 1000 || x < -500 || y < -100 || y > 1000) {
+					// System.out.println("bullet thread terminate");
+					return; // Thread 종료구문
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void crash() { // 플레이어 총알이 보스에 부딪쳤을 시 충돌연산
+		if (Math.abs(((boss.getX() - 11) + boss.getWidth() / 3) - (x + width / 3)) < (width / 3 + boss.getWidth() / 3)
+				&& Math.abs(((boss.getY() - 5) + boss.getHeight() / 3) - (y + height / 3)) < (height / 3
+						+ boss.getHeight() / 3)) {
+			collision = true;
+		} else {
+			collision = false;
+		}
+	}
+
+	public void explosePlayer(Boss boss) { // 충돌후 이미지 변경 및 목숨카운트
+
+		try {
+			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
+			boss.imgBoss = explosionIcon.getImage();
+			Thread.sleep(2000);
+
+			System.out.println("보스 처치!!");
+			System.exit(1); // 프로그램 종료
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 }

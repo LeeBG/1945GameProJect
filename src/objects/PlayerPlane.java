@@ -16,6 +16,7 @@ public class PlayerPlane extends JLabel {
 
 	private GameFrame gamePanel;
 	private EnemyUnit enemyUnit;
+	private Boss boss;
 	ArrayList<EnemyUnit> enemyUnitList = new ArrayList<EnemyUnit>(); // 총알피격시 객체를 담을 벡터
 
 	private ImageIcon playerIcon;
@@ -435,45 +436,45 @@ public class PlayerPlane extends JLabel {
 		if (isAttack && pCount % 30 == 0) { // 총알의 발사 속도를 조절
 			if (wepponLevel == 0) { // 총알 한줄만 발사
 				// 총알이 생성되는 위치, 각도, 발사속도 조절
-				playerAttack = new PlayerAttack( x + 20, y - 40, 90, 2);
+				playerAttack = new PlayerAttack( boss, x + 20, y - 40, 90, 2);
 				playerAttackList.add(playerAttack); // arrayList에 저장한다
 			}
 			if (wepponLevel == 1) { // 총알 2줄 발사
-				playerAttack = new PlayerAttack( x + 10, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss, x + 10, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 30, y - 40, 90, 2);
+				playerAttack = new PlayerAttack( boss, x + 30, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 2) { // 총알 3줄 발사
-				playerAttack = new PlayerAttack( x + 0, y - 40, 90, 2);
+				playerAttack = new PlayerAttack( boss, x + 0, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 20, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x + 20, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 40, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x + 40, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 3) { // 총알 4줄 발사
-				playerAttack = new PlayerAttack( x - 10, y - 40, 90, 2);
+				playerAttack = new PlayerAttack( boss, x - 10, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 10, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x + 10, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 30, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x + 30, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 50, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x + 50, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
 			}
 			if (wepponLevel == 4) { // 양 옆 대각선으로 나가는 총알 2줄 추가
-				playerAttack = new PlayerAttack( x - 15, y - 40, 80, 2);
+				playerAttack = new PlayerAttack(boss,  x - 15, y - 40, 80, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x - 10, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x - 10, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 10, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x + 10, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 30, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x + 30, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 50, y - 40, 90, 2);
+				playerAttack = new PlayerAttack(boss,  x + 50, y - 40, 90, 2);
 				playerAttackList.add(playerAttack);
-				playerAttack = new PlayerAttack( x + 55, y - 40, 100, 2);
+				playerAttack = new PlayerAttack(boss,  x + 55, y - 40, 100, 2);
 				playerAttackList.add(playerAttack);
 			}
 		}
@@ -541,6 +542,14 @@ public class PlayerPlane extends JLabel {
 		if (enemyUnit != null)
 			this.enemyUnitList.add(enemyUnit);
 	}
+		
+	public void bossContextAdd(Boss boss) {
+		if(boss != null) {
+			this.boss = boss;
+		}
+	}
+	
+	
 
 	// 플레이어가 쏜 총알에 대한 처리.
 	public void PlayerBullet() {
