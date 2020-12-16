@@ -74,7 +74,7 @@ public class Enemy extends JLabel {
 					while (isRight) {
 						
 						
-						System.out.println("무브라이트");
+						//System.out.println("무브라이트");
 						x++;
 						setLocation(x, y);
 						try {
