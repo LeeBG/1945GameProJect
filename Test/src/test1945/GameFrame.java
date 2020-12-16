@@ -22,6 +22,10 @@ public class GameFrame extends JFrame implements initable{
 	private SelectAPL selectAPL;		//비행시 선택 패널
 	private int heightStart, heightEnd;	//화면에보이는 시작점 높이
 	private PlayerPlane playerPlane;	//플레이어
+	private JLabel la_lifecount,la_lifecount2,la_lifecount3;		//lifecount 라벨
+	private ImageIcon lifecounticon;
+	
+	
 	private ImageIcon icon;				//배경이미지아이콘
 	private Image img;					//이미지
 	
@@ -52,12 +56,12 @@ public class GameFrame extends JFrame implements initable{
 		heightEnd = 6135;					//우측끝  X좌표
 	}
 		
-
 	public void setting() {
 		setTitle("1945_MAP_TEST");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(670, 820);
 		setLocationRelativeTo(null);
+		
 	}
 
 	public void batch(String playerPlane) {			//비행기 선택에서 받을것
@@ -72,12 +76,7 @@ public class GameFrame extends JFrame implements initable{
 			gameMap.add(this.playerPlane);
 		}
 	}
-
-	public void enemybatch() { 						//적 배치 300px마다 적 랜덤 등장
-		if (heightStart % 300 == 0) {
-			gameMap.add(new EnemyPlane(playerPlane,this));
-		}
-	}
+	
 	public void listener() {						// 키보드 리스너 함수
 		addKeyListener(new KeyAdapter() {
 			@Override
@@ -119,33 +118,29 @@ public class GameFrame extends JFrame implements initable{
 			
 		});
 		
-	}
+	}// 키보드 리스너 함수 끝
 	
-	// 패널 바꾸기 함수
-	
+	// 패널 바꾸기 함수	
 	public void change(String panelName) {
 		if(panelName.equals("gameTitle")) {
-			gameTitle = new GameTitle(gameFrame);
+			gameTitle = new GameTitle();
 			getContentPane().removeAll();
 			getContentPane().add(gameTitle);
 			revalidate();
 			repaint();
 		}else if(panelName.equals("selectAPL")) {
-			selectAPL = new SelectAPL(gameFrame);
+			selectAPL = new SelectAPL();
 			getContentPane().removeAll();
 			getContentPane().add(selectAPL);
 			revalidate();
 			repaint();
 		}else if(panelName.equals("gameMap")){
-			gameMap = new GameMap(gameFrame);
+			gameMap = new GameMap();
 			getContentPane().removeAll();
 			getContentPane().add(gameMap);
 			revalidate();
 			repaint();
 		}else {
-			gameTitle = null;
-			selectAPL = null;
-			gameMap = null;
 			isgame=false;
 			getContentPane().removeAll();
 			revalidate();
@@ -153,33 +148,18 @@ public class GameFrame extends JFrame implements initable{
 		}
 	}
 
-
-	public void crushBorder() {				//벽에 충돌하는 조건함수 >> Map 스레드 안에 적용
-		if(playerPlane.getX()<=0) {
-			playerPlane.setX(0);
-			repaint();
-		}else if(playerPlane.getX()>=585) {
-			playerPlane.setX(585);
-			repaint();
-		}
-		if(playerPlane.getY()<=0) {
-			playerPlane.setY(0);
-			repaint();
-		}else if(playerPlane.getY()>=720) {
-			playerPlane.setY(720);
-			repaint();
-		}
-	}
-	
 	class GameMap extends JPanel { 					//게임 map Thread 패널
-		private GameFrame win;	
-		public GameMap(GameFrame win) {
+		private GameMap gameMap = this;	
+		public GameMap() {	
 			isgame = true;
 			setLayout(null);
-			this.win = win;
-			
 			icon = new ImageIcon("images/Stage1_1.png");
 			img = icon.getImage();
+			setting_lif();
+			gameMap.add(la_lifecount);
+			gameMap.add(la_lifecount2);
+			gameMap.add(la_lifecount3);
+			
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -188,6 +168,7 @@ public class GameFrame extends JFrame implements initable{
 							heightStart -= 1;				//Map이 위로 올라가면서 바뀜
 							heightEnd -= 1;
 							Thread.sleep(10);
+							lifecounting();
 							enemybatch();
 							crushBorder();					//벽에 충돌하는 조건함수
 						}catch (Exception e) {
@@ -206,12 +187,67 @@ public class GameFrame extends JFrame implements initable{
 			repaint();
 		}
 	}
+	private void setting_lif() {
+		lifecounticon = new ImageIcon("images/Lifecount.png");
+		la_lifecount = new JLabel(lifecounticon);
+		la_lifecount2 = new JLabel(lifecounticon);
+		la_lifecount3= new JLabel(lifecounticon);
+		la_lifecount.setBounds(0,0,50,50);
+		la_lifecount2.setBounds(50,0,50,50);
+		la_lifecount3.setBounds(100,0,50,50);
 
+	}
+	
+	public void enemybatch() { 						//적 배치 300px마다 적 랜덤 등장
+		if (heightStart % 300 == 0) {
+			gameMap.add(new EnemyPlane(playerPlane,this));
+		}
+	}
+	
+	public void crushBorder() {				//벽에 충돌하는 조건함수 >> Map 스레드 안에 적용
+		if(playerPlane.getX()<=0) {
+			playerPlane.setX(0);
+			repaint();
+		}else if(playerPlane.getX()>=585) {
+			playerPlane.setX(585);
+			repaint();
+		}
+		if(playerPlane.getY()<=0) {
+			playerPlane.setY(0);
+			repaint();
+		}else if(playerPlane.getY()>=720) {
+			playerPlane.setY(720);
+			repaint();
+		}
+	}
+	
+	public void lifecounting() {
+		if(playerPlane.getLifecount()==3) {
+			la_lifecount.setVisible(true);
+			la_lifecount2.setVisible(true);
+			la_lifecount3.setVisible(true);
+			repaint();
+		}else if(playerPlane.getLifecount()==2) {
+			la_lifecount.setVisible(true);
+			la_lifecount2.setVisible(true);
+			la_lifecount3.setVisible(false);
+			repaint();
+		}else if(playerPlane.getLifecount()==1) {
+			la_lifecount.setVisible(true);
+			la_lifecount2.setVisible(false);
+			la_lifecount3.setVisible(false);
+			repaint();
+		}else {
+			la_lifecount.setVisible(false);
+			la_lifecount2.setVisible(false);
+			la_lifecount3.setVisible(false);
+			repaint();
+		}
+	}
+	
 	class GameTitle extends JPanel{					//게임 시작화면 구현
-		private GameFrame win;
-		public GameTitle(GameFrame win) {
+		public GameTitle() {
 			setLayout(null);
-			this.win=win;
 			icon = new ImageIcon("images/gametitle.gif");
 			img = icon.getImage();
 		}
@@ -223,14 +259,12 @@ public class GameFrame extends JFrame implements initable{
 	}
 	
 	class SelectAPL extends JPanel{						// 비행기 선택 화면
-		private GameFrame win;
 		private SelectAPL selectAPL = this;
 		private ImageIcon p1icon,p2icon,p3icon;
 		private ImageIcon planeIcon,planeIcon2,planeIcon3;
 		private ImageIcon bp1icon,bp2icon,bp3icon;		//버튼 누를시 커지는 이미지
-		public SelectAPL(GameFrame win) {
+		public SelectAPL() {
 			setLayout(null);
-			this.win=win;
 			icon = new ImageIcon("images/SelectPlane.png");
 			img = icon.getImage();
 			
@@ -335,8 +369,7 @@ public class GameFrame extends JFrame implements initable{
 			this.add(btn);
 			this.add(btn2);
 			this.add(btn3);
-		}
-		
+		}		
 		@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -345,6 +378,4 @@ public class GameFrame extends JFrame implements initable{
 			}
 	}
 
-
-
-}
+}//GameFrame끝 

@@ -2,8 +2,6 @@ package test1945;
 
 import javax.swing.ImageIcon;
 
-import lombok.Data;
-@Data
 public class EnemyPlane extends AirPlane{
 	
 	public EnemyPlane enemyPlane = this;
@@ -14,7 +12,7 @@ public class EnemyPlane extends AirPlane{
 	private int sizeX; 			// 비행기이미지의 X크기
 	private int sizeY; 			// 비행기이미지의 Y크기
 	private int rand;			// 랜덤 정수
-	private GameFrame gameframe;//  LifeCount = 0 이 되면 되돌아 갈때 
+	private GameFrame gameframe;//  LifeCount = 0 이 되면 되돌아 갈때 change및 위치초기화 접근
 	public boolean isRightUp; 	//	오른쪽 위로 가는 중인지 판별
 	public boolean isLeftUp; 	//	왼쪽 위로 가는 중인지 판별 
 	public boolean isRightDown;	//	오른쪽 아래로 가는 중인지 판별
@@ -57,7 +55,30 @@ public class EnemyPlane extends AirPlane{
 	public EnemyPlane(int x,int y,int sizeX,int sizeY) {	//사용하지 않는 생성자
 		init();		
 	}
-
+	public void setSizeX(int sizeX) {
+		this.sizeX=sizeX;
+	}
+	public void setSizeY(int sizeY) {
+		this.sizeY=sizeY;
+	}
+	public int getSizeX() {
+		return sizeX;
+	}
+	public int getSizeY() {
+		return sizeY;
+	}
+	public int getX() {
+		return x;
+	}
+	public int getY() {
+		return y;
+	}
+	public void setX(int x) {
+		this.x=x;
+	}
+	public void setY(int y) {
+		this.y=y;
+	}
 	
 	private void init() {								//초기화 함수
 		
@@ -194,7 +215,7 @@ public class EnemyPlane extends AirPlane{
 	public void moveDown() {
 		System.out.println(TAG + "");
 		int end = getY();				//도착 위치Y 저장
-		setY(getY()-200);				//화면바깥으로 비행기 이동시킨다
+		setY(getY()-400);				//화면바깥으로 비행기 이동시킨다
 		if (isDown == false) {
 			new Thread(new Runnable() {
 				@Override
@@ -215,28 +236,12 @@ public class EnemyPlane extends AirPlane{
 			}).start();
 		}
 	}
-//	public void shotToEnemy() {						// 미사일 쏘기
-////		new Missile(x,y);							// 미구현
-//	}
-//	
-//	
-//	public void explosion(/* 플레이어가 쏜 미사일 객체를 넣어야할듯*/) {
-//		new Thread(new Runnable() {			
-//			@Override
-//			public void run() {
-//				for(int i=0;i<7;i++) {
-//					break;
-//				}
-//				
-//			}
-//		}).start();
-//	}
 
-	public void explosePlayer(PlayerPlane playerPlane) {	//충돌후 이미지 변경 및 목숨카운트--
-		
+	public void explosePlayer(PlayerPlane playerPlane) {	//충돌후 이미지 변경 및 목숨카운트--	
 		try {
 			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
 			playerPlane.setIcon(explosionIcon);
+			playerPlane.ismove = false;
 			Thread.sleep(1000);
 			playerPlane.setIcon(playerPlane.playerIcon);
 			playerPlane.setLifecount(playerPlane.getLifecount()-1);
@@ -244,6 +249,7 @@ public class EnemyPlane extends AirPlane{
 			playerPlane.setX(305);
 			playerPlane.setY(620);
 			playerPlane.repaint();
+			playerPlane.ismove = true;
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -265,17 +271,16 @@ public class EnemyPlane extends AirPlane{
 							playerPlane.getX()+playerPlane.getSizeX()-22>=getX()+19 && playerPlane.getX()+playerPlane.getSizeX()-22<=getX()+getSizeX()-19 &&//(1,1)
 							playerPlane.getY()+playerPlane.getSizeY()-10>=getY()+10 && playerPlane.getY()+playerPlane.getSizeY()-10<=getY()+getSizeY()-10;
 					try {
-						if (isCrush) {
+						if (isCrush && playerPlane.ismove) {
 							explosePlayer(playerPlane);			//충돌 폭발 메서드
 						}
-							Thread.sleep(10);
+						Thread.sleep(10);
 						if(playerPlane.getLifecount() <= 0) {
 							Thread.sleep(1000);						//0.1초후
 							gameframe.isgame = false;				//쓰레드 강제 종료
 							gameframe.setHeightStart(5515);			//초기위치로 이동
-							gameframe.setHeightEnd(6135);
+							gameframe.setHeightEnd(6135);			
 							gameframe.change("gameTitle");			//타이틀 화면으로 돌아가기
-							
 							break;
 						}
 									
