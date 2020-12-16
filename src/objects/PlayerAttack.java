@@ -124,7 +124,7 @@ public class PlayerAttack implements Runnable { // 시간없으니까 지금말�
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while (boss.getLife() > 0) { // 생명이 0보다 크면
+		while (boss != null  && boss.getLife() > 0 ) { // 생명이 0보다 크면
 
 			crash();
 
@@ -158,8 +158,8 @@ public class PlayerAttack implements Runnable { // 시간없으니까 지금말�
 	}
 
 	public void crash() { // 플레이어 총알이 보스에 부딪쳤을 시 충돌연산
-		if (Math.abs(((boss.getX() - 11) + boss.getWidth() / 3) - (x + width / 3)) < (width / 3 + boss.getWidth() / 3)
-				&& Math.abs(((boss.getY() - 5) + boss.getHeight() / 3) - (y + height / 3)) < (height / 3
+		if (Math.abs(((boss.getX() ) + boss.getWidth() / 2) - (x + width / 3)) < (width / 3 + boss.getWidth() / 3)
+				&& Math.abs(((boss.getY() ) + boss.getHeight() / 2) - (y + height / 3)) < (height / 3
 						+ boss.getHeight() / 3)) {
 			collision = true;
 		} else {
