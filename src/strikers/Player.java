@@ -3,9 +3,6 @@ package strikers;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import lombok.Data;
-
-@Data
 public class Player extends JLabel {
 	//private final static String TAG = "Player: ";
 	
@@ -153,6 +150,14 @@ public class Player extends JLabel {
 				}
 			}).start();
 		}
+	}
+
+	public int getSizeX() {
+		return sizeX;
+	}
+
+	public int getSizeY() {
+		return sizeY;
 	}
 	
 	
