@@ -3,6 +3,6 @@ package frame;
 public interface Initable {
 	void init(); 
 	void setting();
-	void batch(); 
+	//void batch(); 
 	void listener(); 
 }

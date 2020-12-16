@@ -572,16 +572,22 @@ public class PlayerPlane extends JLabel {
 					System.out.println("하기 전: " + enemyUnitList.get(j).crushCheck);
 
 					playerAttackList.remove(i); // 충돌판정이 맞으면, 총알 사라지고 적의 체력이 1 깍임 
+					i=i-1;
 					enemyUnitList.get(j).setLife(enemyUnitList.get(j).getLife() - 1);
 
 					if (enemyUnitList.get(j).life == 0) { //적의 체력이 다 깍이면 리스트에서 제거 후 폭파 연산
-						enemyUnitList.remove(j);
-						// enemyUnit.explosePlayer(enemyUnit);
+						//enemyUnitList.remove(j);
+						
+						check.add(j);
 						enemyUnitList.get(j).crushCheck = true;
 					}
 				}
 
 			}
+			
+			for (Integer j : check) { //인덱스 에러가 안 뜨게
+			enemyUnitList.remove(j);
+		}
 
 		}
 	}

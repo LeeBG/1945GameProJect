@@ -20,7 +20,7 @@ public class Enemy6 extends EnemyUnit {
 		this.y = y;
 		this.width = w;
 		this.height = h;
-		this.image = new ImageIcon("images/enemy6.png").getImage();
+		this.image = new ImageIcon("images/enemy6_2.png").getImage();
 		this.life = 10;
 		this.crushCheck = false;
 
@@ -40,7 +40,7 @@ public class Enemy6 extends EnemyUnit {
 					try {
 						Thread.sleep(5);
 
-						if (y > 100) {
+						if (y > 50) {
 							moveup();
 							moveleft();
 						}
