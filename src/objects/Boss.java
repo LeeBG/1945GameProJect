@@ -36,7 +36,7 @@ public class Boss {
 		this.player = player;
 		this.x = x;
 		this.y = y;
-		this.life=50;
+		this.life=100;
 		
 		player.bossContextAdd(boss); //플레이어에게 보스 객체를 넘김
 		

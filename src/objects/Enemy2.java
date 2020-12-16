@@ -45,8 +45,9 @@ public class Enemy2 extends EnemyUnit {
 				while (true) {
 					try {
 						Thread.sleep(5);
+						
 						y--; //속도는 여기서 조절하면 됨
-						if (x < 150 && y > 50) {
+						if (y > 100) {
 							moveup();
 							moveright();
 						}
@@ -76,7 +77,7 @@ public class Enemy2 extends EnemyUnit {
 					try {
 						Thread.sleep(5);
 						y--;
-						if (x > 150 && y > 50) {
+						if (y > 100) {
 							moveup();
 							moveleft();
 						}
@@ -140,6 +141,7 @@ public class Enemy2 extends EnemyUnit {
 
 			enemyAttack = new EnemyAttack(enemy2, player, x + 80, y + 40, 1300, 2, 30, 30);
 			enemyAttackkList.add(enemyAttack);
+			
 
 		}
 	}

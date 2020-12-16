@@ -172,7 +172,7 @@ public class PlayerAttack implements Runnable { // 시간없으니까 지금말�
 		try {
 			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
 			boss.imgBoss = explosionIcon.getImage();
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 
 			System.out.println("보스 처치!!");
 			System.exit(1); // 프로그램 종료

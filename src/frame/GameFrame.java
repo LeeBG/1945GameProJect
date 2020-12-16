@@ -20,6 +20,7 @@ import objects.Enemy1;
 import objects.Enemy2;
 import objects.Enemy3;
 import objects.Enemy4;
+import objects.Enemy5;
 import objects.Enemy6;
 import objects.EnemyUnit;
 import objects.PlayerPlane;
@@ -95,10 +96,10 @@ public class GameFrame extends JFrame implements Initable {
 
 	public void enemyBatch() { // 적기 맵에 배치
 
-//		if (appear % 700 == 0) {
-//			enemyUnits.add(new Enemy3(player, 600, 100,100,100));
-//			enemyUnits.add(new Enemy4(player,-50, -50,100,100));
-//		}
+		if (appear == 5000) {
+			enemyUnits.add(new Enemy2(player, -100, 300, 150,150)); //而⑦뀓�뒪�듃 �꽆湲곌린
+			enemyUnits.add(new Enemy2(player, 500, 300, 150,150));
+		}
 
 		if (appear == 1000 || appear == 3000) {
 			enemyUnits.add(new Enemy1(player, 50, 0, 50, 50));
@@ -120,9 +121,29 @@ public class GameFrame extends JFrame implements Initable {
 			enemyUnits.add(new Enemy3(player, 600, -200, 100, 100)); // 컨텍스트 넘기기
 			enemyUnits.add(new Enemy4(player, 0, 0, 100, 100));
 		}
+		
+		
+		if(appear == 6000) {
+			enemyUnits.add(new Enemy5(player, 100, -50, 100, 100));
+			enemyUnits.add(new Enemy5(player, 300, -50, 100, 100));
+		}
+		
+		if(appear == 7000) {
+			enemyUnits.add(new Enemy6(player, 650, 300, 200, 200));
+		
+		}
+		
+		if (appear ==  8000) {
+			enemyUnits.add(new Enemy1(player, 100, 0, 50, 50));
+			enemyUnits.add(new Enemy1(player, 200, 0, 50, 50));
+			enemyUnits.add(new Enemy1(player, 300, 0, 50, 50));
+			enemyUnits.add(new Enemy1(player, 400, 0, 50, 50));
+			enemyUnits.add(new Enemy1(player, 500, 0, 50, 50));
+		}
 
+		
 		if (appear == 10000) {
-			// enemy1List.remove(enemyUnits);
+			enemyUnits.removeAllElements();
 			boss = new Boss(player, 0, -300);
 		}
 	}
@@ -311,7 +332,6 @@ public class GameFrame extends JFrame implements Initable {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			System.out.println("여기도 칠해지나?");
 			g.drawImage(titleImg, 0, 0, SCREEN_WIDTH - 15, SCREEN_HEIGHT, 0, 0, 338, 594, this);
 		}
 	}
