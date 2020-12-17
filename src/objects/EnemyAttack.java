@@ -130,30 +130,41 @@ public class EnemyAttack implements Runnable {
 	@Override
 	public void run() {
 
-		while (player.getLife() > 0) { // 생명이 0보다 크면
+		while (true) {
+			
+			fire(); 
+			
+			if (x > 1000 || x < -500 || y < -500 || y > 1000) {
+				// System.out.println("bullet thread terminate");
+				return; // Thread 종료구문
+			}
+			
+//			if(enemyunit.getLife() == 0) {
+//				speed = speed+1;
+//			}
+			
+			
+			if (player.getLife() > 0) { // 생명이 0보다 크면
 
-			crash();
+				crash();
 
-			try {
-				if (collision) {
-					explosePlayer(player); // 충돌 폭발 메서드
-				}
-				Thread.sleep(10);
+				try {
+					if (collision) {
+						explosePlayer(player); // 충돌 폭발 메서드
+					}
+					Thread.sleep(10);
 //				if (playerPlane.getLife() <= 0) {
 //					Thread.sleep(100); // 1초후
 //					System.exit(1); // 프로그램 종료
 //				}
 
-				if (x > 1000 || x < -500 || y < -500 || y > 1000) {
-					// System.out.println("bullet thread terminate");
-					return; // Thread 종료구문
-				}
 
-			} catch (Exception e) {
-				e.printStackTrace();
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-
 	}
 
 	public void crash() { // 적 총알이 아군 비행기에 부딪쳤을 시 충돌연산

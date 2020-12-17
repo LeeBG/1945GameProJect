@@ -24,7 +24,7 @@ public class PlayerPlane extends JLabel {
 	private int height = 65;
 	private int x = (GameFrame.SCREEN_WIDTH / 2) - (width / 2);
 	private int y = (GameFrame.SCREEN_HEIGHT - (height * 2));
-	private int life = 3;
+	private int life = 10;
 	private int pCount; // 총알 발사 속도
 
 	private int wepponLevel = 0;

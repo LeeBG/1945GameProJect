@@ -106,6 +106,8 @@ public class Enemy4 extends EnemyUnit {
 		}).start();
 
 	}
+	
+	
 
 	private void bulletCreate() {
 		if (count % 100 == 0) {
@@ -122,7 +124,8 @@ public class Enemy4 extends EnemyUnit {
 	private void enemyAttack() {
 		for (int i = 0; i < enemyAttackkList.size(); i++) {
 			enemyAttack = enemyAttackkList.get(i);
-			enemyAttack.fire();
+			if (enemy4.life > 0)
+				enemyAttack.fire();
 
 		}
 	}

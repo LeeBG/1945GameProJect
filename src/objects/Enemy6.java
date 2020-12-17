@@ -121,7 +121,7 @@ public class Enemy6 extends EnemyUnit {
 	private void enemyAttack() {
 		for (int i = 0; i < enemyAttackkList.size(); i++) {
 			enemyAttack = enemyAttackkList.get(i);
-			enemyAttack.fire();
+			//enemyAttack.fire();
 
 		}
 	}

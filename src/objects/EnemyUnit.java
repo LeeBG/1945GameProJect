@@ -158,6 +158,7 @@ public abstract class EnemyUnit extends JLabel { //public으로 선언해야지 
 		try {
 			ImageIcon explosionIcon = new ImageIcon("images/explosion.gif");
 			enemyUnit.image = explosionIcon.getImage();
+			
 			System.out.println("적기와 아군비행기 총알 충돌");
 			Thread.sleep(1000);
 			enemyUnit.y = 1000; // Thread 강제종료 방법이 마땅히 안 떠오름 대충 이렇게

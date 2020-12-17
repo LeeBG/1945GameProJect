@@ -23,7 +23,7 @@ public class Enemy2 extends EnemyUnit {
 		this.image = new ImageIcon("images/enemy2.png").getImage();
 		this.life = 7;
 		this.crushCheck = false;
-		
+
 		this.player.contextAdd(enemy2);
 
 		if (x < 100) {
@@ -36,7 +36,6 @@ public class Enemy2 extends EnemyUnit {
 
 	}
 
-	
 	public void move() {
 		new Thread(new Runnable() {
 			@Override
@@ -45,8 +44,8 @@ public class Enemy2 extends EnemyUnit {
 				while (true) {
 					try {
 						Thread.sleep(5);
-						
-						y--; //속도는 여기서 조절하면 됨
+
+						y--; // 속도는 여기서 조절하면 됨
 						if (y > 100) {
 							moveup();
 							moveright();
@@ -76,9 +75,9 @@ public class Enemy2 extends EnemyUnit {
 				while (true) {
 					try {
 						Thread.sleep(5);
-						
+
 						y--;
-						
+
 						if (y > 50) {
 							moveup();
 							moveleft();
@@ -104,12 +103,10 @@ public class Enemy2 extends EnemyUnit {
 
 				while (player.getLife() > 0) {
 
-					if (Math.abs((player.getX() + player.getWidth() / 2)
-							- (x + player.getWidth() / 2)) < (width / 2
-									+ player.getWidth() / 2)
-							&& Math.abs((player.getY() + player.getHeight() / 2)
-									- (y + height / 2)) < (height / 2
-											+ player.getHeight() / 2)) {
+					if (Math.abs((player.getX() + player.getWidth() / 2) - (x + player.getWidth() / 2)) < (width / 2
+							+ player.getWidth() / 2)
+							&& Math.abs((player.getY() + player.getHeight() / 2) - (y + height / 2)) < (height / 2
+									+ player.getHeight() / 2)) {
 						collision = true;
 					} else {
 						collision = false;
@@ -143,7 +140,6 @@ public class Enemy2 extends EnemyUnit {
 
 			enemyAttack = new EnemyAttack(enemy2, player, x + 80, y + 40, 1300, 2, 30, 30);
 			enemyAttackkList.add(enemyAttack);
-			
 
 		}
 	}
@@ -155,11 +151,11 @@ public class Enemy2 extends EnemyUnit {
 	private void enemyAttack() {
 		for (int i = 0; i < enemyAttackkList.size(); i++) {
 			enemyAttack = enemyAttackkList.get(i);
-			enemyAttack.fire();
+//			if (enemy2.life > 0)
+//				enemyAttack.fire();
 		}
 	}
 
-	
 	public void enemyDraw(Graphics g) { // 그림그리기
 		g.drawImage(image, x, y, width, height, null);
 		for (int i = 0; i < enemyAttackkList.size(); i++) {
