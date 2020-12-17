@@ -2,7 +2,7 @@
 #
 # 1945 팀프로젝트 저장소
 ## PPT   
-
+<https://drive.google.com/file/d/1w7idi9BIITvXuJ3WWG3207oJ2rDUirEH/view?usp=sharing>
 ## 시연영상   
 
 [![Video Label](https://i9.ytimg.com/vi_webp/OC5RTb8v3-s/mqdefault.webp?time=1608174300000&sqp=CNyV6_4F&rs=AOn4CLBFBQzzdGMizBnn-j0WWhyrwbrPig)](https://www.youtube.com/embed/OC5RTb8v3-s)
