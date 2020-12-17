@@ -68,23 +68,166 @@ public void listener() {
 * 플레이어가 발사한 총알과 총알에 맞은 적, 맵에서 벗어난 총알 삭제 기능   
 * 충돌 판정으로 인해 적의 체력이 0이되면 적 폭파
 
+```java
+
+public PlayerPlane player = this;
+	public final static String TAG = "Player: ";
+
+	private GameFrame gamePanel;
+	private EnemyUnit enemyUnit;
+	private Boss boss;
+	ArrayList<EnemyUnit> enemyUnitList = new ArrayList<EnemyUnit>(); // 총알피격시 객체를 담을 벡터
+
+	private ImageIcon playerIcon;
+	private int width = 70;
+	private int height = 65;
+	private int x = (GameFrame.SCREEN_WIDTH / 2) - (width / 2);
+	private int y = (GameFrame.SCREEN_HEIGHT - (height * 2));
+	private int life = 3;
+	private int pCount; // 총알 발사 속도
+
+	private int wepponLevel = 0;
+	public int select;// player 선택
+
+	public boolean isRight = false;
+	public boolean isLeft = false;
+	public boolean isUp = false;
+	public boolean isDown = false; // is 붙여라
+	public boolean isAttack = false;
+	public boolean isWepponLevelUp = false;
+
+	public ArrayList<PlayerAttack> playerAttackList = new ArrayList<PlayerAttack>();
+	private PlayerAttack playerAttack;
+
+	ArrayList<Integer> check = new ArrayList<>(); // 필요없는 총알인덱스 체크용
+	
+	public PlayerPlane(String PLANE) {
+
+		playerIcon = new ImageIcon("images/Player" + PLANE + ".png");
+		System.out.println("images/Player" + PLANE + ".png");
+		if (PLANE.equals("PLANE1")) {
+			select = 1;
+		}
+		if (PLANE.equals("PLANE2")) {
+			select = 2;
+		}
+		if (PLANE.equals("PLANE3")) {
+			select = 3;
+		}
+		setIcon(playerIcon);
+
+		move();
+
+	}
+	
+```
 
 ## 적
 * 게임시작 후 일정 영역에 도달하면 등장  
 * 플레이어와 충돌하면 플레이어 폭발
 * 플레이어와 충돌하면 자신도 폭발
 
+```java
+public abstract class EnemyUnit extends JLabel {
+	protected int x;
+	protected int y;
+	protected PlayerPlane player;
+	protected boolean collision = false;
+	protected int width;
+	protected int height;
+	protected Image image;
+	protected int life;
+	protected boolean crushCheck; //
+	protected int count; //
+/*...생략*/
+}
+```
 
 ## 보스
 * 맵의 마지막 부분에 등장
 * 복잡한 패턴의 공격을 하며 많은 총알을 내뿜는다.
 
+```java
+public class Boss {
+
+	private Boss boss = this;
+	private static final String TAG = "Boss : ";
+
+	private PlayerPlane player;
+	ImageIcon icBoss = new ImageIcon("images/bossSizeup.gif");
+	Image imgBoss = icBoss.getImage();
+
+	private int x;
+	private int y;
+	private int width = imgBoss.getWidth(null);
+	private int height = imgBoss.getHeight(null);
+	private int life;
+	
+	private double way;
+
+	private int bCount;
+	boolean firePase = false;
+
+	private ArrayList<BossAttack> bossAttackList = new ArrayList<BossAttack>();
+	private GameFrame gameFrame;
+	private BossAttack bossAttack;
+
+	public Boss(PlayerPlane player, int x, int y) {
+		this.player = player;
+		this.x = x;
+		this.y = y;
+		this.life=100;
+		
+		player.bossContextAdd(boss); //플레이어에게 보스 객체를 넘김
+		
+		this.move();
+	}
+```
 
 ## 총알
 * 플레이어가 쏜 총알은 적과 충돌시 적을 폭발시킨다.
 * 적이 쏜 총알은 플레이어와의 충돌시 플레이어를 폭발시키고 죽인다.
 * 보스에게 최대체력 이상의 횟수로 충돌하면 폭발한다.
 
+```java
+public class EnemyAttack implements Runnable {
+	
+	private frame.GameFrame gameFrame;
+	private EnemyUnit enemyunit;
+	private PlayerPlane player;
+	private boolean collision;
+
+	Image bulletImg1 = new ImageIcon("images/bullet1.png").getImage();
+	Image bulletImg2 = new ImageIcon("images/bullet2.png").getImage();
+	Image bulletImg3 = new ImageIcon("images/bullet3.png").getImage();
+	Image bulletImg4 = new ImageIcon("images/bullet4.png").getImage();
+	Image bulletImg5 = new ImageIcon("images/missle.png").getImage();
+
+	private int x;
+	private int y;
+	private double angel = 270; // 삼각함수 각도
+	private double speed = 2; // 속도
+	private int width;
+	private int height;
+
+	public EnemyAttack(EnemyUnit enemyunit, PlayerPlane player, int x, int y, double angel, double speed, int width,
+			int height) {
+
+		this.enemyunit = enemyunit;
+		this.player = player;
+		this.x = x;
+		this.y = y;
+		this.angel = angel;
+		this.speed = speed;
+		this.width = width;
+		this.height = height;
+
+		this.collision = false;
+
+		Thread bulletthread = new Thread(this); 
+		bulletthread.start();
+	}
+```
 
 ## 맵 이동
 * 맵은 스레드로 클리핑영역을 실시간으로 바꾸면서 동작한다.
