@@ -4,7 +4,8 @@
 ## PPT   
 
 ## 시연영상   
-<iframe width="640" height="360" src="https://www.youtube.com/watch?v=OC5RTb8v3-s&feature=youtu.be" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+
+<iframe width="640" height="360" src="https://www.youtube.com/watch?v=OC5RTb8v3-s" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
 ## 조작   
 * 위: ↑   
