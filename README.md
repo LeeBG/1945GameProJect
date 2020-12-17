@@ -13,13 +13,60 @@
 * 우: →   
 * 공격: SPACE   
 * 총알강화 : 숫자 1,2,3,4   
+* 선택패널 전환 : ENTER
 
+## 패널 전환
+```java
+//In gameframe.class
+
+public void listener() {
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch (e.getKeyCode()) {
+				case KeyEvent.VK_ENTER:
+					change("selectAPL");
+					break;
+/*....이후생략*/
+//------------------------------------------------------------------------
+// 패널 바꾸기 함수
+	public void change(String panelName) {
+		if (panelName.equals("gameTitle")) {
+			gameTitle = new GameTitle(gameFrame);
+			getContentPane().removeAll();
+			getContentPane().add(gameTitle);
+			revalidate();
+			repaint();
+		} else if (panelName.equals("selectAPL")) {
+			selectAPL = new SelectAPL(gameFrame);
+			getContentPane().removeAll();
+			getContentPane().add(selectAPL);
+			revalidate();
+			repaint();
+		} else if (panelName.equals("gameMap")) {
+			gamePanel = new GamePanel();
+			getContentPane().removeAll();
+			getContentPane().add(gamePanel);
+			revalidate();
+			repaint();
+		} else {
+			gameTitle = null;
+			selectAPL = null;
+			gamePanel = null;
+			isgame = false;
+			getContentPane().removeAll();
+			revalidate();
+			repaint();
+		}
+	}
+```
 
 ## 플레이어
 * 게임 시작 시 3개의 비행기를 선택할 가능   
 * 숫자 1,2,3,4 버튼으로 무기 강화(아이템 기능 미적용)  
 * 플레이어가 발사한 총알과 총알에 맞은 적, 맵에서 벗어난 총알 삭제 기능   
 * 충돌 판정으로 인해 적의 체력이 0이되면 적 폭파
+
 
 ## 적
 * 게임시작 후 일정 영역에 도달하면 등장  
