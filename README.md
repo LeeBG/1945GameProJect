@@ -113,7 +113,9 @@ public GamePanel() {
 
 
 ## 충돌판정 연산
-
+<div>
+	<img width="100%" src = "https://user-images.githubusercontent.com/44068819/102435468-03ce0600-405a-11eb-9a81-d2f1b628dbde.png">	
+</div>
 * 객체이미지의 일정부분이 다른 객체 이미지의 범위안에
 * 들어가는 것을 스레드로 지속적으로 관찰한다.
 * 충돌이 일어나면 폭발이미지로 잠시 변환되며 사라진다.
