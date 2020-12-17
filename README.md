@@ -4,10 +4,8 @@
 ## PPT   
 
 ## 시연영상   
-```
-<iframe width="949" height="541" src="https://www.youtube.com/embed/OC5RTb8v3-s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-```
-<iframe width="949" height="541" src="https://www.youtube.com/embed/OC5RTb8v3-s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+[![Video Label](https://i9.ytimg.com/vi_webp/OC5RTb8v3-s/mqdefault.webp?time=1608174300000&sqp=CNyV6_4F&rs=AOn4CLBFBQzzdGMizBnn-j0WWhyrwbrPig)](https://www.youtube.com/embed/OC5RTb8v3-s)
 
 ## 조작   
 * 위: ↑   
