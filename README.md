@@ -161,9 +161,7 @@ public GamePanel() {
 
 
 
-<div>
-	<img width="100%" src = "https://user-images.githubusercontent.com/44068819/102435468-03ce0600-405a-11eb-9a81-d2f1b628dbde.png">	
-</div>
+
 
 ## 충돌판정 연산
 * 객체이미지의 일정부분이 다른 객체 이미지의 범위안에
@@ -171,6 +169,9 @@ public GamePanel() {
 * 충돌이 일어나면 폭발이미지로 잠시 변환되며 사라진다.
 * 플레이어의 충돌일 경우 폭발 후 초기의 위치와 이미지로 돌아간다.
 
+<div>
+	<img width="100%" src = "https://user-images.githubusercontent.com/44068819/102435468-03ce0600-405a-11eb-9a81-d2f1b628dbde.png">	
+</div>
 
 ```java
 
