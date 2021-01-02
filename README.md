@@ -3,11 +3,10 @@
 # 1945 팀프로젝트 저장소
 ## PPT   
 <https://drive.google.com/file/d/1w7idi9BIITvXuJ3WWG3207oJ2rDUirEH/view?usp=sharing>
+
 ## 시연영상   
+[![IU(아이유) _ Into the I-LAND](https://static.wikia.nocookie.net/strikersworld/images/0/0e/Strikers-1945-title.png/revision/latest/scale-to-width-down/340?cb=20090925143250)](https://youtu.be/QrjxF99eOh0) 
 
-[![Video Label](https://static.wikia.nocookie.net/strikersworld/images/0/0e/Strikers-1945-title.png/revision/latest/scale-to-width-down/340?cb=20090925143250](https://youtu.be/QrjxF99eOh0)
-
-<iframe width="1248" height="702" src="https://www.youtube.com/embed/QrjxF99eOh0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## 조작   
 * 위: ↑   
